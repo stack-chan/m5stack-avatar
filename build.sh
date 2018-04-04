@@ -1,0 +1,1 @@
+zip -r dist/m5stack-avator.zip m5stack-avator 
