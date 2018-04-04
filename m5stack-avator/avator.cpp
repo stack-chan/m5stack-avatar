@@ -17,25 +17,23 @@ Mouth::Mouth(int x, int y, int minWidth, int maxWidth, int minHeight, int maxHei
   this->maxHeight = maxHeight;
   this->primaryColor = primaryColor;
   this->secondaryColor = secondaryColor;
-  this->lastX1 = 0;
-  this->lastX2 = 0;
-  this->lastY1 = 0;
-  this->lastY2 = 0;
+  this->lastX = 0;
+  this->lastY = 0;
+  this->lastW = 0;
+  this->lastH = 0;
 }
 void Mouth::clear()
 {
-  // M5.Lcd.fillRect(lastX1, lastY1, lastX2, lastY2, secondaryColor);
-  M5.Lcd.clear();
+  M5.Lcd.fillRect(lastX, lastY, lastW, lastH, secondaryColor);
 }
-void Mouth::draw(int x1, int y1, int x2, int y2)
+void Mouth::draw(int x, int y, int w, int h)
 {
   clear();
-  Serial.printf("%d, %d, %d, %d\n", x1, y1, x2, y2);
-  M5.Lcd.fillRect(x1, x2, y1, y2, primaryColor);
-  lastX1 = x1;
-  lastY1 = y1;
-  lastX2 = x2;
-  lastY2 = y2;
+  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  lastX = x;
+  lastY = y;
+  lastW = w;
+  lastH = h;
 }
 void Mouth::open(int percent)
 {
@@ -51,28 +49,6 @@ Eye::Eye(void)
 {
   
 }
-void Eye::clear()
-{
-  M5.Lcd.fillRect(lastX - lastR, lastY - lastR,
-                  lastX + lastR, lastY + lastR, secondaryColor);
-}
-void Eye::drawCircle(int x, int y, int r)
-{
-  clear();
-  M5.Lcd.fillCircle(x, y, r, primaryColor);
-  lastX = x;
-  lastY = y;
-  lastR = r;
-}
-void Eye::drawRect(int x1, int y1, int x2, int y2)
-{
-  clear();
-  M5.Lcd.fillRect(x1, y1, x2, y2, primaryColor);
-  lastX = x1 + (x2 - x1) / 2;
-  lastY = y1 + (y2 - y1) / 2;
-  lastR = x2 - x1; // TODO: ellipse
-}
-
 Eye::Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor)
 {
   this->x = x;
@@ -84,6 +60,27 @@ Eye::Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor)
   this->primaryColor = primaryColor;
   this->secondaryColor = secondaryColor;
 }
+void Eye::clear()
+{
+  M5.Lcd.fillRect(lastX - lastR - 2, lastY - lastR - 2,
+                  lastR * 2 + 4, lastR * 2 + 4, secondaryColor);
+}
+void Eye::drawCircle(int x, int y, int r)
+{
+  clear();
+  M5.Lcd.fillCircle(x, y, r, primaryColor);
+  lastX = x;
+  lastY = y;
+  lastR = r;
+}
+void Eye::drawRect(int x, int y, int w, int h)
+{
+  clear();
+  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  lastX = x + w / 2;
+  lastY = y + h / 2;
+  lastR = w; // TODO: ellipse
+}
 void Eye::open(boolean isOpen)
 {
   if (isOpen)
@@ -94,10 +91,10 @@ void Eye::open(boolean isOpen)
   else
   {
     int x1 = x - r;
-    int y1 = y = r;
-    int x2 = x + r;
-    int y2 = y + r;
-    drawRect(x1, y1, x2, y2);
+    int y1 = y - 2;
+    int w = r * 2;
+    int h = 4;
+    drawRect(x1, y1, w, h);
   }
 }
 
@@ -106,8 +103,8 @@ void Eye::open(boolean isOpen)
 
 Avator::Avator()
 {
-  this->mouth = Mouth(160, 200, 30, 100, 8, 60, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeR = Eye(90, 83, 8, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->mouth = Mouth(163, 145, 40, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->eyeR = Eye(90, 93, 8, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeL = Eye(230, 96, 8, PRIMARY_COLOR, SECONDARY_COLOR);
 }
 void Avator::openMouth(int percent)
@@ -125,5 +122,8 @@ void Avator::smile()
 }
 void Avator::init()
 {
+  mouth.open(0);
+  eyeR.open(true);
+  eyeL.open(true);
   // TODO: start animation
 }

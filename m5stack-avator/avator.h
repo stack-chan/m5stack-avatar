@@ -10,10 +10,10 @@ private:
   int maxWidth;
   int minHeight;
   int maxHeight;
-  int lastX1;
-  int lastX2;
-  int lastY1;
-  int lastY2;
+  int lastX;
+  int lastY;
+  int lastW;
+  int lastH;
   uint32_t primaryColor;
   uint32_t secondaryColor;
   void clear(void);
@@ -42,7 +42,7 @@ private:
   uint32_t secondaryColor;
   void clear(void);
   void drawCircle(int x, int y, int r);
-  void drawRect(int x1, int y1, int x2, int y2);
+  void drawRect(int x, int y, int w, int h);
 public:
   // constructor
   Eye();
