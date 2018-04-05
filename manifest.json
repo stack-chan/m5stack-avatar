@@ -1,0 +1,25 @@
+{
+  "name": "M5Stack-Avator",
+  "keywords": "avator, lcd, cute",
+  "description": "Yet another avator module for M5Stack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meganetaaan/m5stack-avator.git"
+  },
+  "authors": [
+    {
+      "name": "Shinya Ishikawa",
+      "email": "ishikawa.s.1027@gmail.com",
+      "url": "https://meganetaaan.github.io/",
+      "maintainer": true
+    }
+  ],
+  "dependencies": {
+    "name": "M5Stack",
+    "authors": "Zibin, M5Stack",
+    "frameworks": "arduino"
+  },
+  "version": "0.1.0",
+  "frameworks": "arduino",
+  "platforms": "espressif32"
+}
