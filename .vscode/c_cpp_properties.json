@@ -3,14 +3,16 @@
         {
             "name": "Linux",
             "includePath": [
-                "/home/ishik/Arduino/hardware/espressif/esp32/cores/esp32",
-                "/home/ishik/Arduino/libraries/M5Stack/src"
+                "~/Arduino/hardware/espressif/esp32/cores/esp32",
+                "~/Arduino/libraries/M5Stack/src",
+                "./"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
-                    "/home/ishik/Arduino/hardware/espressif/esp32/cores/esp32",
-                    "/home/ishik/Arduino/libraries/M5Stack/src"
+                    "~/Arduino/hardware/espressif/esp32/cores/esp32",
+                    "~/Arduino/libraries/M5Stack/src",
+                    "./"
                 ]
             },
             "intelliSenseMode": "clang-x64",
