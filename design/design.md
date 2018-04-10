@@ -53,7 +53,7 @@ mouth, eye描画のcontext
   SAD
   HAPPY
 
-Face
+Avator
   目と口の位置を拾ってRendererに投げる
   autoMotion
   draw
