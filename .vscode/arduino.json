@@ -1,5 +1,5 @@
 {
-    "sketch": "example/avator.ino",
+    "sketch": "examples/avator.ino",
     "board": "espressif:esp32:m5stack-core-esp32",
     "configuration": "FlashMode=qio,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
     "port": "/dev/ttyUSB0"

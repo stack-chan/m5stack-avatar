@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/ishik/.platformio/penv/bin:/home/ishik/.platformio/penv:/home/ishik/.cargo/bin:/home/ishik/emsdk-portable:/home/ishik/emsdk-portable/clang/e1.37.21_64bit:/home/ishik/emsdk-portable/emscripten/1.37.21:/home/ishik/Works/go/bin:/bin:/home/ishik/.cargo/bin:/home/ishik/bin:/home/ishik/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/usr/games:/usr/local/games:/snap/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}

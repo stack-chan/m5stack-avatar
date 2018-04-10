@@ -1,5 +1,5 @@
 #include <M5Stack.h>
-#include "avator.h"
+#include "./avator.h"
 
 // Mouth
 Mouth::Mouth(void)

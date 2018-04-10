@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "name": "M5Stack",
-    "authors": "Zibin, M5Stack",
     "frameworks": "arduino"
   },
   "version": "0.1.0",
