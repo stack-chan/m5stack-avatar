@@ -61,6 +61,7 @@ private:
   Mouth mouth;
   Eye eyeR;
   Eye eyeL;
+  void drawLoop(void);
 public:
   // constructor
   Avator(void);

@@ -159,11 +159,14 @@ void Avator::smile()
 {
   // TODO
 }
+/**
+ * @deprecated
+ */
 void Avator::init()
 {
   // TODO: start animation loop
-  draw();
 }
+
 void Avator::draw()
 {
   mouth.draw();
