@@ -24,12 +24,12 @@ Mouth::Mouth(int x, int y, int minWidth, int maxWidth, int minHeight, int maxHei
 }
 void Mouth::clear()
 {
-  M5.Lcd.fillRect(lastX, lastY, lastW, lastH, secondaryColor);
+  M5.Lcd.drawRect(lastX, lastY, lastW, lastH, secondaryColor);
 }
 void Mouth::draw(int x, int y, int w, int h)
 {
   clear();
-  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  M5.Lcd.drawRect(x, y, w, h, primaryColor);
   lastX = x;
   lastY = y;
   lastW = w;
