@@ -16,6 +16,7 @@ Mouth::Mouth(int x, int y, int minWidth, int maxWidth, int minHeight, int maxHei
   this->maxHeight = maxHeight;
   this->primaryColor = primaryColor;
   this->secondaryColor = secondaryColor;
+  this->openRatio = 0;
   this->lastX = 0;
   this->lastY = 0;
   this->lastW = 0;
@@ -71,6 +72,8 @@ Eye::Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor)
   this->lastX = 0;
   this->lastY = 0;
   this->lastR = 0;
+  this->offsetX = 0;
+  this->offsetY = 0;
   this->primaryColor = primaryColor;
   this->secondaryColor = secondaryColor;
 }
@@ -102,12 +105,12 @@ void Eye::draw()
   if (openRatio > 0)
   {
     // TODO: "wideness"
-    drawCircle(x, y, r);
+    drawCircle(x + offsetX, y + offsetY, r);
   }
   else
   {
-    int x1 = x - r;
-    int y1 = y - 2;
+    int x1 = x - r + offsetX;
+    int y1 = y - 2 + offsetY;
     int w = r * 2;
     int h = 4;
     drawRect(x1, y1, w, h);
@@ -117,6 +120,11 @@ void Eye::draw()
 void Eye::setOpenRatio(float ratio)
 {
   this->openRatio = ratio;
+}
+void Eye::setOffset(int offsetX, int offsetY)
+{
+  this->offsetX = offsetX;
+  this->offsetY = offsetY;
 }
 /**
  * @deprecated
@@ -133,7 +141,7 @@ void Eye::open(boolean isOpen)
 
 Avator::Avator()
 {
-  this->mouth = Mouth(163, 145, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->mouth = Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeR = Eye(90, 93, 8, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeL = Eye(230, 96, 8, PRIMARY_COLOR, SECONDARY_COLOR);
 }
@@ -145,6 +153,9 @@ void Avator::setMouthOpen(float f)
 {
   mouth.setOpenRatio(f);
 }
+/**
+ * @deprecated
+ */
 void Avator::openEye(boolean isOpen)
 {
   eyeR.open(isOpen);
@@ -165,6 +176,15 @@ void Avator::smile()
 void Avator::init()
 {
   // TODO: start animation loop
+}
+
+void Avator::setGaze(float vertical, float horizontal)
+{
+  Serial.printf("%f, %f\n", vertical, horizontal);
+  int v = floor(4 * vertical);
+  int h = floor(4 * horizontal);
+  eyeL.setOffset(v, h);
+  eyeR.setOffset(v, h);
 }
 
 void Avator::draw()

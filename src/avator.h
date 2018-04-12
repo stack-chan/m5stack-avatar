@@ -37,6 +37,8 @@ private:
   int x;
   int y;
   int r;
+  int offsetX;
+  int offsetY;
   int lastX;
   int lastY;
   int lastR;
@@ -51,6 +53,7 @@ public:
   Eye();
   Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
+  void setOffset(int offsetX, int offsetY);
   void open(boolean isOpen);
   void draw(void);
 };
@@ -70,6 +73,7 @@ public:
   void openEye(boolean isOpen);
   void setMouthOpen(float f);
   void setEyeOpen(float f);
+  void setGaze(float vertical, float horizontal);
   void smile(void);
   void init(void);
   void draw(void);
