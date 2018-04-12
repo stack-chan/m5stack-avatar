@@ -1,16 +1,24 @@
 #include <M5Stack.h>
 #include "avator.h"
+#include <AquesTalkTTS.h>
+#include <FastLCD.h>
 
 Avator *avator;
 int count = 0;
 float f = 0;
+float last = 0;
 
 void drawLoop(void *args)
 {
   for(;;)
   {
+    int level = TTS.getLevel();
+    float f = level / 12000.0;
+    float open = min(1.0, last + f / 2.0);
+    last = f;
+    avator->setMouthOpen(open);
     avator->draw();
-    delay(125);
+    delay(33);
   }
 }
 
@@ -38,6 +46,9 @@ void blink(void *args)
 
 void setup()
 {
+  int iret;
+
+  iret = TTS.create(NULL);
   M5.begin();
   avator = new Avator();
   // M5.Lcd.setBrightness(60);
@@ -70,8 +81,9 @@ void setup()
 void loop()
 {
   M5.update();
-  count = (count + 5) % 100;
-  f = count * 2 * PI / 100.0;
-  avator->setMouthOpen((sin(f) + 1) / 4);
+  if (M5.BtnA.wasPressed())
+  {
+    TTS.play("to-kyo-tokkyo;kyokakyoku", 100);
+  }
   delay(125);
 }
