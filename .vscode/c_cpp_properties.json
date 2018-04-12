@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "~/Arduino/hardware/espressif/esp32/cores/esp32",
+                "~/Arduino/libraries/M5Stack/src",
+                "./"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "~/Arduino/hardware/espressif/esp32/cores/esp32",
+                    "~/Arduino/libraries/M5Stack/src",
+                    "./"
+                ]
+            },
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 3
+}
