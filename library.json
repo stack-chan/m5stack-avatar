@@ -16,10 +16,10 @@
   ],
   "dependencies": {
     "name": "M5Stack",
-    "authors": "Zibin, M5Stack",
+    "authors": "M5Stack",
     "frameworks": "arduino"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "frameworks": "arduino",
   "platforms": "espressif32"
 }
