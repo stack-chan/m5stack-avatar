@@ -47,14 +47,15 @@ void Mouth::open(int percent)
 {
   float f = percent / 100.0;
   setOpenRatio(f);
-  draw();
+  draw(0.0);
 }
-void Mouth::draw()
+void Mouth::draw(float breath /* FIXME: wrap it by context */)
 {
+  breath = min(1.0, breath);
   int h = minHeight + (maxHeight - minHeight) * openRatio;
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
   int x = this->x - w / 2;
-  int y = this->y - h / 2;
+  int y = this->y - h / 2 + breath * 2;
   _draw(x, y, w, h);
 }
 
@@ -87,6 +88,8 @@ void Eye::drawCircle(int x, int y, int r)
   if (lastX == x && lastY == y && lastR == r) return;
   clear();
   M5.Lcd.fillCircle(x, y, r, primaryColor);
+  // TODO: Sleepy face
+  // M5.Lcd.fillRect(x - r, y - r, r * 2 + 2, r, secondaryColor);
   lastX = x;
   lastY = y;
   lastR = r;
@@ -100,17 +103,17 @@ void Eye::drawRect(int x, int y, int w, int h)
   lastY = y + h / 2;
   lastR = w; // TODO: ellipse
 }
-void Eye::draw()
+void Eye::draw(float breath /* FIXME: wrap it by context */)
 {
+  breath = min(1.0, breath);
   if (openRatio > 0)
   {
-    // TODO: "wideness"
-    drawCircle(x + offsetX, y + offsetY, r);
+    drawCircle(x + offsetX, y + offsetY + breath * 3, r);
   }
   else
   {
     int x1 = x - r + offsetX;
-    int y1 = y - 2 + offsetY;
+    int y1 = y - 2 + offsetY + breath * 1;
     int w = r * 2;
     int h = 4;
     drawRect(x1, y1, w, h);
@@ -133,7 +136,7 @@ void Eye::open(boolean isOpen)
 {
   float ratio = isOpen ? 1 : 0;
   setOpenRatio(ratio);
-  draw();
+  draw(0.0);
 }
 
 #define PRIMARY_COLOR WHITE
@@ -166,7 +169,7 @@ void Avator::setEyeOpen(float f)
   eyeR.setOpenRatio(f);
   eyeL.setOpenRatio(f);
 }
-void Avator::smile()
+void Avator::setExpression()
 {
   // TODO
 }
@@ -178,9 +181,16 @@ void Avator::init()
   // TODO: start animation loop
 }
 
+/**
+ * @experimental
+ */
+void Avator::setBreath(float breath)
+{
+  this->breath = breath;
+}
+
 void Avator::setGaze(float vertical, float horizontal)
 {
-  Serial.printf("%f, %f\n", vertical, horizontal);
   int v = floor(4 * vertical);
   int h = floor(4 * horizontal);
   eyeL.setOffset(v, h);
@@ -189,7 +199,7 @@ void Avator::setGaze(float vertical, float horizontal)
 
 void Avator::draw()
 {
-  mouth.draw();
-  eyeR.draw();
-  eyeL.draw();
+  mouth.draw(breath);
+  eyeR.draw(breath);
+  eyeL.draw(breath);
 }

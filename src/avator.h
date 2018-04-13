@@ -28,7 +28,7 @@ public:
   uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void open(int percent);
-  void draw(void);
+  void draw(float breath);
 };
 
 class Eye
@@ -55,7 +55,7 @@ public:
   void setOpenRatio(float ratio);
   void setOffset(int offsetX, int offsetY);
   void open(boolean isOpen);
-  void draw(void);
+  void draw(float breath);
 };
 
 class Avator
@@ -64,6 +64,7 @@ private:
   Mouth mouth;
   Eye eyeR;
   Eye eyeL;
+  float breath;
   void drawLoop(void);
 public:
   // constructor
@@ -73,8 +74,9 @@ public:
   void openEye(boolean isOpen);
   void setMouthOpen(float f);
   void setEyeOpen(float f);
+  void setBreath(float f);
   void setGaze(float vertical, float horizontal);
-  void smile(void);
+  void setExpression(void); // TODO
   void init(void);
   void draw(void);
 };

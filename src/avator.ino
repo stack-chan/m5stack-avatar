@@ -8,6 +8,17 @@ int count = 0;
 float f = 0;
 float last = 0;
 
+void breath(void *args)
+{
+  int c = 0;
+  for(;;)
+  {
+    c = c + 1 % 100;
+    float f = sin(c * 2 * PI / 100.0);
+    avator->setBreath(f);
+    delay(33);
+  }
+}
 void drawLoop(void *args)
 {
   for(;;)
@@ -26,8 +37,8 @@ void saccade(void *args)
 {
   for(;;)
   {
-    float vertical = random(-1, 1);
-    float horizontal = random(-1, 1);
+    float vertical = (float)rand()/(float)(RAND_MAX / 2) - 1;
+    float horizontal = (float)rand()/(float)(RAND_MAX / 2) - 1;
     avator->setGaze(vertical, horizontal);
     delay(500 + 100 * random(20));
   }
@@ -50,8 +61,8 @@ void setup()
 
   iret = TTS.create(NULL);
   M5.begin();
+  M5.Lcd.setBrightness(30);
   avator = new Avator();
-  // M5.Lcd.setBrightness(60);
   xTaskCreatePinnedToCore(
                     drawLoop,     /* Function to implement the task */
                     "drawLoop",   /* Name of the task */
@@ -69,6 +80,14 @@ void setup()
                     NULL,      /* Task handle. */
                     1);        /* Core where the task should run */
   xTaskCreatePinnedToCore(
+                    breath,     /* Function to implement the task */
+                    "breath",   /* Name of the task */
+                    4096,      /* Stack size in words */
+                    NULL,      /* Task input parameter */
+                    2,         /* Priority of the task */
+                    NULL,      /* Task handle. */
+                    1);        /* Core where the task should run */
+  xTaskCreatePinnedToCore(
                     blink,     /* Function to implement the task */
                     "blink",   /* Name of the task */
                     4096,      /* Stack size in words */
@@ -83,7 +102,15 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    TTS.play("to-kyo-tokkyo;kyokakyoku", 100);
+    TTS.play("emufaibu,sutakku,tanosiiyo", 90);
+  }
+  if (M5.BtnB.wasPressed())
+  {
+    TTS.play("iine,ippai,arigato-", 100);
+  }
+  if (M5.BtnC.wasPressed())
+  {
+    TTS.play("yukkuri,siteittene?", 80);
   }
   delay(125);
 }
