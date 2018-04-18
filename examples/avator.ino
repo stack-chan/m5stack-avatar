@@ -7,6 +7,8 @@ Avator *avator;
 int count = 0;
 float f = 0;
 float last = 0;
+double duration = 0;
+double distance = 0;
 
 void breath(void *args)
 {
@@ -55,12 +57,34 @@ void blink(void *args)
   }
 }
 
+#define echoPin 22
+#define trigPin 21
+
+void measureDistance()
+{
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  if (duration > 0)
+  {
+    duration = duration / 2;
+    distance = duration * 340 * 100 / 1000000;
+    Serial.printf("Distance: %lf cm\n", distance);
+  }
+}
+
 void setup()
 {
   int iret;
   iret = TTS.create(AQUESTALK_KEY);
   M5.begin();
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
   M5.Lcd.setBrightness(30);
+  M5.Lcd.setTextSize(2);
   avator = new Avator();
   xTaskCreatePinnedToCore(
                     drawLoop,     /* Function to implement the task */
@@ -99,17 +123,25 @@ void setup()
 void loop()
 {
   M5.update();
-  if (M5.BtnA.wasPressed())
+  if (M5.BtnA.isPressed() || M5.BtnA.wasPressed())
   {
-    TTS.play("emufaibu,sutakku,tanosiiyo", 90);
+    // 200 -> 50
+    // 10 -> 200
+    measureDistance();
+    int speed = max(50, 200 - distance);
+    Serial.printf("Speed: %d", speed);
+    M5.Lcd.fillRect(0, 209, 200, 30, BLACK);
+    M5.Lcd.setCursor(0, 219);
+    M5.Lcd.printf("%lf cm", distance);
+    if (distance > 100)
+    {
+      TTS.play("to-i", speed);
+    }
+    else
+    {
+      TTS.play("chikai", speed);
+    }
+    delay(distance * 3);
   }
-  if (M5.BtnB.wasPressed())
-  {
-    TTS.play("iine,ippai,arigato-", 100);
-  }
-  if (M5.BtnC.wasPressed())
-  {
-    TTS.play("yukkuri,siteittene?", 80);
-  }
-  delay(125);
+  delay(200);
 }

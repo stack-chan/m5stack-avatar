@@ -1,5 +1,5 @@
 #pragma once
-#include <FastLCD.h>
+#include <M5Stack.h>
 
 class Mouth
 {
