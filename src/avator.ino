@@ -101,15 +101,18 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    TTS.play("emufaibu,sutakku,tanosiiyo", 90);
+    TTS.play("do-demoi-", 90);
+    avator->setExpression(Neutral);
   }
   if (M5.BtnB.wasPressed())
   {
-    TTS.play("iine,ippai,arigato-", 100);
+    TTS.play("kirai", 80);
+    avator->setExpression(Ange);
   }
   if (M5.BtnC.wasPressed())
   {
-    TTS.play("yukkuri,siteittene?", 80);
+    TTS.play("suki", 80);
+    avator->setExpression(Smile);
   }
   delay(125);
 }

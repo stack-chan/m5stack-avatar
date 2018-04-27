@@ -1,6 +1,26 @@
 #pragma once
 #include <M5Stack.h>
 
+enum Expression {
+  Smile,
+  Laugh,
+  Anger,
+  Doubt,
+  Sleep,
+  Neutral
+};
+
+class DrawContext {
+private:
+  Expression expression;
+  float breath;
+public:
+  DrawContext(void);
+  DrawContext(Expression expression, float breath);
+  Expression getExpression();
+  float getBreath();
+};
+
 class Mouth
 {
 private:
@@ -27,8 +47,7 @@ public:
   int minHeight, int maxHeight,
   uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
-  void open(int percent);
-  void draw(float breath);
+  void draw(DrawContext drawContext);
 };
 
 class Eye
@@ -54,8 +73,7 @@ public:
   Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void setOffset(int offsetX, int offsetY);
-  void open(boolean isOpen);
-  void draw(float breath);
+  void draw(DrawContext drawContext);
 };
 
 class Avator
@@ -65,18 +83,21 @@ private:
   Eye eyeR;
   Eye eyeL;
   float breath;
+  Expression expression;
+  DrawContext drawContext;
   void drawLoop(void);
 public:
   // constructor
   Avator(void);
 
+  // TODO: getter
   void openMouth(int percent);
   void openEye(boolean isOpen);
   void setMouthOpen(float f);
   void setEyeOpen(float f);
   void setBreath(float f);
   void setGaze(float vertical, float horizontal);
-  void setExpression(void); // TODO
+  void setExpression(Expression exp); // TODO
   void init(void);
   void draw(void);
 };

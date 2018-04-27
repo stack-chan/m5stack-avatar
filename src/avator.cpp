@@ -1,5 +1,29 @@
 #include "avator.h"
 
+#define PRIMARY_COLOR WHITE
+#define SECONDARY_COLOR BLACK
+
+DrawContext::DrawContext()
+{
+  
+}
+// DrawContext
+DrawContext::DrawContext(Expression expression, float breath)
+{
+  this->expression = expression;
+  this->breath = breath;
+}
+
+Expression DrawContext::getExpression()
+{
+  return expression;
+}
+
+float DrawContext::getBreath()
+{
+  return breath;
+}
+
 // Mouth
 Mouth::Mouth(void)
 {
@@ -40,18 +64,10 @@ void Mouth::setOpenRatio(float ratio)
 {
   openRatio = ratio;
 }
-/**
- * @deprecated
- */
-void Mouth::open(int percent)
+
+void Mouth::draw(DrawContext ctx)
 {
-  float f = percent / 100.0;
-  setOpenRatio(f);
-  draw(0.0);
-}
-void Mouth::draw(float breath /* FIXME: wrap it by context */)
-{
-  breath = min(1.0, breath);
+  float breath = min(1.0, ctx.getBreath());
   int h = minHeight + (maxHeight - minHeight) * openRatio;
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
   int x = this->x - w / 2;
@@ -103,9 +119,9 @@ void Eye::drawRect(int x, int y, int w, int h)
   lastY = y + h / 2;
   lastR = w; // TODO: ellipse
 }
-void Eye::draw(float breath /* FIXME: wrap it by context */)
+void Eye::draw(DrawContext ctx)
 {
-  breath = min(1.0, breath);
+  float breath = min(1.0, ctx.getBreath());
   if (openRatio > 0)
   {
     drawCircle(x + offsetX, y + offsetY + breath * 3, r);
@@ -124,33 +140,28 @@ void Eye::setOpenRatio(float ratio)
 {
   this->openRatio = ratio;
 }
+
 void Eye::setOffset(int offsetX, int offsetY)
 {
   this->offsetX = offsetX;
   this->offsetY = offsetY;
 }
-/**
- * @deprecated
- */
-void Eye::open(boolean isOpen)
-{
-  float ratio = isOpen ? 1 : 0;
-  setOpenRatio(ratio);
-  draw(0.0);
-}
-
-#define PRIMARY_COLOR WHITE
-#define SECONDARY_COLOR BLACK
 
 Avator::Avator()
 {
   this->mouth = Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeR = Eye(90, 93, 8, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeL = Eye(230, 96, 8, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->drawContext = DrawContext(expression, breath);
+  expression = Neutral;
+  breath = 0.0;
 }
+
 void Avator::openMouth(int percent)
 {
-  mouth.open(percent);
+  float f = percent / 100.0;
+  mouth.setOpenRatio(f);
+  draw();
 }
 void Avator::setMouthOpen(float f)
 {
@@ -161,17 +172,19 @@ void Avator::setMouthOpen(float f)
  */
 void Avator::openEye(boolean isOpen)
 {
-  eyeR.open(isOpen);
-  eyeL.open(isOpen);
+  float ratio = isOpen ? 1 : 0;
+  eyeR.setOpenRatio(ratio);
+  eyeL.setOpenRatio(ratio);
+  draw();
 }
 void Avator::setEyeOpen(float f)
 {
   eyeR.setOpenRatio(f);
   eyeL.setOpenRatio(f);
 }
-void Avator::setExpression()
+void Avator::setExpression(Expression expression)
 {
-  // TODO
+  this->expression = expression;
 }
 /**
  * @deprecated
@@ -199,7 +212,8 @@ void Avator::setGaze(float vertical, float horizontal)
 
 void Avator::draw()
 {
-  mouth.draw(breath);
-  eyeR.draw(breath);
-  eyeL.draw(breath);
+  this->drawContext = DrawContext(expression, breath);
+  mouth.draw(drawContext);
+  eyeR.draw(drawContext);
+  eyeL.draw(drawContext);
 }
