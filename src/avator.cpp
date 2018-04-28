@@ -83,12 +83,13 @@ Eye::Eye(void)
 {
   
 }
-Eye::Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor)
+Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 {
   this->openRatio = 1;
   this->x = x;
   this->y = y;
   this->r = r;
+  this->isLeft = isLeft;
   this->lastX = 0;
   this->lastY = 0;
   this->lastR = 0;
@@ -128,6 +129,32 @@ void Eye::draw(DrawContext ctx)
   if (openRatio > 0)
   {
     drawCircle(x + offsetX, y + offsetY + breath * 3, r);
+    // TODO: Refactor
+    Expression exp = ctx.getExpression();
+    if (exp == Angry || exp == Sad)
+    {
+      int x0, y0, x1, y1, x2, y2;
+      x0 = x + offsetX - r;
+      y0 = y + offsetY - r + breath * 3;
+      x1 = x0 + r * 2;
+      y1 = y0;
+      x2 = !isLeft != !(exp == Sad) ? x0 : x1;
+      y2 = y0 + r;
+      M5.Lcd.fillTriangle(x0, y0, x1, y1, x2, y2, SECONDARY_COLOR);
+    }
+    if (exp == Happy || exp == Sleepy)
+    {
+      int x0, y0, w, h;
+      x0 = x + offsetX - r;
+      y0 = y + offsetY - r + breath * 3;
+      w = r * 2 + 4;
+      h = r + 4;
+      if (exp == Happy)
+      {
+        y0 += r;
+      }
+      M5.Lcd.fillRect(x0, y0, w, h, SECONDARY_COLOR);
+    }
   }
   else
   {
@@ -137,7 +164,6 @@ void Eye::draw(DrawContext ctx)
     int h = 4;
     drawRect(x1, y1, w, h);
   }
-
 }
 void Eye::setOpenRatio(float ratio)
 {
@@ -153,8 +179,8 @@ void Eye::setOffset(int offsetX, int offsetY)
 Avator::Avator()
 {
   this->mouth = Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeR = Eye(90, 93, 8, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeL = Eye(230, 96, 8, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->eyeR = Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->eyeL = Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
   expression = Neutral;
   breath = 0.0;

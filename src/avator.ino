@@ -101,18 +101,18 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    TTS.play("do-demoi-", 90);
+    // TTS.play("do-demoi-", 90);
     avator->setExpression(Neutral);
   }
   if (M5.BtnB.wasPressed())
   {
-    TTS.play("kirai", 80);
-    avator->setExpression(Ange);
+    // TTS.play("kirai", 80);
+    avator->setExpression(Sleepy);
   }
   if (M5.BtnC.wasPressed())
   {
-    TTS.play("suki", 80);
-    avator->setExpression(Smile);
+    // TTS.play("suki", 80);
+    avator->setExpression(Happy);
   }
   delay(125);
 }

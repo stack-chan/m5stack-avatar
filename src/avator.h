@@ -5,11 +5,11 @@
 #include <M5Stack.h>
 
 enum Expression {
-  Smile,
-  Laugh,
-  Anger,
+  Happy,
+  Angry,
+  Sad,
   Doubt,
-  Sleep,
+  Sleepy,
   Neutral
 };
 
@@ -59,6 +59,7 @@ private:
   int x;
   int y;
   int r;
+  bool isLeft;
   int offsetX;
   int offsetY;
   int lastX;
@@ -73,7 +74,7 @@ private:
 public:
   // constructor
   Eye();
-  Eye(int x, int y, int r, uint32_t primaryColor, uint32_t secondaryColor);
+  Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void setOffset(int offsetX, int offsetY);
   void draw(DrawContext drawContext);
