@@ -93,6 +93,7 @@ Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secon
   this->lastX = 0;
   this->lastY = 0;
   this->lastR = 0;
+  this->lastE = Neutral;
   this->offsetX = 0;
   this->offsetY = 0;
   this->primaryColor = primaryColor;
@@ -102,6 +103,12 @@ void Eye::clear()
 {
   M5.Lcd.fillRect(lastX - lastR - 2, lastY - lastR - 2,
                   lastR * 2 + 4, lastR * 2 + 4, secondaryColor);
+}
+void Eye::clearLast()
+{
+  lastX = 0;
+  lastY = 0;
+  lastR = 0;
 }
 void Eye::drawCircle(int x, int y, int r)
 {
@@ -125,12 +132,16 @@ void Eye::drawRect(int x, int y, int w, int h)
 }
 void Eye::draw(DrawContext ctx)
 {
+  Expression exp = ctx.getExpression();
+  if (lastE != exp)
+  {
+    clearLast();
+  }
   float breath = min(1.0, ctx.getBreath());
   if (openRatio > 0)
   {
     drawCircle(x + offsetX, y + offsetY + breath * 3, r);
     // TODO: Refactor
-    Expression exp = ctx.getExpression();
     if (exp == Angry || exp == Sad)
     {
       int x0, y0, x1, y1, x2, y2;
@@ -152,6 +163,7 @@ void Eye::draw(DrawContext ctx)
       if (exp == Happy)
       {
         y0 += r;
+        M5.Lcd.fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, SECONDARY_COLOR);
       }
       M5.Lcd.fillRect(x0, y0, w, h, SECONDARY_COLOR);
     }
@@ -164,6 +176,7 @@ void Eye::draw(DrawContext ctx)
     int h = 4;
     drawRect(x1, y1, w, h);
   }
+  lastE = exp;
 }
 void Eye::setOpenRatio(float ratio)
 {
