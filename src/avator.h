@@ -65,10 +65,12 @@ private:
   int lastX;
   int lastY;
   int lastR;
+  Expression lastE;
   float openRatio;
   uint32_t primaryColor;
   uint32_t secondaryColor;
   void clear(void);
+  void clearLast(void);
   void drawCircle(int x, int y, int r);
   void drawRect(int x, int y, int w, int h);
 public:

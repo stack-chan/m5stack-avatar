@@ -7,6 +7,14 @@ Avator *avator;
 int count = 0;
 float f = 0;
 float last = 0;
+const Expression expressions[] = {
+  Angry,
+  Sleepy,
+  Happy,
+  Sad
+};
+const int expressionsSize = sizeof(expressions) / sizeof(Expression);
+int idx = 0;
 
 void breath(void *args)
 {
@@ -107,12 +115,13 @@ void loop()
   if (M5.BtnB.wasPressed())
   {
     // TTS.play("kirai", 80);
-    avator->setExpression(Sleepy);
+    avator->setExpression(expressions[idx]);
+    idx = (idx + 1) % expressionsSize;
   }
   if (M5.BtnC.wasPressed())
   {
     // TTS.play("suki", 80);
-    avator->setExpression(Happy);
+    avator->setExpression(Sad);
   }
   delay(125);
 }
