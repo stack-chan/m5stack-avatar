@@ -53,7 +53,17 @@ void Mouth::clear()
 {
   M5.Lcd.fillRect(lastX, lastY, lastW, lastH, secondaryColor);
 }
-void Mouth::_draw(int x, int y, int w, int h)
+void Mouth::_drawCircle(int x, int y, int w, int h)
+{
+  if (lastX == x && lastY == y && lastW == w && lastH == h) return;
+  clear();
+  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  lastX = x;
+  lastY = y;
+  lastW = w;
+  lastH = h;
+}
+void Mouth::_drawRect(int x, int y, int w, int h)
 {
   if (lastX == x && lastY == y && lastW == w && lastH == h) return;
   clear();
@@ -75,7 +85,7 @@ void Mouth::draw(DrawContext ctx)
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
   int x = this->x - w / 2;
   int y = this->y - h / 2 + breath * 2;
-  _draw(x, y, w, h);
+  _drawRect(x, y, w, h);
 }
 
 // Eye
@@ -159,7 +169,7 @@ void Eye::draw(DrawContext ctx)
       x0 = x + offsetX - r;
       y0 = y + offsetY - r + breath * 3;
       w = r * 2 + 4;
-      h = r + 4;
+      h = r + 2;
       if (exp == Happy)
       {
         y0 += r;

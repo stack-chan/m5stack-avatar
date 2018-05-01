@@ -31,9 +31,12 @@ void drawLoop(void *args)
 {
   for(;;)
   {
-    int level = TTS.getLevel();
-    float f = level / 12000.0;
-    float open = min(1.0, last + f / 2.0);
+    // int level = TTS.getLevel();
+    // float f = level / 12000.0;
+    // float open = min(1.0, last + f / 2.0);
+    count += 3;
+    float f0 = ((count % 360) / 180.0) * PI;
+    float open = (sin(f0) + 1.0) / 2.0;
     last = f;
     avator->setMouthOpen(open);
     avator->draw();

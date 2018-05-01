@@ -41,7 +41,9 @@ private:
   uint32_t primaryColor;
   uint32_t secondaryColor;
   void clear(void);
-  void _draw(int x1, int y1, int x2, int y2);
+  void _drawRect(int x0, int y0, int x1, int y1);
+  void _drawCircle(int x0, int y0, int x1, int y1);
+  void _drawTriangle(int x0, int y0, int x1, int y1);
 public:
   // constructor
   Mouth();
