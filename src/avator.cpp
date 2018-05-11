@@ -6,6 +6,7 @@
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
 
+
 DrawContext::DrawContext()
 {
   
@@ -53,21 +54,21 @@ void Mouth::clear()
 {
   M5.Lcd.fillRect(lastX, lastY, lastW, lastH, secondaryColor);
 }
-void Mouth::_drawCircle(int x, int y, int w, int h)
+void Mouth::_drawCircle(TFT_eSPI *spi, int x, int y, int w, int h)
 {
   if (lastX == x && lastY == y && lastW == w && lastH == h) return;
-  clear();
-  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  // clear();
+  spi->fillRect(x, y, w, h, primaryColor);
   lastX = x;
   lastY = y;
   lastW = w;
   lastH = h;
 }
-void Mouth::_drawRect(int x, int y, int w, int h)
+void Mouth::_drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
 {
   if (lastX == x && lastY == y && lastW == w && lastH == h) return;
-  clear();
-  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  // clear();
+  spi->fillRect(x, y, w, h, primaryColor);
   lastX = x;
   lastY = y;
   lastW = w;
@@ -80,12 +81,17 @@ void Mouth::setOpenRatio(float ratio)
 
 void Mouth::draw(DrawContext ctx)
 {
+  Mouth::draw(&M5.Lcd, ctx);
+}
+
+void Mouth::draw(TFT_eSPI *spi, DrawContext ctx)
+{
   float breath = min(1.0, ctx.getBreath());
   int h = minHeight + (maxHeight - minHeight) * openRatio;
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
   int x = this->x - w / 2;
   int y = this->y - h / 2 + breath * 2;
-  _drawRect(x, y, w, h);
+  _drawRect(spi, x, y, w, h);
 }
 
 // Eye
@@ -120,37 +126,44 @@ void Eye::clearLast()
   lastY = 0;
   lastR = 0;
 }
-void Eye::drawCircle(int x, int y, int r)
+void Eye::drawCircle(TFT_eSPI *spi, int x, int y, int r)
 {
   if (lastX == x && lastY == y && lastR == r) return;
-  clear();
-  M5.Lcd.fillCircle(x, y, r, primaryColor);
+  // clear();
+  spi->fillCircle(x, y, r, primaryColor);
   // TODO: Sleepy face
   // M5.Lcd.fillRect(x - r, y - r, r * 2 + 2, r, secondaryColor);
   lastX = x;
   lastY = y;
   lastR = r;
 }
-void Eye::drawRect(int x, int y, int w, int h)
+
+void Eye::drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
 {
   if (lastX == x + w / 2 && lastY == y + h / 2 && lastR == w) return;
-  clear();
-  M5.Lcd.fillRect(x, y, w, h, primaryColor);
+  // clear();
+  spi->fillRect(x, y, w, h, primaryColor);
   lastX = x + w / 2;
   lastY = y + h / 2;
   lastR = w; // TODO: ellipse
 }
+
 void Eye::draw(DrawContext ctx)
+{
+  Eye::draw(&M5.Lcd, ctx);
+}
+
+void Eye::draw(TFT_eSPI *spi, DrawContext ctx)
 {
   Expression exp = ctx.getExpression();
   if (lastE != exp)
   {
-    clearLast();
+    // clearLast();
   }
   float breath = min(1.0, ctx.getBreath());
   if (openRatio > 0)
   {
-    drawCircle(x + offsetX, y + offsetY + breath * 3, r);
+    drawCircle(spi, x + offsetX, y + offsetY + breath * 3, r);
     // TODO: Refactor
     if (exp == Angry || exp == Sad)
     {
@@ -161,7 +174,7 @@ void Eye::draw(DrawContext ctx)
       y1 = y0;
       x2 = !isLeft != !(exp == Sad) ? x0 : x1;
       y2 = y0 + r;
-      M5.Lcd.fillTriangle(x0, y0, x1, y1, x2, y2, SECONDARY_COLOR);
+      spi->fillTriangle(x0, y0, x1, y1, x2, y2, SECONDARY_COLOR);
     }
     if (exp == Happy || exp == Sleepy)
     {
@@ -173,9 +186,9 @@ void Eye::draw(DrawContext ctx)
       if (exp == Happy)
       {
         y0 += r;
-        M5.Lcd.fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, SECONDARY_COLOR);
+        spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, SECONDARY_COLOR);
       }
-      M5.Lcd.fillRect(x0, y0, w, h, SECONDARY_COLOR);
+      spi->fillRect(x0, y0, w, h, SECONDARY_COLOR);
     }
   }
   else
@@ -184,10 +197,11 @@ void Eye::draw(DrawContext ctx)
     int y1 = y - 2 + offsetY + breath * 1;
     int w = r * 2;
     int h = 4;
-    drawRect(x1, y1, w, h);
+    drawRect(spi, x1, y1, w, h);
   }
   lastE = exp;
 }
+
 void Eye::setOpenRatio(float ratio)
 {
   this->openRatio = ratio;
@@ -205,6 +219,9 @@ Avator::Avator()
   this->eyeR = Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeL = Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
+  this->avatorSprite = new TFT_eSprite(&M5.Lcd);
+  // TODO sprite
+  avatorSprite->createSprite(240, 320);
   expression = Neutral;
   breath = 0.0;
 }
@@ -264,8 +281,10 @@ void Avator::setGaze(float vertical, float horizontal)
 
 void Avator::draw()
 {
+  avatorSprite->fillSprite(SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
-  mouth.draw(drawContext);
-  eyeR.draw(drawContext);
-  eyeL.draw(drawContext);
+  mouth.draw(avatorSprite, drawContext);
+  eyeR.draw(avatorSprite, drawContext);
+  eyeL.draw(avatorSprite, drawContext);
+  avatorSprite->pushSprite(0, 0);
 }
