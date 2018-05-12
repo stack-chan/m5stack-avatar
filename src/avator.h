@@ -3,7 +3,7 @@
 
 #pragma once
 #include <M5Stack.h>
-#include <Extensions/Sprite.h>
+#include "Sprite.h"
 
 enum Expression {
   Happy,

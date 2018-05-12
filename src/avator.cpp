@@ -6,7 +6,6 @@
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
 
-
 DrawContext::DrawContext()
 {
   
@@ -142,6 +141,7 @@ void Eye::drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
 {
   if (lastX == x + w / 2 && lastY == y + h / 2 && lastR == w) return;
   // clear();
+  M
   spi->fillRect(x, y, w, h, primaryColor);
   lastX = x + w / 2;
   lastY = y + h / 2;
@@ -281,7 +281,7 @@ void Avator::setGaze(float vertical, float horizontal)
 
 void Avator::draw()
 {
-  avatorSprite->fillSprite(SECONDARY_COLOR);
+  // avatorSprite->fillSprite(SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
   mouth.draw(avatorSprite, drawContext);
   eyeR.draw(avatorSprite, drawContext);
