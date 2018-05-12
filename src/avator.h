@@ -3,6 +3,7 @@
 
 #pragma once
 #include <M5Stack.h>
+#include "Sprite.h"
 
 enum Expression {
   Happy,
@@ -33,17 +34,12 @@ private:
   int maxWidth;
   int minHeight;
   int maxHeight;
-  int lastX;
-  int lastY;
-  int lastW;
-  int lastH;
   float openRatio;
   uint32_t primaryColor;
   uint32_t secondaryColor;
-  void clear(void);
-  void _drawRect(int x0, int y0, int x1, int y1);
-  void _drawCircle(int x0, int y0, int x1, int y1);
-  void _drawTriangle(int x0, int y0, int x1, int y1);
+  void _drawRect(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
+  void _drawCircle(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
+  void _drawTriangle(TFT_eSPI *spi, int x0, int y0, int x1, int y1, int x2, int y2);
 public:
   // constructor
   Mouth();
@@ -53,6 +49,7 @@ public:
   uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void draw(DrawContext drawContext);
+  void draw(TFT_eSprite *spi, DrawContext drawContext);
 };
 
 class Eye
@@ -64,24 +61,18 @@ private:
   bool isLeft;
   int offsetX;
   int offsetY;
-  int lastX;
-  int lastY;
-  int lastR;
-  Expression lastE;
   float openRatio;
   uint32_t primaryColor;
   uint32_t secondaryColor;
-  void clear(void);
-  void clearLast(void);
-  void drawCircle(int x, int y, int r);
-  void drawRect(int x, int y, int w, int h);
+  void drawCircle(TFT_eSPI *spi, int x, int y, int r);
+  void drawRect(TFT_eSPI *spi, int x, int y, int w, int h);
 public:
   // constructor
   Eye();
   Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void setOffset(int offsetX, int offsetY);
-  void draw(DrawContext drawContext);
+  void draw(TFT_eSprite *spi, DrawContext drawContext);
 };
 
 class Avator
@@ -93,6 +84,7 @@ private:
   float breath;
   Expression expression;
   DrawContext drawContext;
+  TFT_eSprite *avatorSprite;
   void drawLoop(void);
 public:
   // constructor
