@@ -72,7 +72,7 @@ void setup()
   iret = TTS.create(AQUESTALK_KEY);
   M5.begin();
   M5.Lcd.setBrightness(30);
-  M5.Lcd.fillRect(0, 0, 320, 240, TFT_BLUE);
+  M5.Lcd.clear();
   avator = new Avator();
   xTaskCreatePinnedToCore(
                     drawLoop,     /* Function to implement the task */
