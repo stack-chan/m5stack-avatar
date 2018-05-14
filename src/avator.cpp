@@ -235,6 +235,18 @@ void Avator::setGaze(float vertical, float horizontal)
   eyeR.setOffset(v, h);
 }
 
+/**
+ *  @experimental
+ */
+void drawBalloon(TFT_eSPI *spi)
+{
+  spi->fillEllipse(280, 220, 60, 40, PRIMARY_COLOR);
+  spi->fillTriangle(220, 180, 270, 210, 240, 210, PRIMARY_COLOR);
+  // spi->setTextSize(2);
+  // spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
+  // spi->setCursor(240, 200);
+  // spi->printf("test");
+}
 void Avator::draw()
 {
   avatorSprite->fillSprite(SECONDARY_COLOR);
