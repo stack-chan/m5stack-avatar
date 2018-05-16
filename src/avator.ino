@@ -3,6 +3,8 @@
 #include "const.h"
 #include <AquesTalkTTS.h>
 
+using namespace m5avator;
+
 Avator *avator;
 int count = 0;
 float f = 0;
@@ -15,6 +17,7 @@ const Expression expressions[] = {
 };
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
 int idx = 0;
+bool isShowingQR = false;
 
 void breath(void *args)
 {
@@ -27,19 +30,23 @@ void breath(void *args)
     delay(33);
   }
 }
+
 void drawLoop(void *args)
 {
   for(;;)
   {
-    // int level = TTS.getLevel();
-    // float f = level / 12000.0;
-    // float open = min(1.0, last + f / 2.0);
-    count += 3;
-    float f0 = ((count % 360) / 180.0) * PI;
-    float open = (sin(f0) + 1.0) / 2.0;
+    int level = TTS.getLevel();
+    float f = level / 12000.0;
+    float open = min(1.0, last + f / 2.0);
+    // count += 3;
+    // float f0 = ((count % 360) / 180.0) * PI;
+    // float open = (sin(f0) + 1.0) / 2.0;
     last = f;
     avator->setMouthOpen(open);
-    avator->draw();
+    if (!isShowingQR)
+    {
+      avator->draw();
+    }
     delay(33);
   }
 }
@@ -113,19 +120,26 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    // TTS.play("do-demoi-", 90);
-    avator->setExpression(Neutral);
+    TTS.play("yukkuri/shiteittene?", 100);
   }
   if (M5.BtnB.wasPressed())
   {
-    // TTS.play("kirai", 80);
-    avator->setExpression(expressions[idx]);
-    idx = (idx + 1) % expressionsSize;
-  }
-  if (M5.BtnC.wasPressed())
-  {
-    // TTS.play("suki", 80);
-    avator->setExpression(Sad);
+    if(!isShowingQR)
+    {
+      TTS.play("haiyo", 80);
+      delay(800);
+    }
+    isShowingQR = !isShowingQR;
+    delay(200);
+    if (isShowingQR)
+    {
+      M5.Lcd.setBrightness(10);
+      M5.Lcd.qrcode("https://twitter.com/meganetaaan");
+    }
+    else
+    {
+      M5.Lcd.setBrightness(30);
+    }
   }
   delay(125);
 }

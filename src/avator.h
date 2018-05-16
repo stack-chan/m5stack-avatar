@@ -5,7 +5,11 @@
 #include <M5Stack.h>
 #include "Sprite.h"
 
-enum Expression {
+namespace m5avator
+{
+
+enum Expression
+{
   Happy,
   Angry,
   Sad,
@@ -14,10 +18,12 @@ enum Expression {
   Neutral
 };
 
-class DrawContext {
+class DrawContext
+{
 private:
   Expression expression;
   float breath;
+
 public:
   DrawContext(void);
   DrawContext(Expression expression, float breath);
@@ -25,7 +31,14 @@ public:
   float getBreath();
 };
 
-class Mouth
+class MouthInterface
+{
+public:
+  virtual ~MouthInterface() {}
+  virtual void setOpenRatio(float ratio) = 0;
+  virtual void draw(TFT_eSprite *spi, DrawContext drawContext) = 0;
+};
+class Mouth : public MouthInterface
 {
 private:
   int x;
@@ -40,19 +53,28 @@ private:
   void _drawRect(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
   void _drawCircle(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
   void _drawTriangle(TFT_eSPI *spi, int x0, int y0, int x1, int y1, int x2, int y2);
+
 public:
   // constructor
   Mouth();
   Mouth(int x, int y,
-  int minWidth, int maxWidth,
-  int minHeight, int maxHeight,
-  uint32_t primaryColor, uint32_t secondaryColor);
+        int minWidth, int maxWidth,
+        int minHeight, int maxHeight,
+        uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
-  void draw(DrawContext drawContext);
   void draw(TFT_eSprite *spi, DrawContext drawContext);
 };
 
-class Eye
+class EyeInterface
+{
+public:
+  virtual ~EyeInterface() {}
+  virtual void draw(TFT_eSprite *spi, DrawContext drawContext) = 0;
+  virtual void setOpenRatio(float ratio) = 0;
+  virtual void setOffset(int offsetX, int offsetY) = 0;
+};
+
+class Eye : public EyeInterface
 {
 private:
   int x;
@@ -66,10 +88,11 @@ private:
   uint32_t secondaryColor;
   void drawCircle(TFT_eSPI *spi, int x, int y, int r);
   void drawRect(TFT_eSPI *spi, int x, int y, int w, int h);
+
 public:
   // constructor
-  Eye();
   Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
+  ~Eye();
   void setOpenRatio(float ratio);
   void setOffset(int offsetX, int offsetY);
   void draw(TFT_eSprite *spi, DrawContext drawContext);
@@ -78,14 +101,15 @@ public:
 class Avator
 {
 private:
-  Mouth mouth;
-  Eye eyeR;
-  Eye eyeL;
+  MouthInterface *mouth;
+  EyeInterface *eyeR;
+  EyeInterface *eyeL;
   float breath;
   Expression expression;
   DrawContext drawContext;
   TFT_eSprite *avatorSprite;
   void drawLoop(void);
+
 public:
   // constructor
   Avator(void);
@@ -98,6 +122,9 @@ public:
   void setBreath(float f);
   void setGaze(float vertical, float horizontal);
   void setExpression(Expression exp); // TODO
+  void drawBalloon(TFT_eSPI *spi);
   void init(void);
   void draw(void);
+  void draw(boolean yo);
 };
+} // namespace m5avator

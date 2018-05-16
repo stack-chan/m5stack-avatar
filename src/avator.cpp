@@ -5,6 +5,7 @@
 
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
+using namespace m5avator;
 
 DrawContext::DrawContext()
 {
@@ -78,11 +79,6 @@ void Mouth::draw(TFT_eSprite *spi, DrawContext ctx)
   _drawRect(spi, x, y, w, h);
 }
 
-// Eye
-Eye::Eye(void)
-{
-  
-}
 Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 {
   this->openRatio = 1;
@@ -95,6 +91,12 @@ Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secon
   this->primaryColor = primaryColor;
   this->secondaryColor = secondaryColor;
 }
+
+Eye::~Eye()
+{
+
+}
+
 void Eye::drawCircle(TFT_eSPI *spi, int x, int y, int r)
 {
   spi->fillCircle(x, y, r, primaryColor);
@@ -162,9 +164,9 @@ void Eye::setOffset(int offsetX, int offsetY)
 
 Avator::Avator()
 {
-  this->mouth = Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeR = Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeL = Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->mouth = new Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->eyeR = new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
+  this->eyeL = new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
   this->avatorSprite = new TFT_eSprite(&M5.Lcd);
   avatorSprite->setColorDepth(1);
@@ -180,13 +182,13 @@ Avator::Avator()
 void Avator::openMouth(int percent)
 {
   float f = percent / 100.0;
-  mouth.setOpenRatio(f);
+  mouth->setOpenRatio(f);
   draw();
 }
 
 void Avator::setMouthOpen(float f)
 {
-  mouth.setOpenRatio(f);
+  mouth->setOpenRatio(f);
 }
 
 /**
@@ -195,15 +197,15 @@ void Avator::setMouthOpen(float f)
 void Avator::openEye(boolean isOpen)
 {
   float ratio = isOpen ? 1 : 0;
-  eyeR.setOpenRatio(ratio);
-  eyeL.setOpenRatio(ratio);
+  eyeR->setOpenRatio(ratio);
+  eyeL->setOpenRatio(ratio);
   draw();
 }
 
 void Avator::setEyeOpen(float f)
 {
-  eyeR.setOpenRatio(f);
-  eyeL.setOpenRatio(f);
+  eyeR->setOpenRatio(f);
+  eyeL->setOpenRatio(f);
 }
 
 void Avator::setExpression(Expression expression)
@@ -231,8 +233,8 @@ void Avator::setGaze(float vertical, float horizontal)
 {
   int v = floor(4 * vertical);
   int h = floor(4 * horizontal);
-  eyeL.setOffset(v, h);
-  eyeR.setOffset(v, h);
+  eyeL->setOffset(v, h);
+  eyeR->setOffset(v, h);
 }
 
 /**
@@ -247,12 +249,13 @@ void drawBalloon(TFT_eSPI *spi)
   // spi->setCursor(240, 200);
   // spi->printf("test");
 }
+
 void Avator::draw()
 {
   avatorSprite->fillSprite(SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
-  mouth.draw(avatorSprite, drawContext);
-  eyeR.draw(avatorSprite, drawContext);
-  eyeL.draw(avatorSprite, drawContext);
+  mouth->draw(avatorSprite, drawContext);
+  eyeR->draw(avatorSprite, drawContext);
+  eyeL->draw(avatorSprite, drawContext);
   avatorSprite->pushSprite(0, 0);
 }
