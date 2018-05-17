@@ -5,7 +5,7 @@
 #include <M5Stack.h>
 #include "Sprite.h"
 
-namespace m5avator
+namespace m5avatar
 {
 
 enum Expression
@@ -98,7 +98,7 @@ public:
   void draw(TFT_eSprite *spi, DrawContext drawContext);
 };
 
-class Avator
+class Avatar
 {
 private:
   MouthInterface *mouth;
@@ -107,12 +107,12 @@ private:
   float breath;
   Expression expression;
   DrawContext drawContext;
-  TFT_eSprite *avatorSprite;
+  TFT_eSprite *avatarSprite;
   void drawLoop(void);
 
 public:
   // constructor
-  Avator(void);
+  Avatar(void);
 
   // TODO: getter
   void openMouth(int percent);
@@ -127,4 +127,4 @@ public:
   void draw(void);
   void draw(boolean yo);
 };
-} // namespace m5avator
+} // namespace m5avatar

@@ -1,16 +1,17 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "avator.h"
+#include "Avatar.h"
 
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
-using namespace m5avator;
+using namespace m5avatar;
 
 DrawContext::DrawContext()
 {
   
 }
+
 // DrawContext
 DrawContext::DrawContext(Expression expression, float breath)
 {
@@ -162,16 +163,16 @@ void Eye::setOffset(int offsetX, int offsetY)
   this->offsetY = offsetY;
 }
 
-Avator::Avator()
+Avatar::Avatar()
 {
   this->mouth = new Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeR = new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
   this->eyeL = new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
-  this->avatorSprite = new TFT_eSprite(&M5.Lcd);
-  avatorSprite->setColorDepth(1);
-  avatorSprite->createSprite(320, 240);
-  avatorSprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
+  this->avatarSprite = new TFT_eSprite(&M5.Lcd);
+  avatarSprite->setColorDepth(1);
+  avatarSprite->createSprite(320, 240);
+  avatarSprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
   expression = Neutral;
   breath = 0.0;
 }
@@ -179,14 +180,14 @@ Avator::Avator()
 /**
  * @deprecated
  */
-void Avator::openMouth(int percent)
+void Avatar::openMouth(int percent)
 {
   float f = percent / 100.0;
   mouth->setOpenRatio(f);
   draw();
 }
 
-void Avator::setMouthOpen(float f)
+void Avatar::setMouthOpen(float f)
 {
   mouth->setOpenRatio(f);
 }
@@ -194,7 +195,7 @@ void Avator::setMouthOpen(float f)
 /**
  * @deprecated
  */
-void Avator::openEye(boolean isOpen)
+void Avatar::openEye(boolean isOpen)
 {
   float ratio = isOpen ? 1 : 0;
   eyeR->setOpenRatio(ratio);
@@ -202,13 +203,13 @@ void Avator::openEye(boolean isOpen)
   draw();
 }
 
-void Avator::setEyeOpen(float f)
+void Avatar::setEyeOpen(float f)
 {
   eyeR->setOpenRatio(f);
   eyeL->setOpenRatio(f);
 }
 
-void Avator::setExpression(Expression expression)
+void Avatar::setExpression(Expression expression)
 {
   this->expression = expression;
 }
@@ -216,7 +217,7 @@ void Avator::setExpression(Expression expression)
 /**
  * @deprecated
  */
-void Avator::init()
+void Avatar::init()
 {
   // TODO: start animation loop
 }
@@ -224,12 +225,12 @@ void Avator::init()
 /**
  * @experimental
  */
-void Avator::setBreath(float breath)
+void Avatar::setBreath(float breath)
 {
   this->breath = breath;
 }
 
-void Avator::setGaze(float vertical, float horizontal)
+void Avatar::setGaze(float vertical, float horizontal)
 {
   int v = floor(4 * vertical);
   int h = floor(4 * horizontal);
@@ -250,12 +251,12 @@ void drawBalloon(TFT_eSPI *spi)
   // spi->printf("test");
 }
 
-void Avator::draw()
+void Avatar::draw()
 {
-  avatorSprite->fillSprite(SECONDARY_COLOR);
+  avatarSprite->fillSprite(SECONDARY_COLOR);
   this->drawContext = DrawContext(expression, breath);
-  mouth->draw(avatorSprite, drawContext);
-  eyeR->draw(avatorSprite, drawContext);
-  eyeL->draw(avatorSprite, drawContext);
-  avatorSprite->pushSprite(0, 0);
+  mouth->draw(avatarSprite, drawContext);
+  eyeR->draw(avatarSprite, drawContext);
+  eyeL->draw(avatarSprite, drawContext);
+  avatarSprite->pushSprite(0, 0);
 }
