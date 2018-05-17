@@ -48,7 +48,7 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
       y1 = y0;
       x2 = !isLeft != !(exp == Sad) ? x0 : x1;
       y2 = y0 + r;
-      spi->fillTriangle(x0, y0, x1, y1, x2, y2, primaryColor);
+      spi->fillTriangle(x0, y0, x1, y1, x2, y2, secondaryColor);
     }
     if (exp == Happy || exp == Sleepy)
     {

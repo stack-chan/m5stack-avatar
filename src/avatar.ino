@@ -6,15 +6,7 @@
 using namespace m5avatar;
 
 Avatar *avatar;
-int count = 0;
-float f = 0;
-float last = 0;
-const Expression expressions[] = {
-  Angry,
-  Sleepy,
-  Happy,
-  Sad
-};
+const Expression expressions[] = { Angry, Sleepy, Happy, Sad };
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
 int idx = 0;
 bool isShowingQR = false;
@@ -55,6 +47,11 @@ void loop()
     {
       M5.Lcd.setBrightness(30);
     }
+  }
+  if (M5.BtnC.wasPressed())
+  {
+    avatar->setExpression(expressions[idx]);
+    idx = (idx + 1) % expressionsSize;
   }
   delay(125);
 }
