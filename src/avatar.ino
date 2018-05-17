@@ -1,13 +1,11 @@
 #include <M5Stack.h>
 #include "Avatar.h"
-#include "AvatarDriver.h"
 #include "const.h"
 #include <AquesTalkTTS.h>
 
 using namespace m5avatar;
 
 Avatar *avatar;
-AvatarDriver *driver;
 int count = 0;
 float f = 0;
 float last = 0;
@@ -29,8 +27,7 @@ void setup()
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
-  driver = new AvatarDriver(avatar);
-  driver->run();
+  avatar->init();
 }
 
 void loop()

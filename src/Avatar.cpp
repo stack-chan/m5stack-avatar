@@ -1,212 +1,154 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+// TODO make TTS not global
+#include <AquesTalkTTS.h>
 #include "Avatar.h"
-
-#define PRIMARY_COLOR WHITE
-#define SECONDARY_COLOR BLACK
 using namespace m5avatar;
 
-DrawContext::DrawContext()
+// TODO: make read-only
+DriveContext::DriveContext(Avatar *avatar)
 {
-  
+  this->avatar = avatar;
+  this->_isDrawing = true;
 }
 
-// DrawContext
-DrawContext::DrawContext(Expression expression, float breath)
+Avatar* DriveContext::getAvatar()
 {
-  this->expression = expression;
-  this->breath = breath;
+  return avatar;
 }
 
-Expression DrawContext::getExpression()
+bool DriveContext::isDrawing()
 {
-  return expression;
+  return _isDrawing;
 }
 
-float DrawContext::getBreath()
+void updateBreath(void *args)
 {
-  return breath;
-}
-
-// Mouth
-Mouth::Mouth(void)
-{
-
-}
-
-Mouth::Mouth(int x, int y, int minWidth, int maxWidth, int minHeight, int maxHeight, uint32_t primaryColor, uint32_t secondaryColor)
-{
-  // TODO: validation
-  this->x = x;
-  this->y = y;
-  this->minWidth = minWidth;
-  this->maxWidth = maxWidth;
-  this->minHeight = minHeight;
-  this->maxHeight = maxHeight;
-  this->primaryColor = primaryColor;
-  this->secondaryColor = secondaryColor;
-  this->openRatio = 0;
-}
-
-void Mouth::_drawCircle(TFT_eSPI *spi, int x, int y, int w, int h)
-{
-  spi->fillRect(x, y, w, h, primaryColor);
-}
-
-void Mouth::_drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
-{
-  spi->fillRect(x, y, w, h, primaryColor);
-}
-
-void Mouth::_drawTriangle(TFT_eSPI *spi, int x0, int y0, int x1, int y1, int x2, int y2)
-{
-  spi->fillTriangle(x0, y0, x1, y1, x2, y2, primaryColor);
-}
-
-void Mouth::setOpenRatio(float ratio)
-{
-  openRatio = ratio;
-}
-
-void Mouth::draw(TFT_eSprite *spi, DrawContext ctx)
-{
-  float breath = min(1.0, ctx.getBreath());
-  int h = minHeight + (maxHeight - minHeight) * openRatio;
-  int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
-  int x = this->x - w / 2;
-  int y = this->y - h / 2 + breath * 2;
-  Serial.printf("Mouth::draw(%d, %d, %d, %d)\n", x, y, w, h);
-  _drawRect(spi, x, y, w, h);
-}
-
-Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
-{
-  this->openRatio = 1;
-  this->x = x;
-  this->y = y;
-  this->r = r;
-  this->isLeft = isLeft;
-  this->offsetX = 0;
-  this->offsetY = 0;
-  this->primaryColor = primaryColor;
-  this->secondaryColor = secondaryColor;
-}
-
-Eye::~Eye()
-{
-
-}
-
-void Eye::drawCircle(TFT_eSPI *spi, int x, int y, int r)
-{
-  spi->fillCircle(x, y, r, primaryColor);
-}
-
-void Eye::drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
-{
-  spi->fillRect(x, y, w, h, primaryColor);
-}
-
-void Eye::draw(TFT_eSprite *spi, DrawContext ctx)
-{
-  Expression exp = ctx.getExpression();
-  float breath = min(1.0, ctx.getBreath());
-  if (openRatio > 0)
+  int c = 0;
+  DriveContext *ctx = (DriveContext *)args;
+  for (;;)
   {
-    drawCircle(spi, x + offsetX, y + offsetY + breath * 3, r);
-    // TODO: Refactor
-    if (exp == Angry || exp == Sad)
-    {
-      int x0, y0, x1, y1, x2, y2;
-      x0 = x + offsetX - r;
-      y0 = y + offsetY - r + breath * 3;
-      x1 = x0 + r * 2;
-      y1 = y0;
-      x2 = !isLeft != !(exp == Sad) ? x0 : x1;
-      y2 = y0 + r;
-      spi->fillTriangle(x0, y0, x1, y1, x2, y2, SECONDARY_COLOR);
-    }
-    if (exp == Happy || exp == Sleepy)
-    {
-      int x0, y0, w, h;
-      x0 = x + offsetX - r;
-      y0 = y + offsetY - r + breath * 3;
-      w = r * 2 + 4;
-      h = r + 2;
-      if (exp == Happy)
-      {
-        y0 += r;
-        spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, SECONDARY_COLOR);
-      }
-      spi->fillRect(x0, y0, w, h, SECONDARY_COLOR);
-    }
-  }
-  else
-  {
-    int x1 = x - r + offsetX;
-    int y1 = y - 2 + offsetY + breath * 1;
-    int w = r * 2;
-    int h = 4;
-    drawRect(spi, x1, y1, w, h);
+    c = c + 1 % 100;
+    float f = sin(c * 2 * PI / 100.0);
+    ctx->getAvatar()->setBreath(f);
+    delay(33);
   }
 }
 
-void Eye::setOpenRatio(float ratio)
+void drawLoop(void *args)
 {
-  this->openRatio = ratio;
+  DriveContext *ctx = (DriveContext *)args;
+  Avatar *avatar = ctx->getAvatar();
+  float last = 0;
+  int count = 0;
+  for (;;)
+  {
+    // int level = TTS.getLevel();
+    // float f = level / 12000.0;
+    // float open = min(1.0, last + f / 2.0);
+    count += 3;
+    float f0 = ((count % 360) / 180.0) * PI;
+    float open = (sin(f0) + 1.0) / 2.0;
+    // last = f;
+    avatar->getFace()->setMouthOpen(open);
+    if (ctx->isDrawing())
+    {
+      avatar->draw();
+    }
+    delay(33);
+  }
 }
 
-void Eye::setOffset(int offsetX, int offsetY)
+void saccade(void *args)
 {
-  this->offsetX = offsetX;
-  this->offsetY = offsetY;
+  DriveContext *ctx = (DriveContext *)args;
+  for (;;)
+  {
+    float vertical = (float)rand() / (float)(RAND_MAX / 2) - 1;
+    float horizontal = (float)rand() / (float)(RAND_MAX / 2) - 1;
+    ctx->getAvatar()->setGaze(vertical, horizontal);
+    delay(500 + 100 * random(20));
+  }
+}
+
+void blink(void *args)
+{
+  DriveContext *ctx = (DriveContext *)args;
+  for (;;)
+  {
+    ctx->getAvatar()->getFace()->setEyesOpen(1);
+    delay(2500 + 100 * random(20));
+    ctx->getAvatar()->getFace()->setEyesOpen(0);
+    delay(300 + 10 * random(20));
+  }
 }
 
 Avatar::Avatar()
 {
-  this->mouth = new Mouth(163, 148, 50, 100, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeR = new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeL = new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->drawContext = DrawContext(expression, breath);
-  this->avatarSprite = new TFT_eSprite(&M5.Lcd);
-  avatarSprite->setColorDepth(1);
-  avatarSprite->createSprite(320, 240);
-  avatarSprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
+  this->face = new Face();
+  Avatar(*face);
+}
+
+Avatar::Avatar(Face *face)
+{
+  this->face = face;
   expression = Neutral;
   breath = 0.0;
 }
 
-/**
- * @deprecated
- */
-void Avatar::openMouth(int percent)
+Avatar::~Avatar()
 {
-  float f = percent / 100.0;
-  mouth->setOpenRatio(f);
-  draw();
+  // TODO: release tasks
 }
 
-void Avatar::setMouthOpen(float f)
+Face* Avatar::getFace()
 {
-  mouth->setOpenRatio(f);
+  return face;
 }
 
-/**
- * @deprecated
- */
-void Avatar::openEye(boolean isOpen)
+void Avatar::init()
 {
-  float ratio = isOpen ? 1 : 0;
-  eyeR->setOpenRatio(ratio);
-  eyeL->setOpenRatio(ratio);
-  draw();
+  DriveContext *ctx = new DriveContext(this);
+  // TODO: keep handle of these tasks
+  xTaskCreatePinnedToCore(
+      drawLoop,   /* Function to implement the task */
+      "drawLoop", /* Name of the task */
+      4096,       /* Stack size in words */
+      ctx,       /* Task input parameter */
+      1,          /* Priority of the task */
+      NULL,       /* Task handle. */
+      1);         /* Core where the task should run */
+  xTaskCreatePinnedToCore(
+      saccade,   /* Function to implement the task */
+      "saccade", /* Name of the task */
+      4096,      /* Stack size in words */
+      ctx,      /* Task input parameter */
+      3,         /* Priority of the task */
+      NULL,      /* Task handle. */
+      1);        /* Core where the task should run */
+  xTaskCreatePinnedToCore(
+      updateBreath,   /* Function to implement the task */
+      "breath", /* Name of the task */
+      4096,     /* Stack size in words */
+      ctx,     /* Task input parameter */
+      2,        /* Priority of the task */
+      NULL,     /* Task handle. */
+      1);       /* Core where the task should run */
+  xTaskCreatePinnedToCore(
+      blink,   /* Function to implement the task */
+      "blink", /* Name of the task */
+      4096,    /* Stack size in words */
+      ctx,    /* Task input parameter */
+      2,       /* Priority of the task */
+      NULL,    /* Task handle. */
+      1);      /* Core where the task should run */
 }
 
-void Avatar::setEyeOpen(float f)
+void Avatar::draw()
 {
-  eyeR->setOpenRatio(f);
-  eyeL->setOpenRatio(f);
+  DrawContext* ctx = new DrawContext(this->expression, this->breath);
+  face->draw(ctx);
 }
 
 void Avatar::setExpression(Expression expression)
@@ -214,17 +156,6 @@ void Avatar::setExpression(Expression expression)
   this->expression = expression;
 }
 
-/**
- * @deprecated
- */
-void Avatar::init()
-{
-  // TODO: start animation loop
-}
-
-/**
- * @experimental
- */
 void Avatar::setBreath(float breath)
 {
   this->breath = breath;
@@ -232,31 +163,10 @@ void Avatar::setBreath(float breath)
 
 void Avatar::setGaze(float vertical, float horizontal)
 {
+  this->gazeV = vertical;
+  this->gazeH = horizontal;
   int v = floor(4 * vertical);
   int h = floor(4 * horizontal);
-  eyeL->setOffset(v, h);
-  eyeR->setOffset(v, h);
-}
-
-/**
- *  @experimental
- */
-void drawBalloon(TFT_eSPI *spi)
-{
-  spi->fillEllipse(280, 220, 60, 40, PRIMARY_COLOR);
-  spi->fillTriangle(220, 180, 270, 210, 240, 210, PRIMARY_COLOR);
-  // spi->setTextSize(2);
-  // spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
-  // spi->setCursor(240, 200);
-  // spi->printf("test");
-}
-
-void Avatar::draw()
-{
-  avatarSprite->fillSprite(SECONDARY_COLOR);
-  this->drawContext = DrawContext(expression, breath);
-  mouth->draw(avatarSprite, drawContext);
-  eyeR->draw(avatarSprite, drawContext);
-  eyeL->draw(avatarSprite, drawContext);
-  avatarSprite->pushSprite(0, 0);
+  face->getLeftEye()->setOffset(v, h);
+  face->getRightEye()->setOffset(v, h);
 }
