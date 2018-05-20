@@ -10,17 +10,11 @@ using namespace m5avatar;
 DriveContext::DriveContext(Avatar *avatar)
 {
   this->avatar = avatar;
-  this->_isDrawing = true;
 }
 
 Avatar* DriveContext::getAvatar()
 {
   return avatar;
-}
-
-bool DriveContext::isDrawing()
-{
-  return _isDrawing;
 }
 
 void updateBreath(void *args)
@@ -44,13 +38,13 @@ void drawLoop(void *args)
   int count = 0;
   for (;;)
   {
-    // int level = TTS.getLevel();
-    // float f = level / 12000.0;
-    // float open = min(1.0, last + f / 2.0);
-    count += 3;
-    float f0 = ((count % 360) / 180.0) * PI;
-    float open = (sin(f0) + 1.0) / 2.0;
-    // last = f;
+    // TODO define lipsync as another task
+    int level = TTS.getLevel();
+    float f = level / 12000.0;
+    float open = min(1.0, f);
+    // count += 3;
+    // float f0 = ((count % 360) / 180.0) * PI;
+    // float open = (sin(f0) + 1.0) / 2.0;
     avatar->getFace()->setMouthOpen(open);
     if (ctx->isDrawing())
     {
@@ -102,6 +96,11 @@ Avatar::~Avatar()
   // TODO: release tasks
 }
 
+void Avatar::setFace(Face *face)
+{
+  this->face = face;
+}
+
 Face* Avatar::getFace()
 {
   return face;
@@ -145,10 +144,21 @@ void Avatar::init()
       1);      /* Core where the task should run */
 }
 
+void Avatar::stop()
+{
+  isDrawing = false;
+}
+
+void Avatar::start()
+{
+  isDrawing = true;
+}
+
 void Avatar::draw()
 {
   DrawContext* ctx = new DrawContext(this->expression, this->breath);
   face->draw(ctx);
+  delete ctx;
 }
 
 void Avatar::setExpression(Expression expression)

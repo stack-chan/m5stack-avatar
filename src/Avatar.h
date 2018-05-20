@@ -15,21 +15,22 @@ class Avatar
     float gazeH;
     // TODO: below are not of face rather avatar
     float breath;
-
+    bool isDrawing;
   public:
     Avatar();
     Avatar(Face* face);
     ~Avatar();
     Face* getFace();
+    void setFace(Face *face);
     void init(void);
     void setBreath(float f);
     void setGaze(float vertical, float horizontal);
-    void setExpression(Expression exp); // TODO
-    void drawBalloon(TFT_eSPI *spi);
+    void setExpression(Expression exp);
+    void drawBalloon(TFT_eSPI *spi); // Experimental
     void draw(void);
+    void start();
+    void stop();
     // TODO
-    // void stop();
-    // void stop();
     // void addTask(Task task);
 };
 

@@ -5,16 +5,19 @@
 #include "Sprite.h"
 #include "Mouth.h"
 #include "Eye.h"
+#include "Eyeblow.h"
 
 namespace m5avatar
 {
 
 class Face
 {
-private:
+protected:
   MouthInterface *mouth;
   EyeInterface *eyeR;
   EyeInterface *eyeL;
+  EyeblowInterface *eyeblowR;
+  EyeblowInterface *eyeblowL;
   TFT_eSprite *sprite;
   DrawContext drawContext;
 
@@ -28,11 +31,12 @@ public:
   EyeInterface *getLeftEye();
   EyeInterface *getRightEye();
   MouthInterface *getMouth();
-  void setMouth(MouthInterface *mouth);
   void setLeftEye(EyeInterface *eye);
   void setRightEye(EyeInterface *eye);
+  void setMouth(MouthInterface *mouth);
   void setLeftEyeblow();
   void setRightEyeblow();
+
   void setMouthOpen(float f);
   void setEyeOpen(float f); // deprecated
   void setEyesOpen(float f);

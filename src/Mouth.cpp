@@ -51,6 +51,5 @@ void Mouth::draw(TFT_eSPI *spi, DrawContext *ctx)
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
   int x = this->x - w / 2;
   int y = this->y - h / 2 + breath * 2;
-  Serial.printf("Mouth::draw(%d, %d, %d, %d)\n", x, y, w, h);
   _drawRect(spi, x, y, w, h);
 }
