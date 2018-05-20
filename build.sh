@@ -1,1 +1,1 @@
-zip -r dist/m5stack-avator.zip m5stack-avator 
+zip -r dist/m5stack-avatar.zip m5stack-avatar 

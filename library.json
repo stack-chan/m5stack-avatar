@@ -1,10 +1,10 @@
 {
-  "name": "M5Stack-Avator",
-  "keywords": "avator, lcd, cute",
-  "description": "Yet another avator module for M5Stack",
+  "name": "M5Stack-Avatar",
+  "keywords": "avatar, lcd, cute",
+  "description": "Yet another avatar module for M5Stack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meganetaaan/m5stack-avator.git"
+    "url": "https://github.com/meganetaaan/m5stack-avatar.git"
   },
   "authors": [
     {

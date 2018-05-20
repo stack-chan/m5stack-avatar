@@ -1,9 +1,9 @@
-# M5Stack-Avator
+# M5Stack-Avatar
 
-![avator](docs/image/avator.gif)
+![avatar](docs/image/avatar.gif)
 
 Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
 ## Usage
 
-See `src/avator.ino`
+See `src/avatar.ino`

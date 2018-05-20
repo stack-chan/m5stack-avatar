@@ -3,7 +3,7 @@
 ## face drawing
 
 * drawing are cascaded
- * Avator
+ * Avatar
   * EyeR
   * EyeL
   * Mouth
