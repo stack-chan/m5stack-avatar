@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #pragma once
-#include "Sprite.h"
+#include <M5Stack.h> // TODO: include only the Sprite function not a whole library
 #include "Mouth.h"
 #include "Eye.h"
 #include "Eyeblow.h"
