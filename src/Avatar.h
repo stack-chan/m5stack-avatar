@@ -15,7 +15,7 @@ class Avatar
     float gazeH;
     // TODO: below are not of face rather avatar
     float breath;
-    bool isDrawing;
+    bool _isDrawing;
   public:
     Avatar();
     Avatar(Face* face);
@@ -28,6 +28,7 @@ class Avatar
     void setExpression(Expression exp);
     void drawBalloon(TFT_eSPI *spi); // Experimental
     void draw(void);
+    bool isDrawing();
     void start();
     void stop();
     // TODO
@@ -47,5 +48,4 @@ public:
   DriveContext(Avatar *avatar);
   ~DriveContext(){};
   Avatar *getAvatar();
-  bool isDrawing();
 };

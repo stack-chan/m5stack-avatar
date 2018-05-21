@@ -38,7 +38,7 @@ void drawLoop(void *args)
   int count = 0;
   for (;;)
   {
-    // TODO define lipsync as another task
+    // TODO: define lipsync as another task
     int level = TTS.getLevel();
     float f = level / 12000.0;
     float open = min(1.0, f);
@@ -46,12 +46,14 @@ void drawLoop(void *args)
     // float f0 = ((count % 360) / 180.0) * PI;
     // float open = (sin(f0) + 1.0) / 2.0;
     avatar->getFace()->setMouthOpen(open);
-    if (ctx->isDrawing())
+    if (avatar->isDrawing())
     {
+      delay(1); // XXX: draw process is ignored without this line
       avatar->draw();
     }
     delay(33);
   }
+
 }
 
 void saccade(void *args)
@@ -87,6 +89,7 @@ Avatar::Avatar()
 Avatar::Avatar(Face *face)
 {
   this->face = face;
+  _isDrawing = true;
   expression = Neutral;
   breath = 0.0;
 }
@@ -146,12 +149,12 @@ void Avatar::init()
 
 void Avatar::stop()
 {
-  isDrawing = false;
+  _isDrawing = false;
 }
 
 void Avatar::start()
 {
-  isDrawing = true;
+  _isDrawing = true;
 }
 
 void Avatar::draw()
@@ -159,6 +162,11 @@ void Avatar::draw()
   DrawContext* ctx = new DrawContext(this->expression, this->breath);
   face->draw(ctx);
   delete ctx;
+}
+
+bool Avatar::isDrawing()
+{
+  return _isDrawing;
 }
 
 void Avatar::setExpression(Expression expression)
