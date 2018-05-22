@@ -4,8 +4,9 @@
 #pragma once
 #include "Face.h"
 #include <AquesTalkTTS.h> // TODO
-using namespace m5avatar;
 
+namespace m5avatar
+{
 class Avatar
 {
   private:
@@ -49,3 +50,5 @@ public:
   ~DriveContext(){};
   Avatar *getAvatar();
 };
+
+}

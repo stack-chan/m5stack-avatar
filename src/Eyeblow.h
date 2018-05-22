@@ -3,8 +3,9 @@
 
 #include <utility/In_eSPI.h>
 #include "DrawContext.h"
-using namespace m5avatar;
 
+namespace m5avatar
+{
 class EyeblowInterface
 {
 public:
@@ -30,3 +31,4 @@ public:
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
 
+}

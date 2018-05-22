@@ -4,8 +4,9 @@
 #pragma once
 #include "DrawContext.h"
 #include <utility/In_eSPI.h>
-using namespace m5avatar;
 
+namespace m5avatar
+{
 class MouthInterface
 {
 public:
@@ -39,3 +40,5 @@ public:
   void setOpenRatio(float ratio);
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
+
+}

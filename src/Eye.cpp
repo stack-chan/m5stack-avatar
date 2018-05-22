@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "Eye.h"
+using namespace m5avatar;
 
 Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 {

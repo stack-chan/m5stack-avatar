@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "Eyeblow.h"
+using namespace m5avatar;
 
 Eyeblow::Eyeblow(int x, int y, int w, int h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 {

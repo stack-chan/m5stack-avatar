@@ -3,8 +3,9 @@
 
 #include <utility/In_eSPI.h>
 #include "DrawContext.h"
-using namespace m5avatar;
 
+namespace m5avatar
+{
 class EyeInterface
 {
 public:
@@ -37,4 +38,5 @@ public:
   void setOffset(int offsetX, int offsetY);
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
-
+  
+}
