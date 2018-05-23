@@ -71,10 +71,9 @@ void drawBalloon(TFT_eSPI *spi)
 {
   spi->fillEllipse(280, 220, 60, 40, PRIMARY_COLOR);
   spi->fillTriangle(220, 180, 270, 210, 240, 210, PRIMARY_COLOR);
-  // spi->setTextSize(2);
-  // spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
-  // spi->setCursor(240, 200);
-  // spi->printf("test");
+  spi->setTextSize(2);
+  spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
+  spi->drawString("test", 240, 200, 2); // Continue printing from new x position
 }
 
 void Face::draw(DrawContext *ctx)
@@ -89,6 +88,7 @@ void Face::draw(DrawContext *ctx)
   eyeL->draw(sprite, ctx);
   eyeblowR->draw(sprite, ctx);
   eyeblowL->draw(sprite, ctx);
+  drawBalloon(sprite);
   sprite->pushSprite(0, 0);
   sprite->deleteSprite();
 }
