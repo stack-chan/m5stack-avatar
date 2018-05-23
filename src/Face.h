@@ -12,18 +12,20 @@ namespace m5avatar
 
 class Face
 {
-protected:
+private:
   MouthInterface *mouth;
   EyeInterface *eyeR;
   EyeInterface *eyeL;
   EyeblowInterface *eyeblowR;
   EyeblowInterface *eyeblowL;
   TFT_eSprite *sprite;
-  DrawContext drawContext;
 
 public:
   // constructor
-  Face(void);
+  Face();
+  ~Face() = default;
+  Face(const Face &other) = default;
+  Face &operator=(const Face &other) = default;
 
   // TODO: getter
   void openMouth(int percent);  // deprecated

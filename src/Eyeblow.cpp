@@ -2,22 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "Eyeblow.h"
+using namespace m5avatar;
 
-Eyeblow::Eyeblow(int x, int y, int w, int h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
-{
-  this->x = x;
-  this->y = y;
-  this->width = w;
-  this->height = h;
-  this->isLeft = isLeft;
-  this->primaryColor = primaryColor;
-  this->secondaryColor = secondaryColor;
-}
-
-Eyeblow::~Eyeblow()
-{
-
-}
+Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
+: x{x}, y{y}, width{width}, height{height}, isLeft{isLeft}, primaryColor{primaryColor}, secondaryColor{secondaryColor}
+{}
 
 void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)
 {

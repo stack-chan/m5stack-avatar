@@ -8,9 +8,8 @@ using namespace m5avatar;
 
 // TODO: make read-only
 DriveContext::DriveContext(Avatar *avatar)
-{
-  this->avatar = avatar;
-}
+: avatar{avatar}
+{}
 
 Avatar* DriveContext::getAvatar()
 {
@@ -48,7 +47,6 @@ void drawLoop(void *args)
     avatar->getFace()->setMouthOpen(open);
     if (avatar->isDrawing())
     {
-      delay(1); // XXX: draw process is ignored without this line
       avatar->draw();
     }
     delay(33);
@@ -81,23 +79,18 @@ void blink(void *args)
 }
 
 Avatar::Avatar()
-{
-  this->face = new Face();
-  Avatar(*face);
-}
+: face{new Face()},
+  _isDrawing{true},
+  expression{Neutral},
+  breath{0}
+{}
 
 Avatar::Avatar(Face *face)
-{
-  this->face = face;
-  _isDrawing = true;
-  expression = Neutral;
-  breath = 0.0;
-}
-
-Avatar::~Avatar()
-{
-  // TODO: release tasks
-}
+: face{face},
+  _isDrawing{true},
+  expression{Neutral},
+  breath{0}
+{}
 
 void Avatar::setFace(Face *face)
 {

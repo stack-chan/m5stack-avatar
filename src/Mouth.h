@@ -4,38 +4,41 @@
 #pragma once
 #include "DrawContext.h"
 #include <utility/In_eSPI.h>
-using namespace m5avatar;
 
+namespace m5avatar
+{
 class MouthInterface
 {
 public:
-  virtual ~MouthInterface() {}
+  virtual ~MouthInterface() = default;
   virtual void setOpenRatio(float ratio) = 0;
   virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
 };
-class Mouth : public MouthInterface
+class Mouth final : public MouthInterface
 {
 private:
-  int x;
-  int y;
-  int minWidth;
-  int maxWidth;
-  int minHeight;
-  int maxHeight;
+  uint16_t x;
+  uint16_t y;
+  uint16_t minWidth;
+  uint16_t maxWidth;
+  uint16_t minHeight;
+  uint16_t maxHeight;
   float openRatio;
   uint32_t primaryColor;
   uint32_t secondaryColor;
-  void _drawRect(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
-  void _drawCircle(TFT_eSPI *spi, int x0, int y0, int x1, int y1);
-  void _drawTriangle(TFT_eSPI *spi, int x0, int y0, int x1, int y1, int x2, int y2);
 
 public:
   // constructor
-  Mouth();
-  Mouth(int x, int y,
-        int minWidth, int maxWidth,
-        int minHeight, int maxHeight,
+  Mouth() = delete;
+  ~Mouth() = default;
+  Mouth(const Mouth &other) = default;
+  Mouth &operator=(const Mouth &other) = default;
+  Mouth(uint16_t x, uint16_t y,
+        uint16_t minWidth, uint16_t maxWidth,
+        uint16_t minHeight, uint16_t maxHeight,
         uint32_t primaryColor, uint32_t secondaryColor);
   void setOpenRatio(float ratio);
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
+
+}
