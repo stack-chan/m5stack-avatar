@@ -17,14 +17,19 @@ Face::Face()
   sprite {new TFT_eSprite(&M5.Lcd)}
 {} 
 
+Face::~Face()
+{
+  delete mouth;
+  delete eyeR;
+  delete eyeL;
+  delete eyeblowR;
+  delete eyeblowL;
+  delete sprite;
+}
+
 void Face::setMouthOpen(float f)
 {
   mouth->setOpenRatio(f);
-}
-
-void Face::setEyeOpen(float f)
-{
-  setEyesOpen(f);
 }
 
 void Face::setEyesOpen(float f)
