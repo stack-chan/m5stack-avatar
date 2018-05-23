@@ -9,7 +9,6 @@ namespace m5avatar
 class EyeblowInterface
 {
 public:
-  virtual ~EyeblowInterface() = default;
   virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
 };
 

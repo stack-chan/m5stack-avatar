@@ -9,7 +9,6 @@ namespace m5avatar
 class EyeInterface
 {
 public:
-  virtual ~EyeInterface() = default;
   virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
   virtual void setOpenRatio(float ratio) = 0;
   virtual void setOffset(int offsetX, int offsetY) = 0;

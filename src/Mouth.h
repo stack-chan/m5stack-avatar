@@ -10,7 +10,6 @@ namespace m5avatar
 class MouthInterface
 {
 public:
-  virtual ~MouthInterface() = default;
   virtual void setOpenRatio(float ratio) = 0;
   virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
 };

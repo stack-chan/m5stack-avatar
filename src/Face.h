@@ -23,13 +23,10 @@ private:
 public:
   // constructor
   Face();
-  ~Face() = default;
+  ~Face();
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;
 
-  // TODO: getter
-  void openMouth(int percent);  // deprecated
-  void openEye(boolean isOpen); // deprecated
   EyeInterface *getLeftEye();
   EyeInterface *getRightEye();
   MouthInterface *getMouth();
@@ -40,7 +37,6 @@ public:
   void setRightEyeblow();
 
   void setMouthOpen(float f);
-  void setEyeOpen(float f); // deprecated
   void setEyesOpen(float f);
   void draw(DrawContext *ctx);
 };
