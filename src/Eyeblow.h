@@ -30,7 +30,7 @@ public:
   ~Eyeblow() = default;
   Eyeblow(const Eyeblow &other) = default;
   Eyeblow &operator=(const Eyeblow &other) = default;
-  void draw(TFT_eSPI *spi, DrawContext *drawContext);
+  void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
 };
 
 }

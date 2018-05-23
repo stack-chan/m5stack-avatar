@@ -34,9 +34,9 @@ public:
   ~Eye() = default;
   Eye(const Eye &other) = default;
   Eye &operator=(const Eye &other) = default;
-  void setOpenRatio(float ratio);
-  void setOffset(int32_t offsetX, int32_t offsetY);
-  void draw(TFT_eSPI *spi, DrawContext *drawContext);
+  void setOpenRatio(float ratio) override;
+  void setOffset(int32_t offsetX, int32_t offsetY) override;
+  void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
 };
   
 }

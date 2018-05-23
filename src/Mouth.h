@@ -36,8 +36,8 @@ public:
         uint16_t minWidth, uint16_t maxWidth,
         uint16_t minHeight, uint16_t maxHeight,
         uint32_t primaryColor, uint32_t secondaryColor);
-  void setOpenRatio(float ratio);
-  void draw(TFT_eSPI *spi, DrawContext *drawContext);
+  void setOpenRatio(float ratio) override;
+  void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
 };
 
 }
