@@ -4,33 +4,9 @@
 #include "Eye.h"
 using namespace m5avatar;
 
-Eye::Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
-{
-  this->openRatio = 1;
-  this->x = x;
-  this->y = y;
-  this->r = r;
-  this->isLeft = isLeft;
-  this->offsetX = 0;
-  this->offsetY = 0;
-  this->primaryColor = primaryColor;
-  this->secondaryColor = secondaryColor;
-}
-
-Eye::~Eye()
-{
-
-}
-
-void Eye::drawCircle(TFT_eSPI *spi, int x, int y, int r)
-{
-  spi->fillCircle(x, y, r, primaryColor);
-}
-
-void Eye::drawRect(TFT_eSPI *spi, int x, int y, int w, int h)
-{
-  spi->fillRect(x, y, w, h, primaryColor);
-}
+Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
+: x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, primaryColor{primaryColor}, secondaryColor{secondaryColor}, openRatio{1}
+{}
 
 void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
@@ -38,7 +14,7 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
   float breath = min(1.0, ctx->getBreath());
   if (openRatio > 0)
   {
-    drawCircle(spi, x + offsetX, y + offsetY + breath * 3, r);
+    spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r, primaryColor);
     // TODO: Refactor
     if (exp == Angry || exp == Sad)
     {
@@ -72,7 +48,7 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
     int y1 = y - 2 + offsetY + breath * 1;
     int w = r * 2;
     int h = 4;
-    drawRect(spi, x1, y1, w, h);
+    spi->fillRect(x1, y1, w, h, primaryColor);
   }
 }
 

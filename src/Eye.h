@@ -15,27 +15,28 @@ public:
   virtual void setOffset(int offsetX, int offsetY) = 0;
 };
 
-class Eye : public EyeInterface
+class Eye final : public EyeInterface
 {
 private:
-  int x;
-  int y;
-  int r;
+  uint16_t x;
+  uint16_t y;
+  uint16_t r;
+  int32_t offsetX;
+  int32_t offsetY;
   bool isLeft;
-  int offsetX;
-  int offsetY;
   float openRatio;
   uint32_t primaryColor;
   uint32_t secondaryColor;
-  void drawCircle(TFT_eSPI *spi, int x, int y, int r);
-  void drawRect(TFT_eSPI *spi, int x, int y, int w, int h);
 
 public:
   // constructor
-  Eye(int x, int y, int r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
-  ~Eye();
+  Eye() = delete;
+  Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
+  ~Eye() = default;
+  Eye(const Eye &other) = default;
+  Eye &operator=(const Eye &other) = default;
   void setOpenRatio(float ratio);
-  void setOffset(int offsetX, int offsetY);
+  void setOffset(int32_t offsetX, int32_t offsetY);
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
   

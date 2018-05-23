@@ -9,14 +9,13 @@
 using namespace m5avatar;
 
 Face::Face()
-{
-  this->mouth = new Mouth(163, 148, 50, 90, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeR = new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeL = new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeblowR = new Eyeblow(90, 67, 32, 0, false, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->eyeblowL = new Eyeblow(230, 72, 32, 0, true, PRIMARY_COLOR, SECONDARY_COLOR);
-  this->sprite = new TFT_eSprite(&M5.Lcd);
-}
+: mouth {new Mouth(163, 148, 50, 90, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR)},
+  eyeR {new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR)},
+  eyeL {new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+  eyeblowR {new Eyeblow(90, 67, 32, 0, false, PRIMARY_COLOR, SECONDARY_COLOR)},
+  eyeblowL {new Eyeblow(230, 72, 32, 0, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+  sprite {new TFT_eSprite(&M5.Lcd)}
+{} 
 
 void Face::setMouthOpen(float f)
 {
@@ -88,7 +87,7 @@ void Face::draw(DrawContext *ctx)
   eyeL->draw(sprite, ctx);
   eyeblowR->draw(sprite, ctx);
   eyeblowL->draw(sprite, ctx);
-  drawBalloon(sprite);
+  // drawBalloon(sprite);
   sprite->pushSprite(0, 0);
   sprite->deleteSprite();
 }

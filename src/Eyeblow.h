@@ -13,21 +13,24 @@ public:
   virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
 };
 
-class Eyeblow : public EyeblowInterface
+class Eyeblow final : public EyeblowInterface
 {
 private:
-  int x;
-  int y;
-  int width;
-  int height;
+  uint16_t x;
+  uint16_t y;
+  uint16_t width;
+  uint16_t height;
   bool isLeft;
   uint32_t primaryColor;
   uint32_t secondaryColor;
 
 public:
   // constructor
-  Eyeblow(int x, int y, int w, int h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
-  ~Eyeblow();
+  Eyeblow() = delete;
+  Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
+  ~Eyeblow() = default;
+  Eyeblow(const Eyeblow &other) = default;
+  Eyeblow &operator=(const Eyeblow &other) = default;
   void draw(TFT_eSPI *spi, DrawContext *drawContext);
 };
 

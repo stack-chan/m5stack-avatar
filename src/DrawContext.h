@@ -13,8 +13,11 @@ private:
   float breath;
 
 public:
-  DrawContext(void);
+  DrawContext() = delete;
   DrawContext(Expression expression, float breath);
+  ~DrawContext() = default;
+  DrawContext(const DrawContext &other) = delete;
+  DrawContext &operator=(const DrawContext &other) = delete;
   Expression getExpression();
   float getBreath();
 };

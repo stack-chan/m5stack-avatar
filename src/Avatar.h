@@ -20,7 +20,9 @@ class Avatar
   public:
     Avatar();
     Avatar(Face* face);
-    ~Avatar();
+    ~Avatar() = default;
+    Avatar(const Avatar &other) = default;
+    Avatar &operator=(const Avatar &other) = default;
     Face* getFace();
     void setFace(Face *face);
     void init(void);
@@ -43,11 +45,13 @@ private:
   Avatar *avatar;
   // Use wrapper class for voice engine
   AquesTalkTTS *TTS;
-  bool _isDrawing;
 
 public:
+  DriveContext() = delete;
   DriveContext(Avatar *avatar);
-  ~DriveContext(){};
+  ~DriveContext() = default;
+  DriveContext(const DriveContext &other) = delete;
+  DriveContext &operator=(const DriveContext &other) = delete;
   Avatar *getAvatar();
 };
 

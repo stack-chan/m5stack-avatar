@@ -2,6 +2,7 @@
 #include "Avatar.h"
 #include "const.h"
 #include <AquesTalkTTS.h>
+#include "parts/CatFace.h"
 
 using namespace m5avatar;
 #define PRIMARY_COLOR WHITE
@@ -9,25 +10,32 @@ using namespace m5avatar;
 
 class MyFace : public Face
 {
-public:
-  MyFace()
-  {
-    this->mouth = new Mouth(163, 160, 55, 60, 4, 20, PRIMARY_COLOR, SECONDARY_COLOR);
-    this->eyeR = new Eye(90, 93, 14, false, PRIMARY_COLOR, SECONDARY_COLOR);
-    this->eyeL = new Eye(230, 96, 14, true, PRIMARY_COLOR, SECONDARY_COLOR);
-    this->eyeblowR = new Eyeblow(90, 67, 32, 6, false, PRIMARY_COLOR, SECONDARY_COLOR);
-    this->eyeblowL = new Eyeblow(230, 72, 32, 6, true, PRIMARY_COLOR, SECONDARY_COLOR);
-    this->sprite = new TFT_eSprite(&M5.Lcd);
-  }
+  private:
+    MouthInterface *mouth;
+    EyeInterface *eyeR;
+    EyeInterface *eyeL;
+    EyeblowInterface *eyeblowR;
+    EyeblowInterface *eyeblowL;
+    TFT_eSprite *sprite;
+  public:
+    MyFace()
+    : mouth {new Mouth(163, 148, 55, 60, 4, 20, PRIMARY_COLOR, SECONDARY_COLOR)},
+      eyeR {new Eye(90, 93, 14, false, PRIMARY_COLOR, SECONDARY_COLOR)},
+      eyeL {new Eye(230, 96, 14, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+      eyeblowR {new Eyeblow(90, 67, 32, 6, false, PRIMARY_COLOR, SECONDARY_COLOR)},
+      eyeblowL {new Eyeblow(230, 72, 32, 6, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+      sprite {new TFT_eSprite(&M5.Lcd)}
+    {}
 };
 
 Avatar *avatar;
 Face *face1;
 Face *face2;
+// Face *face3;
 EyeInterface *eyeL;
 EyeInterface *eyeR;
 const Expression expressions[] = {Angry, Sleepy, Happy, Sad, Neutral};
-Face* faces[2];
+Face* faces[3];
 int faceIdx = 0;
 const int facesSize = sizeof(faces) / sizeof(Face*);
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
@@ -44,10 +52,12 @@ void setup()
   avatar = new Avatar();
   // avatar->getFace()->setRightEye(eyeR);
   // avatar->getFace()->setLeftEye(eyeL);
-  face1 = new MyFace();
-  face2 = avatar->getFace();
-  faces[0] = face1;
-  faces[1] = face2;
+  // face1 = new MyFace();
+  // face2 = avatar->getFace();
+  // face3 = new CatFace();
+  // faces[0] = face1;
+  // faces[1] = face2;
+  // faces[2] = face3;
   avatar->init();
 }
 
