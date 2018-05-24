@@ -26,3 +26,10 @@
   * setGaze
  * Renderer
   * draw
+
+### tasks
+
+* removeTask(task)
+* addTask(task)
+
+task...FreeRTOS like I/F
