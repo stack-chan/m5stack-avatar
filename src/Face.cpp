@@ -6,7 +6,8 @@
 
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
-using namespace m5avatar;
+
+namespace m5avatar {
 
 Face::Face()
 : mouth {new Mouth(163, 148, 50, 90, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR)},
@@ -95,4 +96,6 @@ void Face::draw(DrawContext *ctx)
   // drawBalloon(sprite);
   sprite->pushSprite(0, 0);
   sprite->deleteSprite();
+}
+  
 }

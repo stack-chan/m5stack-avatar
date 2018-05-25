@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "Eyeblow.h"
-using namespace m5avatar;
+namespace m5avatar {
 
 Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 : x{x}, y{y}, width{width}, height{height}, isLeft{isLeft}, primaryColor{primaryColor}, secondaryColor{secondaryColor}
@@ -43,4 +43,6 @@ void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)
     }
     spi->fillRect(x1, y1, width, height, primaryColor);
   }
+}
+
 }

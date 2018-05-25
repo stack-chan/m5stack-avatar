@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "DrawContext.h"
-using namespace m5avatar;
+namespace m5avatar {
 
 // DrawContext
 DrawContext::DrawContext(Expression expression, float breath)
@@ -17,4 +17,6 @@ Expression DrawContext::getExpression()
 float DrawContext::getBreath()
 {
   return breath;
+}
+
 }

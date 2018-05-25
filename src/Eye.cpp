@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "Eye.h"
-using namespace m5avatar;
+namespace m5avatar {
 
 Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
 : x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, primaryColor{primaryColor}, secondaryColor{secondaryColor}, openRatio{1}
@@ -61,4 +61,6 @@ void Eye::setOffset(int offsetX, int offsetY)
 {
   this->offsetX = offsetX;
   this->offsetY = offsetY;
+}
+
 }

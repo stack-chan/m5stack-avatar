@@ -4,7 +4,7 @@
 // TODO make TTS not global
 #include <AquesTalkTTS.h>
 #include "Avatar.h"
-using namespace m5avatar;
+namespace m5avatar {
 
 // TODO: make read-only
 DriveContext::DriveContext(Avatar *avatar)
@@ -180,4 +180,6 @@ void Avatar::setGaze(float vertical, float horizontal)
   int h = floor(4 * horizontal);
   face->getLeftEye()->setOffset(v, h);
   face->getRightEye()->setOffset(v, h);
+}
+
 }
