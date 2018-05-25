@@ -18,7 +18,7 @@ public:
   ~DrawContext() = default;
   DrawContext(const DrawContext &other) = delete;
   DrawContext &operator=(const DrawContext &other) = delete;
-  Expression getExpression();
-  float getBreath();
+  const Expression getExpression();
+  const float getBreath();
 };
 }
