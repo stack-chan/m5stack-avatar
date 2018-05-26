@@ -34,7 +34,7 @@ Face *face2;
 // Face *face3;
 EyeInterface *eyeL;
 EyeInterface *eyeR;
-const Expression expressions[] = {Angry, Sleepy, Happy, Sad, Neutral};
+const Expression expressions[] = {Expression::Angry, Expression::Sleepy, Expression::Happy, Expression::Sad, Expression::Neutral};
 Face* faces[3];
 int faceIdx = 0;
 const int facesSize = sizeof(faces) / sizeof(Face*);

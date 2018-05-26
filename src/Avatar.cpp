@@ -81,14 +81,14 @@ void blink(void *args)
 Avatar::Avatar()
 : face{new Face()},
   _isDrawing{true},
-  expression{Neutral},
+  expression{Expression::Neutral},
   breath{0}
 {}
 
 Avatar::Avatar(Face *face)
 : face{face},
   _isDrawing{true},
-  expression{Neutral},
+  expression{Expression::Neutral},
   breath{0}
 {}
 

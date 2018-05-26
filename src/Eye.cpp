@@ -16,25 +16,25 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
   {
     spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r, primaryColor);
     // TODO: Refactor
-    if (exp == Angry || exp == Sad)
+    if (exp == Expression::Angry || exp == Expression::Sad)
     {
       int x0, y0, x1, y1, x2, y2;
       x0 = x + offsetX - r;
       y0 = y + offsetY - r + breath * 3;
       x1 = x0 + r * 2;
       y1 = y0;
-      x2 = !isLeft != !(exp == Sad) ? x0 : x1;
+      x2 = !isLeft != !(exp == Expression::Sad) ? x0 : x1;
       y2 = y0 + r;
       spi->fillTriangle(x0, y0, x1, y1, x2, y2, secondaryColor);
     }
-    if (exp == Happy || exp == Sleepy)
+    if (exp == Expression::Happy || exp == Expression::Sleepy)
     {
       int x0, y0, w, h;
       x0 = x + offsetX - r;
       y0 = y + offsetY - r + breath * 3;
       w = r * 2 + 4;
       h = r + 2;
-      if (exp == Happy)
+      if (exp == Expression::Happy)
       {
         y0 += r;
         spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, secondaryColor);

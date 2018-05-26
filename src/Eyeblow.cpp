@@ -16,10 +16,10 @@ void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)
     return;
   }
   // draw two triangles to make rectangle
-  if (exp == Angry || exp == Sad)
+  if (exp == Expression::Angry || exp == Expression::Sad)
   {
     int x1, y1, x2, y2, x3, y3, x4, y4;
-    int a = isLeft ^ exp == Sad ? -1 : 1;
+    int a = isLeft ^ exp == Expression::Sad ? -1 : 1;
     int dx = a * 3;
     int dy = a * 5;
     x1 = x - width / 2;
@@ -37,7 +37,7 @@ void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)
   {
     int x1 = x - width / 2;
     int y1 = y - height / 2;
-    if (exp == Happy)
+    if (exp == Expression::Happy)
     {
       y1 = y1 - 5;
     }

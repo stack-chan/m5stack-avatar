@@ -9,12 +9,12 @@ DrawContext::DrawContext(Expression expression, float breath)
 : expression{expression}, breath{breath}
 {}
 
-Expression DrawContext::getExpression()
+const Expression DrawContext::getExpression()
 {
   return expression;
 }
 
-float DrawContext::getBreath()
+const float DrawContext::getBreath()
 {
   return breath;
 }

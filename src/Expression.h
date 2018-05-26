@@ -3,7 +3,7 @@
 
 namespace m5avatar
 {
-enum Expression
+enum class Expression
 {
   Happy,
   Angry,
