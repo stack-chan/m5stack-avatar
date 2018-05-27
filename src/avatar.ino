@@ -17,6 +17,7 @@ class MyFace : public Face
     EyeblowInterface *eyeblowR;
     EyeblowInterface *eyeblowL;
     TFT_eSprite *sprite;
+    BoundingRect *boundingRect;
   public:
     MyFace()
     : mouth {new Mouth(163, 148, 55, 60, 4, 20, PRIMARY_COLOR, SECONDARY_COLOR)},
@@ -24,7 +25,8 @@ class MyFace : public Face
       eyeL {new Eye(230, 96, 14, true, PRIMARY_COLOR, SECONDARY_COLOR)},
       eyeblowR {new Eyeblow(90, 67, 32, 6, false, PRIMARY_COLOR, SECONDARY_COLOR)},
       eyeblowL {new Eyeblow(230, 72, 32, 6, true, PRIMARY_COLOR, SECONDARY_COLOR)},
-      sprite {new TFT_eSprite(&M5.Lcd)}
+      sprite {new TFT_eSprite(&M5.Lcd)},
+      boundingRect{new BoundingRect(0, 0, M5.Lcd.width(), M5.Lcd.height())}
     {}
 };
 
@@ -32,10 +34,8 @@ Avatar *avatar;
 Face *face1;
 Face *face2;
 // Face *face3;
-EyeInterface *eyeL;
-EyeInterface *eyeR;
 const Expression expressions[] = {Expression::Angry, Expression::Sleepy, Expression::Happy, Expression::Sad, Expression::Neutral};
-Face* faces[3];
+Face* faces[2];
 int faceIdx = 0;
 const int facesSize = sizeof(faces) / sizeof(Face*);
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
@@ -50,13 +50,11 @@ void setup()
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
-  // avatar->getFace()->setRightEye(eyeR);
-  // avatar->getFace()->setLeftEye(eyeL);
-  // face1 = new MyFace();
-  // face2 = avatar->getFace();
+  face1 = new MyFace();
+  face2 = avatar->getFace();
   // face3 = new CatFace();
-  // faces[0] = face1;
-  // faces[1] = face2;
+  faces[0] = face1;
+  faces[1] = face2;
   // faces[2] = face3;
   avatar->init();
 }
@@ -66,7 +64,7 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    Serial.printf("face[%d]: %p", faceIdx, faces[faceIdx]);
+    Serial.printf("face[%d]: %p\n", faceIdx, faces[faceIdx]);
 
     Serial.printf("setFace...");
     avatar->setFace(faces[faceIdx]);
@@ -83,11 +81,14 @@ void loop()
     delay(200);
     if (isShowingQR)
     {
+      avatar->stop();
+      delay(200);
       M5.Lcd.setBrightness(10);
       M5.Lcd.qrcode("https://twitter.com/meganetaaan");
     }
     else
     {
+      avatar->start();
       M5.Lcd.setBrightness(30);
     }
   }
