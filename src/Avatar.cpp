@@ -5,6 +5,7 @@
 #include <AquesTalkTTS.h>
 #include "Avatar.h"
 namespace m5avatar {
+  const uint32_t DEFAULT_STACK_SIZE = 4096;
 
 // TODO: make read-only
 DriveContext::DriveContext(Avatar *avatar)
@@ -33,18 +34,9 @@ void drawLoop(void *args)
 {
   DriveContext *ctx = (DriveContext *)args;
   Avatar *avatar = ctx->getAvatar();
-  float last = 0;
   int count = 0;
   for (;;)
   {
-    // TODO: define lipsync as another task
-    int level = TTS.getLevel();
-    float f = level / 12000.0;
-    float open = min(1.0, f);
-    // count += 3;
-    // float f0 = ((count % 360) / 180.0) * PI;
-    // float open = (sin(f0) + 1.0) / 2.0;
-    avatar->getFace()->setMouthOpen(open);
     if (avatar->isDrawing())
     {
       avatar->draw();
@@ -100,6 +92,21 @@ void Avatar::setFace(Face *face)
 Face* Avatar::getFace()
 {
   return face;
+}
+
+void Avatar::addTask(TaskFunction_t f, std::string name)
+{
+  DriveContext *ctx = new DriveContext(this);
+  const char * c = name.c_str();
+  // TODO: set a task handler
+  xTaskCreatePinnedToCore(
+      f,   /* Function to implement the task */
+      c, /* Name of the task */
+      DEFAULT_STACK_SIZE,       /* Stack size in words */
+      ctx,       /* Task input parameter */
+      1,          /* Priority of the task */
+      NULL,       /* Task handle. */
+      1);         /* Core where the task should run */
 }
 
 void Avatar::init()

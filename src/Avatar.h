@@ -4,6 +4,7 @@
 #pragma once
 #include "Face.h"
 #include <AquesTalkTTS.h> // TODO
+#include "ColorPalette.h"
 
 namespace m5avatar
 {
@@ -17,6 +18,7 @@ class Avatar
     // TODO: below are not of face rather avatar
     float breath;
     bool _isDrawing;
+    ColorPalette palette;
   public:
     Avatar();
     Avatar(Face* face);
@@ -34,8 +36,7 @@ class Avatar
     bool isDrawing();
     void start();
     void stop();
-    // TODO
-    // void addTask(Task task);
+    void addTask(TaskFunction_t f, std::string name);
 };
 
 class DriveContext
