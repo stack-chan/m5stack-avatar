@@ -3,6 +3,7 @@
 #include "const.h"
 #include <AquesTalkTTS.h>
 #include "parts/CatFace.h"
+#include "tasks/LipSync.h"
 
 using namespace m5avatar;
 #define PRIMARY_COLOR WHITE
@@ -59,6 +60,7 @@ void setup()
   // faces[1] = face2;
   // faces[2] = face3;
   avatar->init();
+  avatar->addTask(lipSync, "lipSync");
 }
 
 void loop()
