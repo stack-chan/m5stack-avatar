@@ -83,7 +83,7 @@ void drawBalloon(TFT_eSPI *spi)
 
 void Face::draw(DrawContext *ctx)
 {
-  sprite->setColorDepth(1);
+  sprite->setColorDepth(8);
   sprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
   sprite->createSprite(320, 240);
   sprite->fillSprite(SECONDARY_COLOR);
