@@ -20,13 +20,11 @@ private:
   uint16_t width;
   uint16_t height;
   bool isLeft;
-  uint32_t primaryColor;
-  uint32_t secondaryColor;
 
 public:
   // constructor
   Eyeblow() = delete;
-  Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor);
+  Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft);
   ~Eyeblow() = default;
   Eyeblow(const Eyeblow &other) = default;
   Eyeblow &operator=(const Eyeblow &other) = default;

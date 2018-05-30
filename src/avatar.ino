@@ -20,11 +20,11 @@ class MyFace : public Face
     TFT_eSprite *sprite;
   public:
     MyFace()
-    : mouth {new Mouth(163, 148, 55, 60, 4, 20, PRIMARY_COLOR, SECONDARY_COLOR)},
-      eyeR {new Eye(90, 93, 14, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-      eyeL {new Eye(230, 96, 14, true, PRIMARY_COLOR, SECONDARY_COLOR)},
-      eyeblowR {new Eyeblow(90, 67, 32, 6, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-      eyeblowL {new Eyeblow(230, 72, 32, 6, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+    : mouth {new Mouth(163, 148, 55, 60, 4, 20)},
+      eyeR {new Eye(90, 93, 14, false)},
+      eyeL {new Eye(230, 96, 14, true)},
+      eyeblowR {new Eyeblow(90, 67, 32, 6, false)},
+      eyeblowL {new Eyeblow(230, 72, 32, 6, true)},
       sprite {new TFT_eSprite(&M5.Lcd)}
     {}
 };

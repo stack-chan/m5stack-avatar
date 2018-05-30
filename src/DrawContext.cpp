@@ -19,4 +19,9 @@ const float DrawContext::getBreath()
   return breath;
 }
 
+ColorPalette DrawContext::getColorPalette()
+{
+  return palette;
+}
+
 }

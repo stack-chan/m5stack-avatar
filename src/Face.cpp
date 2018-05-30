@@ -10,11 +10,11 @@
 namespace m5avatar {
 
 Face::Face()
-: mouth {new Mouth(163, 148, 50, 90, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeR {new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeL {new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeblowR {new Eyeblow(90, 67, 32, 0, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeblowL {new Eyeblow(230, 72, 32, 0, true, PRIMARY_COLOR, SECONDARY_COLOR)},
+: mouth {new Mouth(163, 148, 50, 90, 4, 60)},
+  eyeR {new Eye(90, 93, 8, false)},
+  eyeL {new Eye(230, 96, 8, true)},
+  eyeblowR {new Eyeblow(90, 67, 32, 0, false)},
+  eyeblowL {new Eyeblow(230, 72, 32, 0, true)},
   sprite {new TFT_eSprite(&M5.Lcd)}
 {} 
 

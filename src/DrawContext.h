@@ -22,5 +22,6 @@ public:
   DrawContext &operator=(const DrawContext &other) = delete;
   const Expression getExpression();
   const float getBreath();
+  ColorPalette getColorPalette();
 };
 }

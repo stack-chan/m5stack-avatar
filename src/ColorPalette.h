@@ -4,10 +4,10 @@
 #pragma once
 #include <M5Stack.h>
 #include <map>
+#define COLOR_PRIMARY "primary"
+#define COLOR_SECONDARY "secondary"
 namespace m5avatar
 {
-  const std::string COLOR_PRIMARY = "primary";
-  const std::string COLOR_SECONDARY = "secondary";
   // enum class ColorType
   // {
   //   ONEBYTE,
