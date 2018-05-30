@@ -43,7 +43,6 @@ void drawLoop(void *args)
     }
     delay(33);
   }
-
 }
 
 void saccade(void *args)
@@ -104,7 +103,7 @@ void Avatar::addTask(TaskFunction_t f, std::string name)
       c, /* Name of the task */
       DEFAULT_STACK_SIZE,       /* Stack size in words */
       ctx,       /* Task input parameter */
-      1,          /* Priority of the task */
+      1,          /* P2014riority of the task */
       NULL,       /* Task handle. */
       1);         /* Core where the task should run */
 }
@@ -159,7 +158,7 @@ void Avatar::start()
 
 void Avatar::draw()
 {
-  DrawContext* ctx = new DrawContext(this->expression, this->breath);
+  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette);
   face->draw(ctx);
   delete ctx;
 }

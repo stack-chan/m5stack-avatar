@@ -11,7 +11,7 @@ Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft, uint32_t primaryColor,
 void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
   Expression exp = ctx->getExpression();
-  float breath = min(1.0, ctx->getBreath());
+  float breath = std::min(1.0f, ctx->getBreath());
   if (openRatio > 0)
   {
     spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r, primaryColor);

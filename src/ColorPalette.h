@@ -3,9 +3,11 @@
 
 #pragma once
 #include <M5Stack.h>
-
+#include <map>
 namespace m5avatar
 {
+  const std::string COLOR_PRIMARY = "primary";
+  const std::string COLOR_SECONDARY = "secondary";
   // enum class ColorType
   // {
   //   ONEBYTE,
@@ -19,7 +21,8 @@ namespace m5avatar
   {
     private:
     // ColorType colorType;
-    uint32_t colors[2];
+    // uint32_t colors[2];
+    std::map<std::string, uint32_t> colors;
 
     public:
     ColorPalette();
