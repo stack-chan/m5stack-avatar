@@ -6,6 +6,8 @@
 #include <map>
 #define COLOR_PRIMARY "primary"
 #define COLOR_SECONDARY "secondary"
+#define COLOR_BACKGROUND "background"
+
 namespace m5avatar
 {
   // enum class ColorType
@@ -30,8 +32,8 @@ namespace m5avatar
     ColorPalette(const ColorPalette &other) = default;
     ColorPalette &operator=(const ColorPalette &other) = default;
 
-    uint32_t get(std::string key) const;
-    void set(std::string key, uint32_t value);
+    uint32_t get(const char* key) const;
+    void set(const char* key, uint32_t value);
     void clear(void);
   };
 }

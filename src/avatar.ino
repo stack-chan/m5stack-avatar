@@ -9,21 +9,13 @@ using namespace m5avatar;
 
 class MyFace : public Face
 {
-  private:
-    MouthInterface *mouth;
-    EyeInterface *eyeR;
-    EyeInterface *eyeL;
-    EyeblowInterface *eyeblowR;
-    EyeblowInterface *eyeblowL;
-    TFT_eSprite *sprite;
   public:
     MyFace()
-    : mouth {new Mouth(163, 148, 55, 60, 4, 20)},
-      eyeR {new Eye(90, 93, 14, false)},
-      eyeL {new Eye(230, 96, 14, true)},
-      eyeblowR {new Eyeblow(90, 67, 32, 6, false)},
-      eyeblowL {new Eyeblow(230, 72, 32, 6, true)},
-      sprite {new TFT_eSprite(&M5.Lcd)}
+    : Face(new Mouth(163, 148, 55, 60, 4, 20),
+      new Eye(90, 93, 14, false),
+      new Eye(230, 96, 14, true),
+      new Eyeblow(90, 67, 32, 6, false),
+      new Eyeblow(230, 72, 32, 6, true))
     {}
 };
 
@@ -59,7 +51,7 @@ void setup()
   faces[1] = face2;
   // faces[2] = face3;
   cps[0]->set(COLOR_PRIMARY, TFT_YELLOW);
-  cps[0]->set(COLOR_SECONDARY, TFT_DARKCYAN);
+  cps[0]->set(COLOR_BACKGROUND, TFT_DARKCYAN);
 
   avatar->init();
   avatar->setColorPalette(*cps[0]);

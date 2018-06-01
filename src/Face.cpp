@@ -18,6 +18,15 @@ Face::Face()
   sprite {new TFT_eSprite(&M5.Lcd)}
 {} 
 
+Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
+: mouth {mouth},
+  eyeR {eyeR},
+  eyeL {eyeL},
+  eyeblowR {eyeblowR},
+  eyeblowL {eyeblowL},
+  sprite {new TFT_eSprite(&M5.Lcd)}
+{}
+
 Face::~Face()
 {
   delete mouth;
@@ -84,9 +93,8 @@ void drawBalloon(TFT_eSPI *spi)
 void Face::draw(DrawContext *ctx)
 {
   sprite->setColorDepth(8);
-  sprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
   sprite->createSprite(320, 240);
-  sprite->fillSprite(SECONDARY_COLOR);
+  sprite->fillSprite(ctx->getColorPalette().get(COLOR_BACKGROUND));
   // copy context to each draw function
   mouth->draw(sprite, ctx);
   eyeR->draw(sprite, ctx);

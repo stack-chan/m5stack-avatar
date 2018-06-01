@@ -23,6 +23,7 @@ private:
 public:
   // constructor
   Face();
+  Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
   ~Face();
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;
