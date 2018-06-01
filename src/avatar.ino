@@ -1,9 +1,5 @@
 #include <M5Stack.h>
 #include "Avatar.h"
-#include "const.h"
-#include <AquesTalkTTS.h>
-#include "parts/CatFace.h"
-#include "tasks/LipSync.h"
 
 using namespace m5avatar;
 
@@ -20,42 +16,50 @@ class MyFace : public Face
 };
 
 Avatar *avatar;
-Face *face1;
-Face *face2;
-// Face *face3;
-const Expression expressions[] = {Expression::Angry, Expression::Sleepy, Expression::Happy, Expression::Sad, Expression::Neutral};
-ColorPalette* cps[2] = {
-  new ColorPalette(),
-  new ColorPalette()
-};
 
 Face* faces[2];
-int faceIdx = 0;
 const int facesSize = sizeof(faces) / sizeof(Face*);
+int faceIdx = 0;
+
+const Expression expressions[] = {
+  Expression::Angry,
+  Expression::Sleepy,
+  Expression::Happy,
+  Expression::Sad,
+  Expression::Neutral
+};
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
 int idx = 0;
+
+ColorPalette* cps[4];
+const int cpsSize = sizeof(cps) / sizeof(ColorPalette*);
+int cpsIdx = 0;
+
 bool isShowingQR = false;
 
 void setup()
 {
-  int iret;
-  iret = TTS.create(AQUESTALK_KEY);
   M5.begin();
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
-  face1 = new MyFace();
-  face2 = avatar->getFace();
-  // face3 = new CatFace();
-  faces[0] = face1;
-  faces[1] = face2;
-  // faces[2] = face3;
-  cps[0]->set(COLOR_PRIMARY, TFT_YELLOW);
-  cps[0]->set(COLOR_BACKGROUND, TFT_DARKCYAN);
+
+  faces[0] = avatar->getFace();
+  faces[1] = new MyFace();
+
+  cps[0] = new ColorPalette();
+  cps[1] = new ColorPalette();
+  cps[2] = new ColorPalette();
+  cps[3] = new ColorPalette();
+  cps[1]->set(COLOR_PRIMARY, TFT_YELLOW);
+  cps[1]->set(COLOR_BACKGROUND, TFT_DARKCYAN);
+  cps[2]->set(COLOR_PRIMARY, TFT_BLACK);
+  cps[2]->set(COLOR_BACKGROUND, TFT_WHITE);
+  cps[3]->set(COLOR_PRIMARY, TFT_RED);
+  cps[3]->set(COLOR_BACKGROUND, TFT_PINK);
 
   avatar->init();
   avatar->setColorPalette(*cps[0]);
-  avatar->addTask(lipSync, "lipSync");
 }
 
 void loop()
@@ -63,35 +67,17 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    Serial.printf("face[%d]: %p", faceIdx, faces[faceIdx]);
-
-    Serial.printf("setFace...");
     avatar->setFace(faces[faceIdx]);
     faceIdx = (faceIdx + 1) % facesSize;
   }
   if (M5.BtnB.wasPressed())
   {
-    if (!isShowingQR)
-    {
-      TTS.play("haiyo-", 80);
-      delay(800);
-    }
-    isShowingQR = !isShowingQR;
-    delay(200);
-    if (isShowingQR)
-    {
-      M5.Lcd.setBrightness(10);
-      M5.Lcd.qrcode("https://twitter.com/meganetaaan");
-    }
-    else
-    {
-      M5.Lcd.setBrightness(30);
-    }
+    avatar->setColorPalette(*cps[cpsIdx]);
+    cpsIdx = (cpsIdx + 1) % cpsSize;
   }
   if (M5.BtnC.wasPressed())
   {
     avatar->setExpression(expressions[idx]);
     idx = (idx + 1) % expressionsSize;
   }
-  delay(125);
 }

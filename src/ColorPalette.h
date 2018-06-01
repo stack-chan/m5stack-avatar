@@ -27,6 +27,7 @@ namespace m5avatar
     std::map<std::string, uint32_t> colors;
 
     public:
+    // TODO: constructor with color settings
     ColorPalette();
     ~ColorPalette() = default;
     ColorPalette(const ColorPalette &other) = default;

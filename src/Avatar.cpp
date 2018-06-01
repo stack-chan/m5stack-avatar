@@ -88,7 +88,7 @@ void Avatar::setFace(Face *face)
   this->face = face;
 }
 
-Face* Avatar::getFace()
+Face* Avatar::getFace() const
 {
   return face;
 }
@@ -183,7 +183,7 @@ void Avatar::setColorPalette(ColorPalette cp)
   palette = cp;
 }
 
-ColorPalette Avatar::getColorPalette(void)
+ColorPalette Avatar::getColorPalette(void) const
 {
   return this->palette;
 }
