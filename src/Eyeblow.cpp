@@ -4,8 +4,13 @@
 #include "Eyeblow.h"
 namespace m5avatar {
 
+<<<<<<< HEAD
 Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft)
 : x{x}, y{y}, width{w}, height{h}, isLeft{isLeft}
+=======
+Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
+: x{x}, y{y}, width{w}, height{h}, isLeft{isLeft}, primaryColor{primaryColor}, secondaryColor{secondaryColor}
+>>>>>>> 1e20f2c90f14c6b9c8c2f36deb3c6589d03d9a09
 {}
 
 void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)

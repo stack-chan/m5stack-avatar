@@ -2,6 +2,8 @@
 
 ## face drawing
 
+* Face has its size and position
+* Face manages color palette
 * drawing are cascaded
  * Avatar
   * EyeR
