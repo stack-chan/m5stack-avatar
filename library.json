@@ -1,6 +1,6 @@
 {
   "name": "M5Stack-Avatar",
-  "keywords": "avatar, lcd, cute",
+  "keywords": "avatar, lcd, cute, face",
   "description": "Yet another avatar module for M5Stack",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "authors": "M5Stack",
     "frameworks": "arduino"
   },
-  "version": "0.3.0",
+  "version": "0.4.0-beta",
   "frameworks": "arduino",
   "platforms": "espressif32"
 }
