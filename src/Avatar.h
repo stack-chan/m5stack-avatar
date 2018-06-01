@@ -26,6 +26,8 @@ class Avatar
     Avatar(const Avatar &other) = default;
     Avatar &operator=(const Avatar &other) = default;
     Face* getFace();
+    ColorPalette getColorPalette();
+    void setColorPalette(ColorPalette cp);
     void setFace(Face *face);
     void init(void);
     void setBreath(float f);

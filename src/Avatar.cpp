@@ -178,6 +178,16 @@ void Avatar::setBreath(float breath)
   this->breath = breath;
 }
 
+void Avatar::setColorPalette(ColorPalette cp)
+{
+  palette = cp;
+}
+
+ColorPalette Avatar::getColorPalette(void)
+{
+  return this->palette;
+}
+
 void Avatar::setGaze(float vertical, float horizontal)
 {
   this->gazeV = vertical;

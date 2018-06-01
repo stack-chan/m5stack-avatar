@@ -6,8 +6,6 @@
 #include "tasks/LipSync.h"
 
 using namespace m5avatar;
-#define PRIMARY_COLOR WHITE
-#define SECONDARY_COLOR BLACK
 
 class MyFace : public Face
 {
@@ -33,10 +31,13 @@ Avatar *avatar;
 Face *face1;
 Face *face2;
 // Face *face3;
-EyeInterface *eyeL;
-EyeInterface *eyeR;
 const Expression expressions[] = {Expression::Angry, Expression::Sleepy, Expression::Happy, Expression::Sad, Expression::Neutral};
-Face* faces[3];
+ColorPalette* cps[2] = {
+  new ColorPalette(),
+  new ColorPalette()
+};
+
+Face* faces[2];
 int faceIdx = 0;
 const int facesSize = sizeof(faces) / sizeof(Face*);
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
@@ -51,15 +52,17 @@ void setup()
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
-  // avatar->getFace()->setRightEye(eyeR);
-  // avatar->getFace()->setLeftEye(eyeL);
-  // face1 = new MyFace();
-  // face2 = avatar->getFace();
+  face1 = new MyFace();
+  face2 = avatar->getFace();
   // face3 = new CatFace();
-  // faces[0] = face1;
-  // faces[1] = face2;
+  faces[0] = face1;
+  faces[1] = face2;
   // faces[2] = face3;
+  cps[0]->set(COLOR_PRIMARY, TFT_YELLOW);
+  cps[0]->set(COLOR_SECONDARY, TFT_DARKCYAN);
+
   avatar->init();
+  avatar->setColorPalette(*cps[0]);
   avatar->addTask(lipSync, "lipSync");
 }
 

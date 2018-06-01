@@ -9,17 +9,17 @@ DrawContext::DrawContext(Expression expression, float breath, ColorPalette palet
 : expression{expression}, breath{breath}, palette(palette)
 {}
 
-const Expression DrawContext::getExpression()
+Expression DrawContext::getExpression() const
 {
   return expression;
 }
 
-const float DrawContext::getBreath()
+float DrawContext::getBreath() const
 {
   return breath;
 }
 
-ColorPalette DrawContext::getColorPalette()
+ColorPalette DrawContext::getColorPalette() const
 {
   return palette;
 }

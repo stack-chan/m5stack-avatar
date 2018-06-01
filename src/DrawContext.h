@@ -20,8 +20,8 @@ public:
   ~DrawContext() = default;
   DrawContext(const DrawContext &other) = delete;
   DrawContext &operator=(const DrawContext &other) = delete;
-  const Expression getExpression();
-  const float getBreath();
-  ColorPalette getColorPalette();
+  Expression getExpression() const;
+  float getBreath() const;
+  ColorPalette getColorPalette() const;
 };
 }

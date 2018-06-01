@@ -30,7 +30,7 @@ namespace m5avatar
     ColorPalette(const ColorPalette &other) = default;
     ColorPalette &operator=(const ColorPalette &other) = default;
 
-    uint32_t get(std::string key);
+    uint32_t get(std::string key) const;
     void set(std::string key, uint32_t value);
     void clear(void);
   };

@@ -13,6 +13,7 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
   Expression exp = ctx->getExpression();
   uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
   uint32_t secondaryColor = ctx->getColorPalette().get(COLOR_SECONDARY);
+  Serial.printf("primary: %d, secondary: %d\n", primaryColor, secondaryColor);
   float breath = std::min(1.0f, ctx->getBreath());
   if (openRatio > 0)
   {
