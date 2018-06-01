@@ -5,8 +5,8 @@
 
 namespace m5avatar {
 
-Mouth::Mouth(uint16_t x, uint16_t y, uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight, uint16_t maxHeight, uint32_t primaryColor, uint32_t secondaryColor)
-: x{x}, y{y}, minWidth{minWidth}, maxWidth{maxWidth}, minHeight{minHeight}, maxHeight{maxHeight}, primaryColor{primaryColor}, secondaryColor{secondaryColor}, openRatio{0}
+Mouth::Mouth(uint16_t x, uint16_t y, uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight, uint16_t maxHeight)
+: x{x}, y{y}, minWidth{minWidth}, maxWidth{maxWidth}, minHeight{minHeight}, maxHeight{maxHeight}, openRatio{0}
 {}
 
 void Mouth::setOpenRatio(float ratio)
@@ -16,6 +16,7 @@ void Mouth::setOpenRatio(float ratio)
 
 void Mouth::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
+  uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
   float breath = min(1.0, ctx->getBreath());
   int h = minHeight + (maxHeight - minHeight) * openRatio;
   int w = minWidth + (maxWidth - minWidth) * (1 - openRatio);

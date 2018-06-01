@@ -4,6 +4,7 @@
 #pragma once
 #include "Face.h"
 #include <AquesTalkTTS.h> // TODO
+#include "ColorPalette.h"
 
 namespace m5avatar
 {
@@ -17,13 +18,16 @@ class Avatar
     // TODO: below are not of face rather avatar
     float breath;
     bool _isDrawing;
+    ColorPalette palette;
   public:
     Avatar();
     Avatar(Face* face);
     ~Avatar() = default;
     Avatar(const Avatar &other) = default;
     Avatar &operator=(const Avatar &other) = default;
-    Face* getFace();
+    Face* getFace() const;
+    ColorPalette getColorPalette() const;
+    void setColorPalette(ColorPalette cp);
     void setFace(Face *face);
     void init(void);
     void setBreath(float f);
@@ -34,8 +38,7 @@ class Avatar
     bool isDrawing();
     void start();
     void stop();
-    // TODO
-    // void addTask(Task task);
+    void addTask(TaskFunction_t f, std::string name);
 };
 
 class DriveContext

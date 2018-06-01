@@ -4,14 +4,16 @@
 #include "Eye.h"
 namespace m5avatar {
 
-Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
-: x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, primaryColor{primaryColor}, secondaryColor{secondaryColor}, openRatio{1}
+Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft)
+: x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, openRatio{1}
 {}
 
 void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
   Expression exp = ctx->getExpression();
-  float breath = min(1.0, ctx->getBreath());
+  uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
+  uint32_t backgroundColor = ctx->getColorPalette().get(COLOR_BACKGROUND);
+  float breath = std::min(1.0f, ctx->getBreath());
   if (openRatio > 0)
   {
     spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r, primaryColor);
@@ -25,7 +27,7 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
       y1 = y0;
       x2 = !isLeft != !(exp == Expression::Sad) ? x0 : x1;
       y2 = y0 + r;
-      spi->fillTriangle(x0, y0, x1, y1, x2, y2, secondaryColor);
+      spi->fillTriangle(x0, y0, x1, y1, x2, y2, backgroundColor);
     }
     if (exp == Expression::Happy || exp == Expression::Sleepy)
     {
@@ -37,9 +39,9 @@ void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
       if (exp == Expression::Happy)
       {
         y0 += r;
-        spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, secondaryColor);
+        spi->fillCircle(x + offsetX, y + offsetY + breath * 3, r / 1.5, backgroundColor);
       }
-      spi->fillRect(x0, y0, w, h, secondaryColor);
+      spi->fillRect(x0, y0, w, h, backgroundColor);
     }
   }
   else

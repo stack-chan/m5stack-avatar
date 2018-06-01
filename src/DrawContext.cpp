@@ -5,18 +5,23 @@
 namespace m5avatar {
 
 // DrawContext
-DrawContext::DrawContext(Expression expression, float breath)
-: expression{expression}, breath{breath}
+DrawContext::DrawContext(Expression expression, float breath, ColorPalette palette)
+: expression{expression}, breath{breath}, palette(palette)
 {}
 
-const Expression DrawContext::getExpression()
+Expression DrawContext::getExpression() const
 {
   return expression;
 }
 
-const float DrawContext::getBreath()
+float DrawContext::getBreath() const
 {
   return breath;
+}
+
+ColorPalette DrawContext::getColorPalette() const
+{
+  return palette;
 }
 
 }

@@ -4,13 +4,15 @@
 #include "Eyeblow.h"
 namespace m5avatar {
 
-Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft, uint32_t primaryColor, uint32_t secondaryColor)
-: x{x}, y{y}, width{width}, height{height}, isLeft{isLeft}, primaryColor{primaryColor}, secondaryColor{secondaryColor}
+Eyeblow::Eyeblow(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool isLeft)
+: x{x}, y{y}, width{w}, height{h}, isLeft{isLeft}
 {}
 
 void Eyeblow::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
   Expression exp = ctx->getExpression();
+  uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
+  uint32_t secondaryColor = ctx->getColorPalette().get(COLOR_SECONDARY);
   if (width == 0 || height == 0)
   {
     return;

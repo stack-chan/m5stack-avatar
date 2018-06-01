@@ -23,8 +23,6 @@ private:
   uint16_t minHeight;
   uint16_t maxHeight;
   float openRatio;
-  uint32_t primaryColor;
-  uint32_t secondaryColor;
 
 public:
   // constructor
@@ -34,8 +32,7 @@ public:
   Mouth &operator=(const Mouth &other) = default;
   Mouth(uint16_t x, uint16_t y,
         uint16_t minWidth, uint16_t maxWidth,
-        uint16_t minHeight, uint16_t maxHeight,
-        uint32_t primaryColor, uint32_t secondaryColor);
+        uint16_t minHeight, uint16_t maxHeight);
   void setOpenRatio(float ratio) override;
   void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
 };
