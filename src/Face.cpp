@@ -15,7 +15,8 @@ Face::Face()
   eyeL {new Eye(230, 96, 8, true)},
   eyeblowR {new Eyeblow(90, 67, 32, 0, false)},
   eyeblowL {new Eyeblow(230, 72, 32, 0, true)},
-  sprite {new TFT_eSprite(&M5.Lcd)}
+  sprite {new TFT_eSprite(&M5.Lcd)},
+  boundingRect {new BoundingRect(0, 0, 320, 240)}
 {} 
 
 Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
@@ -24,7 +25,8 @@ Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, Eyeblo
   eyeL {eyeL},
   eyeblowR {eyeblowR},
   eyeblowL {eyeblowL},
-  sprite {new TFT_eSprite(&M5.Lcd)}
+  sprite {new TFT_eSprite(&M5.Lcd)},
+  boundingRect {new BoundingRect(0, 0, 320, 240)}
 {}
 
 Face::~Face()
@@ -35,6 +37,7 @@ Face::~Face()
   delete eyeblowR;
   delete eyeblowL;
   delete sprite;
+  delete boundingRect;
 }
 
 void Face::setMouthOpen(float f)
