@@ -6,36 +6,10 @@
 #include "Mouth.h"
 #include "Eye.h"
 #include "Eyeblow.h"
+#include "BoundingRect.h"
 
 namespace m5avatar
 {
-
-class BoundingRect
-{
-  private:
-  int16_t top;
-  int16_t left;
-  int16_t width;
-  int16_t height;
-
-  public:
-  BoundingRect() = default;
-  ~BoundingRect() = default;
-  // BoundingRect(int16_t top = 0, int16_t left = 0, int16_t width = 320, int16_t height = 240);
-  BoundingRect(int16_t top, int16_t left, int16_t width, int16_t height);
-  BoundingRect(const BoundingRect &other) = default;
-  BoundingRect &operator=(const BoundingRect &other) = default;
-  int16_t getTop();
-  int16_t getLeft();
-  int16_t getRight();
-  int16_t getBottom();
-  int16_t getCenterX();
-  int16_t getCenterY();
-  int16_t getWidth();
-  int16_t getHeight();
-  void setPosition(int16_t top, int16_t left);
-  void setSize(int16_t width, int16_t height);
-};
 
 class Face
 {
