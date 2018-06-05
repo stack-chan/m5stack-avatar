@@ -109,7 +109,7 @@ void Face::draw(DrawContext *ctx)
   eyeL->draw(sprite, ctx);
   eyeblowR->draw(sprite, ctx);
   eyeblowL->draw(sprite, ctx);
-  // drawBalloon(sprite);
+  // drawAccessory(sprite, position, ctx);
   sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
   sprite->deleteSprite();
 }

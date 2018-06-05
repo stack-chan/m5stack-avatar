@@ -8,6 +8,11 @@ Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft)
 : x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, openRatio{1}
 {}
 
+void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
+{
+  draw(spi, ctx);
+}
+
 void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
 {
   Expression exp = ctx->getExpression();
