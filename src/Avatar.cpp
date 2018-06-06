@@ -158,7 +158,8 @@ void Avatar::start()
 
 void Avatar::draw()
 {
-  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette);
+  Gaze g = Gaze(this->gazeV, this->gazeH);
+  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g);
   face->draw(ctx);
   delete ctx;
 }
