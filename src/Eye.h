@@ -11,7 +11,7 @@ class EyeInterface : public Drawable
 {
 public:
   virtual void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) = 0;
-  virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
+  // virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0; // deprecated
   virtual void setOpenRatio(float ratio) = 0;
   virtual void setOffset(int offsetX, int offsetY) = 0;
 };
@@ -36,8 +36,8 @@ public:
   Eye &operator=(const Eye &other) = default;
   void setOpenRatio(float ratio) override;
   void setOffset(int32_t offsetX, int32_t offsetY) override;
-  void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
   void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) override;
+  // void draw(TFT_eSPI *spi, DrawContext *drawContext) override; // deprecated
 };
   
 }

@@ -10,11 +10,6 @@ Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft)
 
 void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
 {
-  draw(spi, ctx);
-}
-
-void Eye::draw(TFT_eSPI *spi, DrawContext *ctx)
-{
   Expression exp = ctx->getExpression();
   uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
   uint32_t backgroundColor = ctx->getColorPalette().get(COLOR_BACKGROUND);

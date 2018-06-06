@@ -21,11 +21,27 @@ private:
   EyeblowInterface *eyeblowL;
   TFT_eSprite *sprite;
   BoundingRect *boundingRect;
+  BoundingRect *mouthPos;
+  BoundingRect *eyeRPos;
+  BoundingRect *eyeLPos;
+  BoundingRect *eyeblowRPos;
+  BoundingRect *eyeblowLPos;
 
 public:
   // constructor
   Face();
   Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
+  // TODO: apply builder pattern
+  Face(MouthInterface *mouth,
+       BoundingRect *mouthPos,
+       EyeInterface *eyeR,
+       BoundingRect *eyeRPos,
+       EyeInterface *eyeL,
+       BoundingRect *eyeLPos,
+       EyeblowInterface *eyeblowR,
+       BoundingRect *eyeblowRPos,
+       EyeblowInterface *eyeblowL,
+       BoundingRect *eyeblowLPos);
   ~Face();
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;

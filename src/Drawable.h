@@ -12,7 +12,7 @@ class Drawable
 {
 public:
   virtual void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) = 0;
-  virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
+  // virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
 };
 
 }
