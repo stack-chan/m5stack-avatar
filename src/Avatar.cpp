@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 // TODO make TTS not global
-#include <AquesTalkTTS.h>
 #include "Avatar.h"
 namespace m5avatar {
   const uint32_t DEFAULT_STACK_SIZE = 4096;
@@ -62,25 +61,25 @@ void blink(void *args)
   DriveContext *ctx = (DriveContext *)args;
   for (;;)
   {
+    ctx->getAvatar()->setEyeOpenRatio(1);
     ctx->getAvatar()->getFace()->setEyesOpen(1);
     delay(2500 + 100 * random(20));
+    ctx->getAvatar()->setEyeOpenRatio(0);
     ctx->getAvatar()->getFace()->setEyesOpen(0);
     delay(300 + 10 * random(20));
   }
 }
 
 Avatar::Avatar()
-: face{new Face()},
-  _isDrawing{true},
-  expression{Expression::Neutral},
-  breath{0}
+: Avatar(new Face())
 {}
 
 Avatar::Avatar(Face *face)
 : face{face},
   _isDrawing{true},
   expression{Expression::Neutral},
-  breath{0}
+  breath{0},
+  eyeOpenRatio{1}
 {}
 
 void Avatar::setFace(Face *face)
@@ -159,7 +158,7 @@ void Avatar::start()
 void Avatar::draw()
 {
   Gaze g = Gaze(this->gazeV, this->gazeH);
-  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g);
+  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g, this->eyeOpenRatio);
   face->draw(ctx);
   delete ctx;
 }
@@ -187,6 +186,11 @@ void Avatar::setColorPalette(ColorPalette cp)
 ColorPalette Avatar::getColorPalette(void) const
 {
   return this->palette;
+}
+
+void Avatar::setEyeOpenRatio(float ratio)
+{
+  this->eyeOpenRatio = ratio;
 }
 
 void Avatar::setGaze(float vertical, float horizontal)
