@@ -15,8 +15,8 @@ class Face
 {
 private:
   MouthInterface *mouth;
-  EyeInterface *eyeR;
-  EyeInterface *eyeL;
+  Drawable *eyeR;
+  Drawable *eyeL;
   EyeblowInterface *eyeblowR;
   EyeblowInterface *eyeblowL;
   TFT_eSprite *sprite;
@@ -30,13 +30,13 @@ private:
 public:
   // constructor
   Face();
-  Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
+  Face(MouthInterface* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
   // TODO: apply builder pattern
   Face(MouthInterface *mouth,
        BoundingRect *mouthPos,
-       EyeInterface *eyeR,
+       Drawable *eyeR,
        BoundingRect *eyeRPos,
-       EyeInterface *eyeL,
+       Drawable *eyeL,
        BoundingRect *eyeLPos,
        EyeblowInterface *eyeblowR,
        BoundingRect *eyeblowRPos,
@@ -46,19 +46,22 @@ public:
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;
 
-  EyeInterface *getLeftEye();
-  EyeInterface *getRightEye();
+  Drawable *getLeftEye();
+  Drawable *getRightEye();
+
+  // void setParts(PartsType p, Drawable parts);
+  // Drawable *getParts(PartsType p);
+
   MouthInterface *getMouth();
   BoundingRect *getBoundingRect();
 
-  void setLeftEye(EyeInterface *eye);
-  void setRightEye(EyeInterface *eye);
+  void setLeftEye(Drawable *eye);
+  void setRightEye(Drawable *eye);
   void setMouth(MouthInterface *mouth);
   void setLeftEyeblow();
   void setRightEyeblow();
 
   void setMouthOpen(float f);
-  void setEyesOpen(float f);
   void draw(DrawContext *ctx);
 };
 } // namespace m5avatar

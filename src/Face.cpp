@@ -24,7 +24,7 @@ Face::Face()
   boundingRect {new BoundingRect(0, 0, 320, 240)}
 {} 
 
-Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
+Face::Face(MouthInterface* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
 : mouth {mouth},
   eyeR {eyeR},
   eyeL {eyeL},
@@ -36,9 +36,9 @@ Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, Eyeblo
 
 Face::Face(MouthInterface *mouth,
            BoundingRect *mouthPos,
-           EyeInterface *eyeR,
+           Drawable *eyeR,
            BoundingRect *eyeRPos,
-           EyeInterface *eyeL,
+           Drawable *eyeL,
            BoundingRect *eyeLPos,
            EyeblowInterface *eyeblowR,
            BoundingRect *eyeblowRPos,
@@ -79,23 +79,17 @@ void Face::setMouthOpen(float f)
   mouth->setOpenRatio(f);
 }
 
-void Face::setEyesOpen(float f)
-{
-  eyeR->setOpenRatio(f);
-  eyeL->setOpenRatio(f);
-}
-
 void Face::setMouth(MouthInterface *mouth)
 {
   this->mouth = mouth;
 }
 
-void Face::setLeftEye(EyeInterface *eyeL)
+void Face::setLeftEye(Drawable *eyeL)
 {
   this->eyeL = eyeL;
 }
 
-void Face::setRightEye(EyeInterface *eyeR)
+void Face::setRightEye(Drawable *eyeR)
 {
   this->eyeR = eyeR;
 }
@@ -105,12 +99,12 @@ MouthInterface *Face::getMouth()
   return mouth;
 }
 
-EyeInterface *Face::getLeftEye()
+Drawable *Face::getLeftEye()
 {
   return eyeL;
 }
 
-EyeInterface *Face::getRightEye()
+Drawable *Face::getRightEye()
 {
   return eyeR;
 }

@@ -62,10 +62,8 @@ void blink(void *args)
   for (;;)
   {
     ctx->getAvatar()->setEyeOpenRatio(1);
-    ctx->getAvatar()->getFace()->setEyesOpen(1);
     delay(2500 + 100 * random(20));
     ctx->getAvatar()->setEyeOpenRatio(0);
-    ctx->getAvatar()->getFace()->setEyesOpen(0);
     delay(300 + 10 * random(20));
   }
 }
@@ -199,8 +197,6 @@ void Avatar::setGaze(float vertical, float horizontal)
   this->gazeH = horizontal;
   int v = floor(4 * vertical);
   int h = floor(4 * horizontal);
-  face->getLeftEye()->setOffset(v, h);
-  face->getRightEye()->setOffset(v, h);
 }
 
 }

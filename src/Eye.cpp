@@ -58,16 +58,4 @@ void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
     spi->fillRect(x1, y1, w, h, primaryColor);
   }
 }
-
-void Eye::setOpenRatio(float ratio)
-{
-  this->openRatio = ratio;
-}
-
-void Eye::setOffset(int offsetX, int offsetY)
-{
-  this->offsetX = offsetX;
-  this->offsetY = offsetY;
-}
-
 }
