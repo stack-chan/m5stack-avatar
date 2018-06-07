@@ -14,6 +14,7 @@ class Avatar
     Face* face;
     Expression expression;
     float eyeOpenRatio;
+    float mouthOpenRatio;
     float gazeV;
     float gazeH;
     // TODO: below are not of face rather avatar
@@ -35,6 +36,7 @@ class Avatar
     void setGaze(float vertical, float horizontal);
     void setExpression(Expression exp);
     void setEyeOpenRatio(float ratio);
+    void setMouthOpenRatio(float ratio);
     void drawBalloon(TFT_eSPI *spi); // Experimental
     void draw(void);
     bool isDrawing();

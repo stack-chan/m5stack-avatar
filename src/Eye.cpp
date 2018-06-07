@@ -5,7 +5,11 @@
 namespace m5avatar {
 
 Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft)
-: x{x}, y{y}, r{r}, isLeft{isLeft}, offsetX{0}, offsetY{0}, openRatio{1}
+: Eye(r, isLeft)
+{}
+
+Eye::Eye(uint16_t r, bool isLeft)
+: r{r}, isLeft{isLeft}
 {}
 
 void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)

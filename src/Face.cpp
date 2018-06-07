@@ -1,7 +1,6 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <M5Stack.h>
 #include "Face.h"
 
 #define PRIMARY_COLOR WHITE
@@ -11,20 +10,20 @@ namespace m5avatar {
 
 Face::Face()
 : mouth {new Mouth(163, 148, 50, 90, 4, 60)},
-  mouthPos {new BoundingRect(148, 163, 0, 0)},
-  eyeR {new Eye(90, 93, 8, false)},
-  eyeRPos {new BoundingRect(93, 90, 0, 0)},
-  eyeL {new Eye(230, 96, 8, true)},
-  eyeLPos {new BoundingRect(96, 230, 0, 0)},
+  mouthPos {new BoundingRect(148, 163)},
+  eyeR {new Eye(8, false)},
+  eyeRPos {new BoundingRect(93, 90)},
+  eyeL {new Eye(8, true)},
+  eyeLPos {new BoundingRect(96, 230)},
   eyeblowR {new Eyeblow(90, 67, 32, 0, false)},
-  eyeblowRPos {new BoundingRect(67, 96, 0, 0)},
+  eyeblowRPos {new BoundingRect(67, 96)},
   eyeblowL {new Eyeblow(230, 72, 32, 0, true)},
-  eyeblowLPos {new BoundingRect(72, 230, 0, 0)},
+  eyeblowLPos {new BoundingRect(72, 230)},
   sprite {new TFT_eSprite(&M5.Lcd)},
   boundingRect {new BoundingRect(0, 0, 320, 240)}
 {} 
 
-Face::Face(MouthInterface* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
+Face::Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
 : mouth {mouth},
   eyeR {eyeR},
   eyeL {eyeL},
@@ -34,7 +33,7 @@ Face::Face(MouthInterface* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterfa
   boundingRect {new BoundingRect(0, 0, 320, 240)}
 {}
 
-Face::Face(MouthInterface *mouth,
+Face::Face(Drawable *mouth,
            BoundingRect *mouthPos,
            Drawable *eyeR,
            BoundingRect *eyeRPos,
@@ -74,12 +73,7 @@ Face::~Face()
   delete boundingRect;
 }
 
-void Face::setMouthOpen(float f)
-{
-  mouth->setOpenRatio(f);
-}
-
-void Face::setMouth(MouthInterface *mouth)
+void Face::setMouth(Drawable *mouth)
 {
   this->mouth = mouth;
 }
@@ -94,7 +88,7 @@ void Face::setRightEye(Drawable *eyeR)
   this->eyeR = eyeR;
 }
 
-MouthInterface *Face::getMouth()
+Drawable *Face::getMouth()
 {
   return mouth;
 }
@@ -133,16 +127,18 @@ void Face::draw(DrawContext *ctx)
   sprite->fillSprite(ctx->getColorPalette().get(COLOR_BACKGROUND));
   float breath = min(1.0f, ctx->getBreath());
 
+  BoundingRect rect = *mouthPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   // copy context to each draw function
-  mouth->draw(sprite, ctx);
+  mouth->draw(sprite, rect, ctx);
 
-  BoundingRect erp = *eyeRPos;
-  erp.setPosition(erp.getTop() + breath * 3, erp.getLeft());
-  eyeR->draw(sprite, erp, ctx);
+  rect = *eyeRPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeR->draw(sprite, rect, ctx);
 
-  BoundingRect elp = *eyeLPos;
-  elp.setPosition(elp.getTop() + breath * 3, elp.getLeft());
-  eyeL->draw(sprite, elp, ctx);
+  rect = *eyeLPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeL->draw(sprite, rect, ctx);
 
   eyeblowR->draw(sprite, ctx);
   eyeblowL->draw(sprite, ctx);

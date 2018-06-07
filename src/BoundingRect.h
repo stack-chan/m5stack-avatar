@@ -16,6 +16,7 @@ class BoundingRect
   public:
   BoundingRect() = default;
   ~BoundingRect() = default;
+  BoundingRect(int16_t top, int16_t left);
   BoundingRect(int16_t top, int16_t left, int16_t width, int16_t height);
   BoundingRect(const BoundingRect &other) = default;
   BoundingRect &operator=(const BoundingRect &other) = default;

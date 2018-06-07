@@ -11,18 +11,14 @@ namespace m5avatar
 class Eye final : public Drawable
 {
 private:
-  uint16_t x;
-  uint16_t y;
   uint16_t r;
-  int32_t offsetX;
-  int32_t offsetY;
   bool isLeft;
-  float openRatio;
 
 public:
   // constructor
   Eye() = delete;
-  Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft);
+  Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft); // deprecated
+  Eye(uint16_t r, bool isLeft);
   ~Eye() = default;
   Eye(const Eye &other) = default;
   Eye &operator=(const Eye &other) = default;

@@ -77,7 +77,8 @@ Avatar::Avatar(Face *face)
   _isDrawing{true},
   expression{Expression::Neutral},
   breath{0},
-  eyeOpenRatio{1}
+  eyeOpenRatio{1},
+  mouthOpenRatio{0}
 {}
 
 void Avatar::setFace(Face *face)
@@ -156,7 +157,7 @@ void Avatar::start()
 void Avatar::draw()
 {
   Gaze g = Gaze(this->gazeV, this->gazeH);
-  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g, this->eyeOpenRatio);
+  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g, this->eyeOpenRatio, this->mouthOpenRatio);
   face->draw(ctx);
   delete ctx;
 }
@@ -184,6 +185,11 @@ void Avatar::setColorPalette(ColorPalette cp)
 ColorPalette Avatar::getColorPalette(void) const
 {
   return this->palette;
+}
+
+void Avatar::setMouthOpenRatio(float ratio)
+{
+  this->eyeOpenRatio = ratio;
 }
 
 void Avatar::setEyeOpenRatio(float ratio)

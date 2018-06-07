@@ -14,7 +14,7 @@ namespace m5avatar
 class Face
 {
 private:
-  MouthInterface *mouth;
+  Drawable *mouth;
   Drawable *eyeR;
   Drawable *eyeL;
   EyeblowInterface *eyeblowR;
@@ -30,9 +30,9 @@ private:
 public:
   // constructor
   Face();
-  Face(MouthInterface* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
+  Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
   // TODO: apply builder pattern
-  Face(MouthInterface *mouth,
+  Face(Drawable *mouth,
        BoundingRect *mouthPos,
        Drawable *eyeR,
        BoundingRect *eyeRPos,
@@ -52,16 +52,15 @@ public:
   // void setParts(PartsType p, Drawable parts);
   // Drawable *getParts(PartsType p);
 
-  MouthInterface *getMouth();
+  Drawable *getMouth();
   BoundingRect *getBoundingRect();
 
   void setLeftEye(Drawable *eye);
   void setRightEye(Drawable *eye);
-  void setMouth(MouthInterface *mouth);
+  void setMouth(Drawable *mouth);
   void setLeftEyeblow();
   void setRightEyeblow();
 
-  void setMouthOpen(float f);
   void draw(DrawContext *ctx);
 };
 } // namespace m5avatar

@@ -6,6 +6,10 @@
 
 namespace m5avatar
 {
+BoundingRect::BoundingRect(int16_t top, int16_t left)
+: BoundingRect(top, left, 0, 0)
+{}
+
 BoundingRect::BoundingRect(int16_t top, int16_t left, int16_t width, int16_t height)
 : top{top},
   left{left},
