@@ -6,10 +6,6 @@
 
 namespace m5avatar {
 
-Mouth::Mouth(uint16_t x, uint16_t y, uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight, uint16_t maxHeight)
-: Mouth(minWidth, maxWidth, minHeight, maxHeight)
-{}
-
 Mouth::Mouth(uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight, uint16_t maxHeight)
 : minWidth{minWidth}, maxWidth{maxWidth}, minHeight{minHeight}, maxHeight{maxHeight}
 {}

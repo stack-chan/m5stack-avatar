@@ -25,9 +25,6 @@ public:
   Mouth &operator=(const Mouth &other) = default;
   Mouth(uint16_t minWidth, uint16_t maxWidth,
         uint16_t minHeight, uint16_t maxHeight);
-  Mouth(uint16_t x, uint16_t y,
-        uint16_t minWidth, uint16_t maxWidth,
-        uint16_t minHeight, uint16_t maxHeight);
   void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) override;
 };
 

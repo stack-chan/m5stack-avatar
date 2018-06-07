@@ -9,7 +9,7 @@
 namespace m5avatar {
 
 Face::Face()
-: mouth {new Mouth(163, 148, 50, 90, 4, 60)},
+: mouth {new Mouth(50, 90, 4, 60)},
   mouthPos {new BoundingRect(148, 163)},
   eyeR {new Eye(8, false)},
   eyeRPos {new BoundingRect(93, 90)},

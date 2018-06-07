@@ -16,7 +16,7 @@ Expression DrawContext::getExpression() const
 
 float DrawContext::getMouthOpenRatio() const
 {
-  return eyeOpenRatio;
+  return mouthOpenRatio;
 }
 
 float DrawContext::getEyeOpenRatio() const

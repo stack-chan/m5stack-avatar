@@ -7,7 +7,7 @@ class MyFace : public Face
 {
   public:
     MyFace()
-    : Face(new Mouth(163, 148, 55, 60, 4, 20),
+    : Face(new Mouth(55, 60, 4, 20),
       new Eye(90, 93, 14, false),
       new Eye(230, 96, 14, true),
       new Eyeblow(90, 67, 32, 6, false),
