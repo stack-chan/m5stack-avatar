@@ -6,69 +6,61 @@
 #include "Mouth.h"
 #include "Eye.h"
 #include "Eyeblow.h"
+#include "BoundingRect.h"
 
 namespace m5avatar
 {
 
-class BoundingRect
-{
-  private:
-  int16_t top;
-  int16_t left;
-  int16_t width;
-  int16_t height;
-
-  public:
-  BoundingRect() = default;
-  ~BoundingRect() = default;
-  // BoundingRect(int16_t top = 0, int16_t left = 0, int16_t width = 320, int16_t height = 240);
-  BoundingRect(int16_t top, int16_t left, int16_t width, int16_t height);
-  BoundingRect(const BoundingRect &other) = default;
-  BoundingRect &operator=(const BoundingRect &other) = default;
-  int16_t getTop();
-  int16_t getLeft();
-  int16_t getRight();
-  int16_t getBottom();
-  int16_t getCenterX();
-  int16_t getCenterY();
-  int16_t getWidth();
-  int16_t getHeight();
-  void setPosition(int16_t top, int16_t left);
-  void setSize(int16_t width, int16_t height);
-};
-
 class Face
 {
 private:
-  MouthInterface *mouth;
-  EyeInterface *eyeR;
-  EyeInterface *eyeL;
-  EyeblowInterface *eyeblowR;
-  EyeblowInterface *eyeblowL;
+  Drawable *mouth;
+  Drawable *eyeR;
+  Drawable *eyeL;
+  Drawable *eyeblowR;
+  Drawable *eyeblowL;
   TFT_eSprite *sprite;
   BoundingRect *boundingRect;
+  BoundingRect *mouthPos;
+  BoundingRect *eyeRPos;
+  BoundingRect *eyeLPos;
+  BoundingRect *eyeblowRPos;
+  BoundingRect *eyeblowLPos;
 
 public:
   // constructor
   Face();
-  Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
+  Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, Drawable* eyeblowR, Drawable* eyeblowL);
+  // TODO: apply builder pattern
+  Face(Drawable *mouth,
+       BoundingRect *mouthPos,
+       Drawable *eyeR,
+       BoundingRect *eyeRPos,
+       Drawable *eyeL,
+       BoundingRect *eyeLPos,
+       Drawable *eyeblowR,
+       BoundingRect *eyeblowRPos,
+       Drawable *eyeblowL,
+       BoundingRect *eyeblowLPos);
   ~Face();
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;
 
-  EyeInterface *getLeftEye();
-  EyeInterface *getRightEye();
-  MouthInterface *getMouth();
+  Drawable *getLeftEye();
+  Drawable *getRightEye();
+
+  // void setParts(PartsType p, Drawable parts);
+  // Drawable *getParts(PartsType p);
+
+  Drawable *getMouth();
   BoundingRect *getBoundingRect();
 
-  void setLeftEye(EyeInterface *eye);
-  void setRightEye(EyeInterface *eye);
-  void setMouth(MouthInterface *mouth);
+  void setLeftEye(Drawable *eye);
+  void setRightEye(Drawable *eye);
+  void setMouth(Drawable *mouth);
   void setLeftEyeblow();
   void setRightEyeblow();
 
-  void setMouthOpen(float f);
-  void setEyesOpen(float f);
   void draw(DrawContext *ctx);
 };
 } // namespace m5avatar

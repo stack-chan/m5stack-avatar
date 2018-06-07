@@ -2,27 +2,20 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #pragma once
+#include "Drawable.h"
 #include "DrawContext.h"
+#include "BoundingRect.h"
 #include <utility/In_eSPI.h>
 
 namespace m5avatar
 {
-class MouthInterface
-{
-public:
-  virtual void setOpenRatio(float ratio) = 0;
-  virtual void draw(TFT_eSPI *spi, DrawContext *drawContext) = 0;
-};
-class Mouth final : public MouthInterface
+class Mouth final : public Drawable
 {
 private:
-  uint16_t x;
-  uint16_t y;
   uint16_t minWidth;
   uint16_t maxWidth;
   uint16_t minHeight;
   uint16_t maxHeight;
-  float openRatio;
 
 public:
   // constructor
@@ -30,11 +23,9 @@ public:
   ~Mouth() = default;
   Mouth(const Mouth &other) = default;
   Mouth &operator=(const Mouth &other) = default;
-  Mouth(uint16_t x, uint16_t y,
-        uint16_t minWidth, uint16_t maxWidth,
+  Mouth(uint16_t minWidth, uint16_t maxWidth,
         uint16_t minHeight, uint16_t maxHeight);
-  void setOpenRatio(float ratio) override;
-  void draw(TFT_eSPI *spi, DrawContext *drawContext) override;
+  void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) override;
 };
 
 }
