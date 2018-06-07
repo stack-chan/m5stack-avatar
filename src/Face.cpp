@@ -119,18 +119,6 @@ BoundingRect *Face::getBoundingRect()
   return boundingRect;
 }
 
-/**
- *  @experimental
- */
-void drawBalloon(TFT_eSPI *spi)
-{
-  spi->fillEllipse(280, 220, 60, 40, PRIMARY_COLOR);
-  spi->fillTriangle(220, 180, 270, 210, 240, 210, PRIMARY_COLOR);
-  spi->setTextSize(2);
-  spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
-  spi->drawString("test", 240, 200, 2); // Continue printing from new x position
-}
-
 void Face::draw(DrawContext *ctx)
 {
   sprite->setColorDepth(8);
@@ -138,6 +126,7 @@ void Face::draw(DrawContext *ctx)
   sprite->fillSprite(ctx->getColorPalette().get(COLOR_BACKGROUND));
   float breath = min(1.0f, ctx->getBreath());
 
+  // TODO: unify drawing process of each parts
   BoundingRect rect = *mouthPos;
   rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   // copy context to each draw function
