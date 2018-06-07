@@ -6,43 +6,53 @@
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
 
-namespace m5avatar {
+namespace m5avatar
+{
 
 Face::Face()
-: mouth {new Mouth(50, 90, 4, 60)},
-  mouthPos {new BoundingRect(148, 163)},
-  eyeR {new Eye(8, false)},
-  eyeRPos {new BoundingRect(93, 90)},
-  eyeL {new Eye(8, true)},
-  eyeLPos {new BoundingRect(96, 230)},
-  eyeblowR {new Eyeblow(90, 67, 32, 0, false)},
-  eyeblowRPos {new BoundingRect(67, 96)},
-  eyeblowL {new Eyeblow(230, 72, 32, 0, true)},
-  eyeblowLPos {new BoundingRect(72, 230)},
-  sprite {new TFT_eSprite(&M5.Lcd)},
-  boundingRect {new BoundingRect(0, 0, 320, 240)}
-{} 
+    : Face(new Mouth(50, 90, 4, 60),
+      new BoundingRect(148, 163),
+      new Eye(8, false),
+      new BoundingRect(93, 90),
+      new Eye(8, true),
+      new BoundingRect(96, 230),
+      new Eyeblow(32, 0, false),
+      new BoundingRect(67, 96),
+      new Eyeblow(32, 0, true),
+      new BoundingRect(72, 230))
+{
+}
 
-Face::Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
-: mouth {mouth},
-  eyeR {eyeR},
-  eyeL {eyeL},
-  eyeblowR {eyeblowR},
-  eyeblowL {eyeblowL},
-  sprite {new TFT_eSprite(&M5.Lcd)},
-  boundingRect {new BoundingRect(0, 0, 320, 240)}
-{}
+Face::Face(
+    Drawable *mouth,
+    Drawable *eyeR,
+    Drawable *eyeL,
+    Drawable *eyeblowR,
+    Drawable *eyeblowL)
+    : Face(mouth,
+      new BoundingRect(148, 163),
+      eyeR,
+      new BoundingRect(93, 90),
+      eyeL,
+      new BoundingRect(96, 230),
+      eyeblowR,
+      new BoundingRect(67, 96),
+      eyeblowL,
+      new BoundingRect(72, 230))
+{
+}
 
-Face::Face(Drawable *mouth,
-           BoundingRect *mouthPos,
-           Drawable *eyeR,
-           BoundingRect *eyeRPos,
-           Drawable *eyeL,
-           BoundingRect *eyeLPos,
-           EyeblowInterface *eyeblowR,
-           BoundingRect *eyeblowRPos,
-           EyeblowInterface *eyeblowL,
-           BoundingRect *eyeblowLPos)
+Face::Face(
+    Drawable *mouth,
+    BoundingRect *mouthPos,
+    Drawable *eyeR,
+    BoundingRect *eyeRPos,
+    Drawable *eyeL,
+    BoundingRect *eyeLPos,
+    Drawable *eyeblowR,
+    BoundingRect *eyeblowRPos,
+    Drawable *eyeblowL,
+    BoundingRect *eyeblowLPos)
     : mouth{mouth},
       mouthPos{mouthPos},
       eyeR{eyeR},
@@ -55,7 +65,8 @@ Face::Face(Drawable *mouth,
       eyeblowLPos{eyeblowLPos},
       sprite{new TFT_eSprite(&M5.Lcd)},
       boundingRect{new BoundingRect(0, 0, 320, 240)}
-{}
+{
+}
 
 Face::~Face()
 {
@@ -140,8 +151,13 @@ void Face::draw(DrawContext *ctx)
   rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   eyeL->draw(sprite, rect, ctx);
 
-  eyeblowR->draw(sprite, ctx);
-  eyeblowL->draw(sprite, ctx);
+  rect = *eyeblowRPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeblowR->draw(sprite, rect, ctx);
+
+  rect = *eyeblowLPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeblowL->draw(sprite, rect, ctx);
   // drawAccessory(sprite, position, ctx);
   sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
   sprite->deleteSprite();

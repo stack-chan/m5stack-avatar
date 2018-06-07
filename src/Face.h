@@ -17,8 +17,8 @@ private:
   Drawable *mouth;
   Drawable *eyeR;
   Drawable *eyeL;
-  EyeblowInterface *eyeblowR;
-  EyeblowInterface *eyeblowL;
+  Drawable *eyeblowR;
+  Drawable *eyeblowL;
   TFT_eSprite *sprite;
   BoundingRect *boundingRect;
   BoundingRect *mouthPos;
@@ -30,7 +30,7 @@ private:
 public:
   // constructor
   Face();
-  Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL);
+  Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, Drawable* eyeblowR, Drawable* eyeblowL);
   // TODO: apply builder pattern
   Face(Drawable *mouth,
        BoundingRect *mouthPos,
@@ -38,9 +38,9 @@ public:
        BoundingRect *eyeRPos,
        Drawable *eyeL,
        BoundingRect *eyeLPos,
-       EyeblowInterface *eyeblowR,
+       Drawable *eyeblowR,
        BoundingRect *eyeblowRPos,
-       EyeblowInterface *eyeblowL,
+       Drawable *eyeblowL,
        BoundingRect *eyeblowLPos);
   ~Face();
   Face(const Face &other) = default;
