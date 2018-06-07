@@ -5,8 +5,8 @@
 namespace m5avatar {
 
 // DrawContext
-DrawContext::DrawContext(Expression expression, float breath, ColorPalette palette)
-: expression{expression}, breath{breath}, palette(palette)
+DrawContext::DrawContext(Expression expression, float breath, ColorPalette palette, Gaze gaze, float eyeOpenRatio, float mouthOpenRatio)
+: expression{expression}, breath{breath}, palette{palette}, gaze{gaze}, eyeOpenRatio{eyeOpenRatio}, mouthOpenRatio{mouthOpenRatio}
 {}
 
 Expression DrawContext::getExpression() const
@@ -14,9 +14,24 @@ Expression DrawContext::getExpression() const
   return expression;
 }
 
+float DrawContext::getMouthOpenRatio() const
+{
+  return mouthOpenRatio;
+}
+
+float DrawContext::getEyeOpenRatio() const
+{
+  return eyeOpenRatio;
+}
+
 float DrawContext::getBreath() const
 {
   return breath;
+}
+
+Gaze DrawContext::getGaze() const
+{
+  return gaze;
 }
 
 ColorPalette DrawContext::getColorPalette() const

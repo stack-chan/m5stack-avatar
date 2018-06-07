@@ -4,6 +4,7 @@
 #pragma once
 #include "Expression.h"
 #include "ColorPalette.h"
+#include "Gaze.h"
 
 namespace m5avatar
 {
@@ -12,16 +13,22 @@ class DrawContext
 private:
   Expression expression;
   float breath;
+  float eyeOpenRatio;
+  float mouthOpenRatio;
   ColorPalette palette;
+  Gaze gaze;
 
 public:
   DrawContext() = delete;
-  DrawContext(Expression expression, float breath, ColorPalette palette);
+  DrawContext(Expression expression, float breath, ColorPalette palette, Gaze gaze, float eyeOpenRatio, float mouthOpenRatio);
   ~DrawContext() = default;
   DrawContext(const DrawContext &other) = delete;
   DrawContext &operator=(const DrawContext &other) = delete;
   Expression getExpression() const;
   float getBreath() const;
+  float getEyeOpenRatio() const;
+  float getMouthOpenRatio() const;
+  Gaze getGaze() const;
   ColorPalette getColorPalette() const;
 };
 }

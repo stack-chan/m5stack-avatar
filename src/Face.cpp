@@ -1,191 +1,155 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <M5Stack.h>
 #include "Face.h"
 
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
 
-namespace m5avatar {
-
-BoundingRect::BoundingRect(int16_t top, int16_t left, int16_t width, int16_t height)
-: top{top},
-  left{left},
-  width{width},
-  height{height}
-{}
-
-int16_t BoundingRect::getTop()
+namespace m5avatar
 {
-  return top;
-}
-
-int16_t BoundingRect::getLeft()
-{
-  return left;
-}
-
-int16_t BoundingRect::getRight()
-{
-  return left + width;
-}
-
-int16_t BoundingRect::getBottom()
-{
-  return top + height;
-}
-
-int16_t BoundingRect::getCenterX()
-{
-  return left + width / 2;
-}
-
-int16_t BoundingRect::getCenterY()
-{
-  return top + height / 2;
-}
-
-int16_t BoundingRect::getWidth()
-{
-  return width;
-}
-
-int16_t BoundingRect::getHeight()
-{
-  return height;
-}
-
-void BoundingRect::setPosition(int16_t top, int16_t left)
-{
-  this->top = top;
-  this->left = left;
-}
-
-void BoundingRect::setSize(int16_t width, int16_t height)
-{
-  this->width = width;
-  this->height = height;
-}
 
 Face::Face()
-<<<<<<< HEAD
-: mouth {new Mouth(163, 148, 50, 90, 4, 60)},
-  eyeR {new Eye(90, 93, 8, false)},
-  eyeL {new Eye(230, 96, 8, true)},
-  eyeblowR {new Eyeblow(90, 67, 32, 0, false)},
-  eyeblowL {new Eyeblow(230, 72, 32, 0, true)},
-  sprite {new TFT_eSprite(&M5.Lcd)}
-{} 
-=======
-: mouth {new Mouth(163, 148, 50, 90, 4, 60, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeR {new Eye(90, 93, 8, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeL {new Eye(230, 96, 8, true, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeblowR {new Eyeblow(90, 67, 32, 0, false, PRIMARY_COLOR, SECONDARY_COLOR)},
-  eyeblowL {new Eyeblow(230, 72, 32, 0, true, PRIMARY_COLOR, SECONDARY_COLOR)},
-  sprite {new TFT_eSprite(&M5.Lcd)},
-  boundingRect{new BoundingRect(0, 0, M5.Lcd.width(), M5.Lcd.height())}
-{}
->>>>>>> 1e20f2c90f14c6b9c8c2f36deb3c6589d03d9a09
+    : Face(new Mouth(50, 90, 4, 60),
+      new BoundingRect(148, 163),
+      new Eye(8, false),
+      new BoundingRect(93, 90),
+      new Eye(8, true),
+      new BoundingRect(96, 230),
+      new Eyeblow(32, 0, false),
+      new BoundingRect(67, 96),
+      new Eyeblow(32, 0, true),
+      new BoundingRect(72, 230))
+{
+}
 
-Face::Face(MouthInterface* mouth, EyeInterface* eyeR, EyeInterface* eyeL, EyeblowInterface* eyeblowR, EyeblowInterface* eyeblowL)
-: mouth {mouth},
-  eyeR {eyeR},
-  eyeL {eyeL},
-  eyeblowR {eyeblowR},
-  eyeblowL {eyeblowL},
-  sprite {new TFT_eSprite(&M5.Lcd)}
-{}
+Face::Face(
+    Drawable *mouth,
+    Drawable *eyeR,
+    Drawable *eyeL,
+    Drawable *eyeblowR,
+    Drawable *eyeblowL)
+    : Face(mouth,
+      new BoundingRect(148, 163),
+      eyeR,
+      new BoundingRect(93, 90),
+      eyeL,
+      new BoundingRect(96, 230),
+      eyeblowR,
+      new BoundingRect(67, 96),
+      eyeblowL,
+      new BoundingRect(72, 230))
+{
+}
+
+Face::Face(
+    Drawable *mouth,
+    BoundingRect *mouthPos,
+    Drawable *eyeR,
+    BoundingRect *eyeRPos,
+    Drawable *eyeL,
+    BoundingRect *eyeLPos,
+    Drawable *eyeblowR,
+    BoundingRect *eyeblowRPos,
+    Drawable *eyeblowL,
+    BoundingRect *eyeblowLPos)
+    : mouth{mouth},
+      mouthPos{mouthPos},
+      eyeR{eyeR},
+      eyeRPos{eyeRPos},
+      eyeL{eyeL},
+      eyeLPos{eyeLPos},
+      eyeblowR{eyeblowR},
+      eyeblowRPos{eyeblowRPos},
+      eyeblowL{eyeblowL},
+      eyeblowLPos{eyeblowLPos},
+      sprite{new TFT_eSprite(&M5.Lcd)},
+      boundingRect{new BoundingRect(0, 0, 320, 240)}
+{
+}
 
 Face::~Face()
 {
   delete mouth;
+  delete mouthPos;
   delete eyeR;
+  delete eyeRPos;
   delete eyeL;
+  delete eyeLPos;
   delete eyeblowR;
+  delete eyeblowRPos;
   delete eyeblowL;
+  delete eyeblowLPos;
   delete sprite;
+  delete boundingRect;
 }
 
-void Face::setMouthOpen(float f)
-{
-  mouth->setOpenRatio(f);
-}
-
-void Face::setEyesOpen(float f)
-{
-  eyeR->setOpenRatio(f);
-  eyeL->setOpenRatio(f);
-}
-
-void Face::setMouth(MouthInterface *mouth)
+void Face::setMouth(Drawable *mouth)
 {
   this->mouth = mouth;
 }
 
-void Face::setLeftEye(EyeInterface *eyeL)
+void Face::setLeftEye(Drawable *eyeL)
 {
   this->eyeL = eyeL;
 }
 
-void Face::setRightEye(EyeInterface *eyeR)
+void Face::setRightEye(Drawable *eyeR)
 {
   this->eyeR = eyeR;
 }
 
-MouthInterface* Face::getMouth()
+Drawable *Face::getMouth()
 {
   return mouth;
 }
 
-EyeInterface* Face::getLeftEye()
+Drawable *Face::getLeftEye()
 {
   return eyeL;
 }
 
-EyeInterface* Face::getRightEye()
+Drawable *Face::getRightEye()
 {
   return eyeR;
 }
 
-BoundingRect* Face::getBoundingRect()
+BoundingRect *Face::getBoundingRect()
 {
   return boundingRect;
 }
 
-/**
- *  @experimental
- */
-void drawBalloon(TFT_eSPI *spi)
-{
-  spi->fillEllipse(280, 220, 60, 40, PRIMARY_COLOR);
-  spi->fillTriangle(220, 180, 270, 210, 240, 210, PRIMARY_COLOR);
-  spi->setTextSize(2);
-  spi->setTextColor(SECONDARY_COLOR, PRIMARY_COLOR);
-  spi->drawString("test", 240, 200, 2); // Continue printing from new x position
-}
-
 void Face::draw(DrawContext *ctx)
 {
-<<<<<<< HEAD
   sprite->setColorDepth(8);
   sprite->createSprite(320, 240);
   sprite->fillSprite(ctx->getColorPalette().get(COLOR_BACKGROUND));
-=======
-  sprite->setColorDepth(1);
-  sprite->setBitmapColor(PRIMARY_COLOR, SECONDARY_COLOR);
-  sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
-  sprite->fillSprite(SECONDARY_COLOR);
->>>>>>> 1e20f2c90f14c6b9c8c2f36deb3c6589d03d9a09
+  float breath = min(1.0f, ctx->getBreath());
+
+  // TODO: unify drawing process of each parts
+  BoundingRect rect = *mouthPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   // copy context to each draw function
-  mouth->draw(sprite, ctx);
-  eyeR->draw(sprite, ctx);
-  eyeL->draw(sprite, ctx);
-  eyeblowR->draw(sprite, ctx);
-  eyeblowL->draw(sprite, ctx);
-  // drawBalloon(sprite);
+  mouth->draw(sprite, rect, ctx);
+
+  rect = *eyeRPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeR->draw(sprite, rect, ctx);
+
+  rect = *eyeLPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeL->draw(sprite, rect, ctx);
+
+  rect = *eyeblowRPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeblowR->draw(sprite, rect, ctx);
+
+  rect = *eyeblowLPos;
+  rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
+  eyeblowL->draw(sprite, rect, ctx);
+  // drawAccessory(sprite, position, ctx);
   sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
   sprite->deleteSprite();
 }
-  
-}
+
+} // namespace m5avatar
