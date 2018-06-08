@@ -1,7 +1,7 @@
 {
   "name": "M5Stack-Avatar",
-  "keywords": "avatar, lcd, cute, face",
-  "description": "Yet another avatar module for M5Stack",
+  "keywords": "avatar, lcd, cute, face, M5Stack",
+  "description": "An M5Stack library for rendering avatar faces",
   "repository": {
     "type": "git",
     "url": "https://github.com/meganetaaan/m5stack-avatar.git"
@@ -14,12 +14,13 @@
       "maintainer": true
     }
   ],
+  "license": "MIT",
   "dependencies": {
     "name": "M5Stack",
-    "authors": "M5Stack",
+    "version": "^0.2.0",
     "frameworks": "arduino"
   },
-  "version": "0.4.0-beta",
+  "version": "0.4.0",
   "frameworks": "arduino",
   "platforms": "espressif32"
 }
