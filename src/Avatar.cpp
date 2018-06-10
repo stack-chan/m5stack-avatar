@@ -1,7 +1,6 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// TODO make TTS not global
 #include "Avatar.h"
 namespace m5avatar {
   const uint32_t DEFAULT_STACK_SIZE = 4096;

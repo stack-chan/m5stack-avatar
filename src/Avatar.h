@@ -3,7 +3,6 @@
 
 #pragma once
 #include "Face.h"
-#include <AquesTalkTTS.h> // TODO
 #include "ColorPalette.h"
 
 namespace m5avatar
@@ -50,8 +49,6 @@ class DriveContext
 private:
   // TODO: cyclic reference
   Avatar *avatar;
-  // Use wrapper class for voice engine
-  AquesTalkTTS *TTS;
 
 public:
   DriveContext() = delete;

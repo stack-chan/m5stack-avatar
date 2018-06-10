@@ -3,8 +3,8 @@
 
 #pragma once
 #include <M5Stack.h>
+#include <AquesTalkTTS.h>
 #include "../Avatar.h"
-#include "AquesTalkTTS.h"
 
 namespace m5avatar
 {
