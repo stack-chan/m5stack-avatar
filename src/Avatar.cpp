@@ -188,7 +188,7 @@ ColorPalette Avatar::getColorPalette(void) const
 
 void Avatar::setMouthOpenRatio(float ratio)
 {
-  this->eyeOpenRatio = ratio;
+  this->mouthOpenRatio = ratio;
 }
 
 void Avatar::setEyeOpenRatio(float ratio)

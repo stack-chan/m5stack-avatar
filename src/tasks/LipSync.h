@@ -17,7 +17,7 @@ extern void lipSync(void *args)
     int level = TTS.getLevel();
     float f = level / 12000.0;
     float open = min(1.0, f);
-    avatar->getFace()->setMouthOpen(open);
+    avatar->setMouthOpenRatio(open);
     delay(33);
   }
 }
