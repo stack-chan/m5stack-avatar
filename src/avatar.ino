@@ -1,19 +1,8 @@
 #include <M5Stack.h>
 #include "Avatar.h"
+#include "faces/DogFace.h"
 
 using namespace m5avatar;
-
-class MyFace : public Face
-{
-  public:
-    MyFace()
-    : Face(new Mouth(55, 60, 4, 20),
-      new Eye(14, false),
-      new Eye(14, true),
-      new Eyeblow(32, 6, false),
-      new Eyeblow(32, 6, true))
-    {}
-};
 
 Avatar *avatar;
 
@@ -45,7 +34,7 @@ void setup()
   avatar = new Avatar();
 
   faces[0] = avatar->getFace();
-  faces[1] = new MyFace();
+  faces[1] = new DogFace();
 
   cps[0] = new ColorPalette();
   cps[1] = new ColorPalette();
