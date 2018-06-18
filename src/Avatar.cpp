@@ -71,6 +71,12 @@ Avatar::Avatar()
 : Avatar(new Face())
 {}
 
+Avatar::Avatar(Face &face)
+: Avatar(&face)
+{
+
+}
+
 Avatar::Avatar(Face *face)
 : face{face},
   _isDrawing{true},
@@ -83,6 +89,11 @@ Avatar::Avatar(Face *face)
 void Avatar::setFace(Face *face)
 {
   this->face = face;
+}
+
+void Avatar::setFace(Face &face)
+{
+  this->face = &face;
 }
 
 Face* Avatar::getFace() const

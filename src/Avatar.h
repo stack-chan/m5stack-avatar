@@ -23,6 +23,7 @@ class Avatar
   public:
     Avatar();
     Avatar(Face* face);
+    Avatar(Face &face);
     ~Avatar() = default;
     Avatar(const Avatar &other) = default;
     Avatar &operator=(const Avatar &other) = default;
@@ -30,6 +31,7 @@ class Avatar
     ColorPalette getColorPalette() const;
     void setColorPalette(ColorPalette cp);
     void setFace(Face *face);
+    void setFace(Face &face);
     void init(void);
     void setBreath(float f);
     void setGaze(float vertical, float horizontal);

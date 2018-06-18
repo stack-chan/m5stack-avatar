@@ -1,21 +1,10 @@
 #include <M5Stack.h>
 #include "Avatar.h"
+#include "faces/DogFace.h"
 
 using namespace m5avatar;
 
-class MyFace : public Face
-{
-  public:
-    MyFace()
-    : Face(new Mouth(55, 60, 4, 20),
-      new Eye(14, false),
-      new Eye(14, true),
-      new Eyeblow(32, 6, false),
-      new Eyeblow(32, 6, true))
-    {}
-};
-
-Avatar *avatar;
+Avatar avatar;
 
 Face* faces[2];
 const int facesSize = sizeof(faces) / sizeof(Face*);
@@ -42,10 +31,9 @@ void setup()
   M5.begin();
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
-  avatar = new Avatar();
 
-  faces[0] = avatar->getFace();
-  faces[1] = new MyFace();
+  faces[0] = avatar.getFace();
+  faces[1] = new DogFace();
 
   cps[0] = new ColorPalette();
   cps[1] = new ColorPalette();
@@ -58,8 +46,8 @@ void setup()
   cps[3]->set(COLOR_PRIMARY, TFT_RED);
   cps[3]->set(COLOR_BACKGROUND, TFT_PINK);
 
-  avatar->init();
-  avatar->setColorPalette(*cps[0]);
+  avatar.init();
+  avatar.setColorPalette(*cps[0]);
 }
 
 void loop()
@@ -67,17 +55,17 @@ void loop()
   M5.update();
   if (M5.BtnA.wasPressed())
   {
-    avatar->setFace(faces[faceIdx]);
+    avatar.setFace(faces[faceIdx]);
     faceIdx = (faceIdx + 1) % facesSize;
   }
   if (M5.BtnB.wasPressed())
   {
-    avatar->setColorPalette(*cps[cpsIdx]);
+    avatar.setColorPalette(*cps[cpsIdx]);
     cpsIdx = (cpsIdx + 1) % cpsSize;
   }
   if (M5.BtnC.wasPressed())
   {
-    avatar->setExpression(expressions[idx]);
+    avatar.setExpression(expressions[idx]);
     idx = (idx + 1) % expressionsSize;
   }
 }
