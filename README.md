@@ -15,11 +15,14 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 ## Usage
 
 ```cpp
+
+#include <Avatar.h>
+Avatar avatar;
+
 void setup()
 {
   M5.begin();
-  Avatar *avatar = new Avatar();
-  avatar->init(); // start drawing
+  avatar.init(); // start drawing
 }
 
 void loop()
