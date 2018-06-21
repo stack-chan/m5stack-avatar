@@ -29,8 +29,6 @@ namespace m5avatar
       }
       spi->fillEllipse(cx, cy, 30, 25, cp.get(COLOR_PRIMARY));
       spi->fillEllipse(cx, cy, 28, 23, cp.get(COLOR_BACKGROUND));
-      // spi->fillEllipse(cx, cy, 30, 20, cp.get(COLOR_PRIMARY));
-      // spi->fillEllipse(cx, cy, 28, 17, cp.get(COLOR_BACKGROUND));
 
       spi->fillEllipse(cx + offsetX, cy + offsetY, 18, 18, cp.get(COLOR_PRIMARY));
       spi->fillEllipse(cx + offsetX - 3, cy + offsetY - 3, 3, 3, cp.get(COLOR_BACKGROUND));
@@ -39,27 +37,50 @@ namespace m5avatar
 
   class DogMouth : public Drawable
   {
+  private:
+    uint16_t minWidth;
+    uint16_t maxWidth;
+    uint16_t minHeight;
+    uint16_t maxHeight;
+
+  public:
+    DogMouth()
+    : DogMouth(50, 90, 4, 60)
+    {}
+    DogMouth(uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight, uint16_t maxHeight)
+    : minWidth{minWidth}, maxWidth{maxWidth}, minHeight{minHeight}, maxHeight{maxHeight}
+    {}
     void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
     {
+      ColorPalette cp = ctx->getColorPalette();
+      uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
+      uint32_t backgroundColor = ctx->getColorPalette().get(COLOR_BACKGROUND);
       uint32_t cx = rect.getCenterX();
       uint32_t cy = rect.getCenterY();
-      ColorPalette cp = ctx->getColorPalette();
-      spi->fillEllipse(cx, cy - 15, 10, 6, cp.get(COLOR_PRIMARY));
-      spi->fillEllipse(cx - 28, cy, 30, 15, cp.get(COLOR_PRIMARY));
-      spi->fillEllipse(cx + 28, cy, 30, 15, cp.get(COLOR_PRIMARY));
-      spi->fillEllipse(cx - 29, cy - 4, 27, 15, cp.get(COLOR_BACKGROUND));
-      spi->fillEllipse(cx + 29, cy - 4, 27, 15, cp.get(COLOR_BACKGROUND));
+      float breath = min(1.0f, ctx->getBreath());
+      float openRatio = ctx->getMouthOpenRatio();
+      uint32_t h = minHeight + (maxHeight - minHeight) * openRatio;
+      uint32_t w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
+      if (h > minHeight)
+      {
+        spi->fillEllipse(cx, cy, w / 2, h / 2, primaryColor);
+        spi->fillEllipse(cx, cy, w / 2 - 4, h / 2 - 4, TFT_RED);
+        spi->fillRect(cx - w / 2, cy - h / 2, w, h / 2, backgroundColor);
+      }
+      spi->fillEllipse(cx, cy - 15, 10, 6, primaryColor);
+      spi->fillEllipse(cx - 28, cy, 30, 15, primaryColor);
+      spi->fillEllipse(cx + 28, cy, 30, 15, primaryColor);
+      spi->fillEllipse(cx - 29, cy - 4, 27, 15, backgroundColor);
+      spi->fillEllipse(cx + 29, cy - 4, 27, 15, backgroundColor);
     }
   };
-  
-  class DogFace: public Face
+
+  class DogFace : public Face
   {
   public:
     DogFace()
         : Face(new DogMouth(),
                new BoundingRect(168, 163),
-               // new Eye(14, false),
-               // new Eye(14, true),
                new DogEye(),
                new BoundingRect(103, 80),
                new DogEye(),
@@ -71,6 +92,5 @@ namespace m5avatar
     {
     }
   };
-
 
   } // namespace m5avatar
