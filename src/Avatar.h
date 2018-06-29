@@ -20,6 +20,7 @@ class Avatar
     float breath;
     bool _isDrawing;
     ColorPalette palette;
+    const char* speechText;
   public:
     Avatar();
     Avatar(Face* face);
@@ -38,6 +39,7 @@ class Avatar
     void setExpression(Expression exp);
     void setEyeOpenRatio(float ratio);
     void setMouthOpenRatio(float ratio);
+    void setspeechText(const char* speechText);
     void drawBalloon(TFT_eSPI *spi); // Experimental
     void draw(void);
     bool isDrawing();

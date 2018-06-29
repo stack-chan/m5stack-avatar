@@ -3,14 +3,15 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-  const uint32_t DEFAULT_STACK_SIZE = 4096;
+const uint32_t DEFAULT_STACK_SIZE = 4096;
 
 // TODO: make read-only
 DriveContext::DriveContext(Avatar *avatar)
-: avatar{avatar}
-{}
+    : avatar{avatar}
+{
+}
 
-Avatar* DriveContext::getAvatar()
+Avatar *DriveContext::getAvatar()
 {
   return avatar;
 }
@@ -68,23 +69,26 @@ void blink(void *args)
 }
 
 Avatar::Avatar()
-: Avatar(new Face())
-{}
+    : Avatar(new Face())
+{
+}
 
 Avatar::Avatar(Face &face)
-: Avatar(&face)
+    : Avatar(&face)
 {
-
 }
 
 Avatar::Avatar(Face *face)
-: face{face},
-  _isDrawing{true},
-  expression{Expression::Neutral},
-  breath{0},
-  eyeOpenRatio{1},
-  mouthOpenRatio{0}
-{}
+    : face{face},
+      _isDrawing{true},
+      expression{Expression::Neutral},
+      breath{0},
+      eyeOpenRatio{1},
+      mouthOpenRatio{0},
+      speechText{""},
+      palette{ColorPalette()}
+{
+}
 
 void Avatar::setFace(Face *face)
 {
@@ -96,7 +100,7 @@ void Avatar::setFace(Face &face)
   this->face = &face;
 }
 
-Face* Avatar::getFace() const
+Face *Avatar::getFace() const
 {
   return face;
 }
@@ -104,16 +108,16 @@ Face* Avatar::getFace() const
 void Avatar::addTask(TaskFunction_t f, std::string name)
 {
   DriveContext *ctx = new DriveContext(this);
-  const char * c = name.c_str();
+  const char *c = name.c_str();
   // TODO: set a task handler
   xTaskCreatePinnedToCore(
-      f,   /* Function to implement the task */
-      c, /* Name of the task */
-      DEFAULT_STACK_SIZE,       /* Stack size in words */
-      ctx,       /* Task input parameter */
-      1,          /* P2014riority of the task */
-      NULL,       /* Task handle. */
-      1);         /* Core where the task should run */
+      f,                  /* Function to implement the task */
+      c,                  /* Name of the task */
+      DEFAULT_STACK_SIZE, /* Stack size in words */
+      ctx,                /* Task input parameter */
+      1,                  /* P2014riority of the task */
+      NULL,               /* Task handle. */
+      1);                 /* Core where the task should run */
 }
 
 void Avatar::init()
@@ -124,7 +128,7 @@ void Avatar::init()
       drawLoop,   /* Function to implement the task */
       "drawLoop", /* Name of the task */
       4096,       /* Stack size in words */
-      ctx,       /* Task input parameter */
+      ctx,        /* Task input parameter */
       1,          /* Priority of the task */
       NULL,       /* Task handle. */
       1);         /* Core where the task should run */
@@ -132,23 +136,23 @@ void Avatar::init()
       saccade,   /* Function to implement the task */
       "saccade", /* Name of the task */
       4096,      /* Stack size in words */
-      ctx,      /* Task input parameter */
+      ctx,       /* Task input parameter */
       3,         /* Priority of the task */
       NULL,      /* Task handle. */
       1);        /* Core where the task should run */
   xTaskCreatePinnedToCore(
-      updateBreath,   /* Function to implement the task */
-      "breath", /* Name of the task */
-      4096,     /* Stack size in words */
-      ctx,     /* Task input parameter */
-      2,        /* Priority of the task */
-      NULL,     /* Task handle. */
-      1);       /* Core where the task should run */
+      updateBreath, /* Function to implement the task */
+      "breath",     /* Name of the task */
+      4096,         /* Stack size in words */
+      ctx,          /* Task input parameter */
+      2,            /* Priority of the task */
+      NULL,         /* Task handle. */
+      1);           /* Core where the task should run */
   xTaskCreatePinnedToCore(
       blink,   /* Function to implement the task */
       "blink", /* Name of the task */
       4096,    /* Stack size in words */
-      ctx,    /* Task input parameter */
+      ctx,     /* Task input parameter */
       2,       /* Priority of the task */
       NULL,    /* Task handle. */
       1);      /* Core where the task should run */
@@ -167,7 +171,7 @@ void Avatar::start()
 void Avatar::draw()
 {
   Gaze g = Gaze(this->gazeV, this->gazeH);
-  DrawContext* ctx = new DrawContext(this->expression, this->breath, this->palette, g, this->eyeOpenRatio, this->mouthOpenRatio);
+  DrawContext *ctx = new DrawContext(this->expression, this->breath, this->palette, g, this->eyeOpenRatio, this->mouthOpenRatio, this->speechText);
   face->draw(ctx);
   delete ctx;
 }
@@ -215,4 +219,9 @@ void Avatar::setGaze(float vertical, float horizontal)
   int h = floor(4 * horizontal);
 }
 
+void Avatar::setspeechText(const char* speechText)
+{
+  this->speechText = speechText;
 }
+
+} // namespace m5avatar

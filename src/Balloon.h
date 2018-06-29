@@ -20,11 +20,17 @@ public:
   uint32_t backgroundColor = TFT_WHITE;
   void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *drawContext) override
   {
+    const char *text = drawContext->getspeechText();
+    if (strlen(text) == 0)
+    {
+      return;
+    }
     spi->fillEllipse(280, 220, 60, 40, backgroundColor);
     spi->fillTriangle(220, 180, 270, 210, 240, 210, backgroundColor);
     spi->setTextSize(2);
     spi->setTextColor(primaryColor, backgroundColor);
     spi->drawString("Hi!", 240, 200, 2); // Continue printing from new x position
   }
-}
-}; // namespace m5avatar
+};
+
+} // namespace m5avatar

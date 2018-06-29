@@ -7,6 +7,7 @@
 #include "Eye.h"
 #include "Eyeblow.h"
 #include "BoundingRect.h"
+#include "Balloon.h"
 
 namespace m5avatar
 {

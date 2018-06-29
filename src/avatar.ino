@@ -66,6 +66,9 @@ void loop()
   if (M5.BtnC.wasPressed())
   {
     avatar.setExpression(expressions[idx]);
+    avatar.setspeechText("Hi!");
+    delay(2000);
+    avatar.setspeechText("");
     idx = (idx + 1) % expressionsSize;
   }
 }

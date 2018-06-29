@@ -15,12 +15,13 @@ private:
   float breath;
   float eyeOpenRatio;
   float mouthOpenRatio;
+  const char* speechText;
   ColorPalette palette;
   Gaze gaze;
 
 public:
   DrawContext() = delete;
-  DrawContext(Expression expression, float breath, ColorPalette palette, Gaze gaze, float eyeOpenRatio, float mouthOpenRatio);
+  DrawContext(Expression expression, float breath, ColorPalette palette, Gaze gaze, float eyeOpenRatio, float mouthOpenRatio, const char* speechText);
   ~DrawContext() = default;
   DrawContext(const DrawContext &other) = delete;
   DrawContext &operator=(const DrawContext &other) = delete;
@@ -30,5 +31,6 @@ public:
   float getMouthOpenRatio() const;
   Gaze getGaze() const;
   ColorPalette getColorPalette() const;
+  const char* getspeechText() const;
 };
 }

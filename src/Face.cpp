@@ -8,18 +8,20 @@
 
 namespace m5avatar
 {
+Balloon b;
+BoundingRect br;
 
 Face::Face()
     : Face(new Mouth(50, 90, 4, 60),
-      new BoundingRect(148, 163),
-      new Eye(8, false),
-      new BoundingRect(93, 90),
-      new Eye(8, true),
-      new BoundingRect(96, 230),
-      new Eyeblow(32, 0, false),
-      new BoundingRect(67, 96),
-      new Eyeblow(32, 0, true),
-      new BoundingRect(72, 230))
+           new BoundingRect(148, 163),
+           new Eye(8, false),
+           new BoundingRect(93, 90),
+           new Eye(8, true),
+           new BoundingRect(96, 230),
+           new Eyeblow(32, 0, false),
+           new BoundingRect(67, 96),
+           new Eyeblow(32, 0, true),
+           new BoundingRect(72, 230))
 {
 }
 
@@ -30,15 +32,15 @@ Face::Face(
     Drawable *eyeblowR,
     Drawable *eyeblowL)
     : Face(mouth,
-      new BoundingRect(148, 163),
-      eyeR,
-      new BoundingRect(93, 90),
-      eyeL,
-      new BoundingRect(96, 230),
-      eyeblowR,
-      new BoundingRect(67, 96),
-      eyeblowL,
-      new BoundingRect(72, 230))
+           new BoundingRect(148, 163),
+           eyeR,
+           new BoundingRect(93, 90),
+           eyeL,
+           new BoundingRect(96, 230),
+           eyeblowR,
+           new BoundingRect(67, 96),
+           eyeblowL,
+           new BoundingRect(72, 230))
 {
 }
 
@@ -147,9 +149,10 @@ void Face::draw(DrawContext *ctx)
   rect = *eyeblowLPos;
   rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   eyeblowL->draw(sprite, rect, ctx);
+
+  b.draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
   sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
   sprite->deleteSprite();
 }
-
 } // namespace m5avatar
