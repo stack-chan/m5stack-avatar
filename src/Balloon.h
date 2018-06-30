@@ -29,7 +29,7 @@ public:
     spi->fillTriangle(220, 180, 270, 210, 240, 210, backgroundColor);
     spi->setTextSize(2);
     spi->setTextColor(primaryColor, backgroundColor);
-    spi->drawString("Hi!", 240, 200, 2); // Continue printing from new x position
+    spi->drawString(text, 240, 200, 2); // Continue printing from new x position
   }
 };
 

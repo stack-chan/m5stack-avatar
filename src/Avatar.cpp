@@ -219,7 +219,7 @@ void Avatar::setGaze(float vertical, float horizontal)
   int h = floor(4 * horizontal);
 }
 
-void Avatar::setspeechText(const char* speechText)
+void Avatar::setSpeechText(const char* speechText)
 {
   this->speechText = speechText;
 }

@@ -26,5 +26,8 @@ void loop()
   if (M5.BtnA.wasPressed())
   {
     TTS.play("konnichiwa", 80);
+    avatar->setSpeechText("Hello");
+    delay(1000);
+    avatar->setSpeechText("");
   }
 }

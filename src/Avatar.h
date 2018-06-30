@@ -39,7 +39,7 @@ class Avatar
     void setExpression(Expression exp);
     void setEyeOpenRatio(float ratio);
     void setMouthOpenRatio(float ratio);
-    void setspeechText(const char* speechText);
+    void setSpeechText(const char* speechText);
     void drawBalloon(TFT_eSPI *spi); // Experimental
     void draw(void);
     bool isDrawing();
