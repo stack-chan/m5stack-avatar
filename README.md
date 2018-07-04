@@ -4,6 +4,8 @@
 
 Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
+[日本語](README_ja.md)
+
 ## Features
 
 * :neutral_face: Draw avatar face

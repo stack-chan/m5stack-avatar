@@ -4,6 +4,8 @@
 
 動画: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
+[ENGLISH](README.md)
+
 ## 機能
 
 * :neutral_face: アバターの顔を表示します。
