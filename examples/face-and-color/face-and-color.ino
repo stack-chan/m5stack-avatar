@@ -1,6 +1,6 @@
 #include <M5Stack.h>
-#include "Avatar.h"
-#include "faces/DogFace.h"
+#include <Avatar.h>
+#include <faces/DogFace.h>
 
 using namespace m5avatar;
 

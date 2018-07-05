@@ -1,10 +1,13 @@
 #include <M5Stack.h>
-#include "Avatar.h"
-#include "const.h"
+#include <Avatar.h>
+#include <tasks/LipSync.h>
 #include <AquesTalkTTS.h>
-#include "tasks/LipSync.h"
 
 using namespace m5avatar;
+
+// AquesTalk License Key
+// NULL or wrong value is just ignored
+const char* AQUESTALK_KEY = "XXXX-XXXX-XXXX-XXXX";
 
 Avatar *avatar;
 void setup()
@@ -15,7 +18,6 @@ void setup()
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
-
   avatar->init();
   avatar->addTask(lipSync, "lipSync");
 }
