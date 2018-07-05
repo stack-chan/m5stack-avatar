@@ -56,6 +56,7 @@ cache:
 
 env:
     - PLATFORMIO_CI_SRC=examples/face-and-color/face-and-color.ino
+    - PLATFORMIO_CI_SRC=examples/basics/basics.ino
     # - PLATFORMIO_CI_SRC=path/to/test/file.c
     # - PLATFORMIO_CI_SRC=examples/file.ino
     # - PLATFORMIO_CI_SRC=path/to/test/directory
