@@ -1,5 +1,7 @@
 # M5Stack-Avatar
 
+[![Build Status](https://travis-ci.com/meganetaaan/m5stack-avatar.svg?branch=master)](https://travis-ci.com/meganetaaan/m5stack-avatar)
+
 ![M5Stack-Avatar](docs/image/avatar.gif)
 
 Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
