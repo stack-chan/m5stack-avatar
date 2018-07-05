@@ -11,14 +11,14 @@ class Avatar
 {
   private:
     Face* face;
+    bool _isDrawing;
     Expression expression;
+    float breath;
     float eyeOpenRatio;
     float mouthOpenRatio;
     float gazeV;
     float gazeH;
     // TODO: below are not of face rather avatar
-    float breath;
-    bool _isDrawing;
     ColorPalette palette;
     const char* speechText;
   public:

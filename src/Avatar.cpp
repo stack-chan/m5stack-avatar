@@ -85,8 +85,10 @@ Avatar::Avatar(Face *face)
       breath{0},
       eyeOpenRatio{1},
       mouthOpenRatio{0},
-      speechText{""},
-      palette{ColorPalette()}
+      gazeV{0},
+      gazeH{0},
+      palette{ColorPalette()},
+      speechText{""}
 {
 }
 

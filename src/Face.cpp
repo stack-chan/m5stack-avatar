@@ -56,17 +56,17 @@ Face::Face(
     Drawable *eyeblowL,
     BoundingRect *eyeblowLPos)
     : mouth{mouth},
-      mouthPos{mouthPos},
       eyeR{eyeR},
-      eyeRPos{eyeRPos},
       eyeL{eyeL},
-      eyeLPos{eyeLPos},
       eyeblowR{eyeblowR},
-      eyeblowRPos{eyeblowRPos},
       eyeblowL{eyeblowL},
+      mouthPos{mouthPos},
+      eyeRPos{eyeRPos},
+      eyeLPos{eyeLPos},
+      eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
-      sprite{new TFT_eSprite(&M5.Lcd)},
-      boundingRect{new BoundingRect(0, 0, 320, 240)}
+      boundingRect{new BoundingRect(0, 0, 320, 240)},
+      sprite{new TFT_eSprite(&M5.Lcd)}
 {
 }
 

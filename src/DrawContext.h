@@ -15,9 +15,9 @@ private:
   float breath;
   float eyeOpenRatio;
   float mouthOpenRatio;
-  const char* speechText;
-  ColorPalette palette;
   Gaze gaze;
+  ColorPalette palette;
+  const char* speechText;
 
 public:
   DrawContext() = delete;

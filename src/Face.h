@@ -20,13 +20,13 @@ private:
   Drawable *eyeL;
   Drawable *eyeblowR;
   Drawable *eyeblowL;
-  TFT_eSprite *sprite;
-  BoundingRect *boundingRect;
   BoundingRect *mouthPos;
   BoundingRect *eyeRPos;
   BoundingRect *eyeLPos;
   BoundingRect *eyeblowRPos;
   BoundingRect *eyeblowLPos;
+  BoundingRect *boundingRect;
+  TFT_eSprite *sprite;
 
 public:
   // constructor
