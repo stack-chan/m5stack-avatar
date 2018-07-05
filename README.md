@@ -1,5 +1,6 @@
 # M5Stack-Avatar
 
+[![Powered By PlatformIO](https://img.shields.io/Powered/PlatformIO.png)](https://platformio.org/)
 [![Build Status](https://travis-ci.com/meganetaaan/m5stack-avatar.svg?branch=master)](https://travis-ci.com/meganetaaan/m5stack-avatar)
 
 ![M5Stack-Avatar](docs/image/avatar.gif)
