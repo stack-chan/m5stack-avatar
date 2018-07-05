@@ -14,7 +14,6 @@ void Eyeblow::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
   uint32_t x = rect.getLeft();
   uint32_t y = rect.getTop();
   uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
-  uint32_t secondaryColor = ctx->getColorPalette().get(COLOR_SECONDARY);
   if (width == 0 || height == 0)
   {
     return;

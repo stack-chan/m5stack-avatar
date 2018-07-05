@@ -57,7 +57,6 @@ namespace m5avatar
       uint32_t backgroundColor = ctx->getColorPalette().get(COLOR_BACKGROUND);
       uint32_t cx = rect.getCenterX();
       uint32_t cy = rect.getCenterY();
-      float breath = min(1.0f, ctx->getBreath());
       float openRatio = ctx->getMouthOpenRatio();
       uint32_t h = minHeight + (maxHeight - minHeight) * openRatio;
       uint32_t w = minWidth + (maxWidth - minWidth) * (1 - openRatio);
