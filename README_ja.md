@@ -20,7 +20,11 @@
 
 ```cpp
 
+#include <M5Stack.h>
 #include <Avatar.h>
+
+using namespace m5avatar;
+
 Avatar avatar;
 
 void setup()

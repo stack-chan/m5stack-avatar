@@ -20,7 +20,11 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
 ```cpp
 
+#include <M5Stack.h>
 #include <Avatar.h>
+
+using namespace m5avatar;
+
 Avatar avatar;
 
 void setup()
