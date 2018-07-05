@@ -33,7 +33,6 @@ void drawLoop(void *args)
 {
   DriveContext *ctx = (DriveContext *)args;
   Avatar *avatar = ctx->getAvatar();
-  int count = 0;
   for (;;)
   {
     if (avatar->isDrawing())
@@ -217,8 +216,6 @@ void Avatar::setGaze(float vertical, float horizontal)
 {
   this->gazeV = vertical;
   this->gazeH = horizontal;
-  int v = floor(4 * vertical);
-  int h = floor(4 * horizontal);
 }
 
 void Avatar::setSpeechText(const char* speechText)
