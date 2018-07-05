@@ -1,19 +1,15 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full
+// license information.
 
 #include "Eye.h"
 namespace m5avatar {
 
-Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft)
-: Eye(r, isLeft)
-{}
+Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft) : Eye(r, isLeft) {}
 
-Eye::Eye(uint16_t r, bool isLeft)
-: r{r}, isLeft{isLeft}
-{}
+Eye::Eye(uint16_t r, bool isLeft) : r{r}, isLeft{isLeft} {}
 
-void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
-{
+void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
   Expression exp = ctx->getExpression();
   uint32_t x = rect.getCenterX();
   uint32_t y = rect.getCenterY();
@@ -23,12 +19,10 @@ void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
   uint32_t offsetY = g.getVertical() * 3;
   uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
   uint32_t backgroundColor = ctx->getColorPalette().get(COLOR_BACKGROUND);
-  if (openRatio > 0)
-  {
+  if (openRatio > 0) {
     spi->fillCircle(x + offsetX, y + offsetY, r, primaryColor);
-    // TODO: Refactor
-    if (exp == Expression::Angry || exp == Expression::Sad)
-    {
+    // TODO(meganetaaan): Refactor
+    if (exp == Expression::Angry || exp == Expression::Sad) {
       int x0, y0, x1, y1, x2, y2;
       x0 = x + offsetX - r;
       y0 = y + offsetY - r;
@@ -38,23 +32,19 @@ void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
       y2 = y0 + r;
       spi->fillTriangle(x0, y0, x1, y1, x2, y2, backgroundColor);
     }
-    if (exp == Expression::Happy || exp == Expression::Sleepy)
-    {
+    if (exp == Expression::Happy || exp == Expression::Sleepy) {
       int x0, y0, w, h;
       x0 = x + offsetX - r;
       y0 = y + offsetY - r;
       w = r * 2 + 4;
       h = r + 2;
-      if (exp == Expression::Happy)
-      {
+      if (exp == Expression::Happy) {
         y0 += r;
         spi->fillCircle(x + offsetX, y + offsetY, r / 1.5, backgroundColor);
       }
       spi->fillRect(x0, y0, w, h, backgroundColor);
     }
-  }
-  else
-  {
+  } else {
     int x1 = x - r + offsetX;
     int y1 = y - 2 + offsetY;
     int w = r * 2;
@@ -62,4 +52,4 @@ void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
     spi->fillRect(x1, y1, w, h, primaryColor);
   }
 }
-}
+}  // namespace m5avatar

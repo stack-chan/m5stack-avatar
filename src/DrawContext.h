@@ -1,16 +1,17 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full
+// license information.
 
-#pragma once
-#include "Expression.h"
+#ifndef DRAWCONTEXT_H_
+#define DRAWCONTEXT_H_
+
 #include "ColorPalette.h"
+#include "Expression.h"
 #include "Gaze.h"
 
-namespace m5avatar
-{
-class DrawContext
-{
-private:
+namespace m5avatar {
+class DrawContext {
+ private:
   Expression expression;
   float breath;
   float eyeOpenRatio;
@@ -19,12 +20,14 @@ private:
   ColorPalette palette;
   const char* speechText;
 
-public:
+ public:
   DrawContext() = delete;
-  DrawContext(Expression expression, float breath, ColorPalette palette, Gaze gaze, float eyeOpenRatio, float mouthOpenRatio, const char* speechText);
+  DrawContext(Expression expression, float breath, ColorPalette palette,
+              Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
+              const char* speechText);
   ~DrawContext() = default;
-  DrawContext(const DrawContext &other) = delete;
-  DrawContext &operator=(const DrawContext &other) = delete;
+  DrawContext(const DrawContext& other) = delete;
+  DrawContext& operator=(const DrawContext& other) = delete;
   Expression getExpression() const;
   float getBreath() const;
   float getEyeOpenRatio() const;
@@ -33,4 +36,6 @@ public:
   ColorPalette getColorPalette() const;
   const char* getspeechText() const;
 };
-}
+}  // namespace m5avatar
+
+#endif  // DRAWCONTEXT_H_

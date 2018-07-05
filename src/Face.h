@@ -1,20 +1,19 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full
+// license information.
 
-#pragma once
-#include <M5Stack.h> // TODO: include only the Sprite function not a whole library
-#include "Mouth.h"
+#ifndef FACE_H_
+#define FACE_H_
+#include "Balloon.h"
+#include "BoundingRect.h"
 #include "Eye.h"
 #include "Eyeblow.h"
-#include "BoundingRect.h"
-#include "Balloon.h"
+#include "Mouth.h"
 
-namespace m5avatar
-{
+namespace m5avatar {
 
-class Face
-{
-private:
+class Face {
+ private:
   Drawable *mouth;
   Drawable *eyeR;
   Drawable *eyeL;
@@ -28,20 +27,15 @@ private:
   BoundingRect *boundingRect;
   TFT_eSprite *sprite;
 
-public:
+ public:
   // constructor
   Face();
-  Face(Drawable* mouth, Drawable* eyeR, Drawable* eyeL, Drawable* eyeblowR, Drawable* eyeblowL);
-  // TODO: apply builder pattern
-  Face(Drawable *mouth,
-       BoundingRect *mouthPos,
-       Drawable *eyeR,
-       BoundingRect *eyeRPos,
-       Drawable *eyeL,
-       BoundingRect *eyeLPos,
-       Drawable *eyeblowR,
-       BoundingRect *eyeblowRPos,
-       Drawable *eyeblowL,
+  Face(Drawable *mouth, Drawable *eyeR, Drawable *eyeL, Drawable *eyeblowR,
+       Drawable *eyeblowL);
+  // TODO(meganetaaan): apply builder pattern
+  Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
+       BoundingRect *eyeRPos, Drawable *eyeL, BoundingRect *eyeLPos,
+       Drawable *eyeblowR, BoundingRect *eyeblowRPos, Drawable *eyeblowL,
        BoundingRect *eyeblowLPos);
   ~Face();
   Face(const Face &other) = default;
@@ -64,4 +58,6 @@ public:
 
   void draw(DrawContext *ctx);
 };
-} // namespace m5avatar
+}  // namespace m5avatar
+
+#endif  // FACE_H_

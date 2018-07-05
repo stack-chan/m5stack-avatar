@@ -1,66 +1,64 @@
 // Copyright (c) Shinya Ishikawa. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full
+// license information.
 
-#pragma once
-#include "Face.h"
+#ifndef AVATAR_H_
+#define AVATAR_H_
 #include "ColorPalette.h"
+#include "Face.h"
 
-namespace m5avatar
-{
-class Avatar
-{
-  private:
-    Face* face;
-    bool _isDrawing;
-    Expression expression;
-    float breath;
-    float eyeOpenRatio;
-    float mouthOpenRatio;
-    float gazeV;
-    float gazeH;
-    // TODO: below are not of face rather avatar
-    ColorPalette palette;
-    const char* speechText;
-  public:
-    Avatar();
-    Avatar(Face* face);
-    Avatar(Face &face);
-    ~Avatar() = default;
-    Avatar(const Avatar &other) = default;
-    Avatar &operator=(const Avatar &other) = default;
-    Face* getFace() const;
-    ColorPalette getColorPalette() const;
-    void setColorPalette(ColorPalette cp);
-    void setFace(Face *face);
-    void setFace(Face &face);
-    void init(void);
-    void setBreath(float f);
-    void setGaze(float vertical, float horizontal);
-    void setExpression(Expression exp);
-    void setEyeOpenRatio(float ratio);
-    void setMouthOpenRatio(float ratio);
-    void setSpeechText(const char* speechText);
-    void drawBalloon(TFT_eSPI *spi); // Experimental
-    void draw(void);
-    bool isDrawing();
-    void start();
-    void stop();
-    void addTask(TaskFunction_t f, std::string name);
+namespace m5avatar {
+class Avatar {
+ private:
+  Face *face;
+  bool _isDrawing;
+  Expression expression;
+  float breath;
+  float eyeOpenRatio;
+  float mouthOpenRatio;
+  float gazeV;
+  float gazeH;
+  ColorPalette palette;
+  const char *speechText;
+
+ public:
+  Avatar();
+  explicit Avatar(Face *face);
+  ~Avatar() = default;
+  Avatar(const Avatar &other) = default;
+  Avatar &operator=(const Avatar &other) = default;
+  Face *getFace() const;
+  ColorPalette getColorPalette() const;
+  void setColorPalette(ColorPalette cp);
+  void setFace(Face *face);
+  void init(void);
+  void setBreath(float f);
+  void setGaze(float vertical, float horizontal);
+  void setExpression(Expression exp);
+  void setEyeOpenRatio(float ratio);
+  void setMouthOpenRatio(float ratio);
+  void setSpeechText(const char *speechText);
+  void draw(void);
+  bool isDrawing();
+  void start();
+  void stop();
+  void addTask(TaskFunction_t f, const char* name);
 };
 
-class DriveContext
-{
-private:
-  // TODO: cyclic reference
+class DriveContext {
+ private:
+  // TODO(meganetaaan): cyclic reference
   Avatar *avatar;
 
-public:
+ public:
   DriveContext() = delete;
-  DriveContext(Avatar *avatar);
+  explicit DriveContext(Avatar *avatar);
   ~DriveContext() = default;
   DriveContext(const DriveContext &other) = delete;
   DriveContext &operator=(const DriveContext &other) = delete;
   Avatar *getAvatar();
 };
 
-}
+}  // namespace m5avatar
+
+#endif  // AVATAR_H_
