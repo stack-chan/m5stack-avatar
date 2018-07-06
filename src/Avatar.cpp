@@ -6,6 +6,8 @@
 namespace m5avatar {
 const uint32_t DEFAULT_STACK_SIZE = 4096;
 
+unsigned int seed = 0;
+
 // TODO(meganetaaan): make read-only
 DriveContext::DriveContext(Avatar *avatar) : avatar{avatar} {}
 
@@ -36,8 +38,8 @@ void drawLoop(void *args) {
 void saccade(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   for (;;) {
-    float vertical = rand() / (RAND_MAX / 2.0) - 1;
-    float horizontal = rand() / (RAND_MAX / 2.0) - 1;
+    float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+    float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
     ctx->getAvatar()->setGaze(vertical, horizontal);
     delay(500 + 100 * random(20));
   }
