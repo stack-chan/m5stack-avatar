@@ -9,6 +9,7 @@
 #include "Eye.h"
 #include "Eyeblow.h"
 #include "Mouth.h"
+#include "Effect.h"
 
 namespace m5avatar {
 

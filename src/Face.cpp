@@ -9,6 +9,7 @@
 
 namespace m5avatar {
 Balloon b;
+Effect h;
 BoundingRect br;
 
 Face::Face()
@@ -98,7 +99,9 @@ void Face::draw(DrawContext *ctx) {
   rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
   eyeblowL->draw(sprite, rect, ctx);
 
+  // TODO(meganetaaan): make balloons and effects selectable
   b.draw(sprite, br, ctx);
+  h.draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
   sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
   sprite->deleteSprite();
