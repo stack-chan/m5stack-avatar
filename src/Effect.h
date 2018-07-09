@@ -28,6 +28,16 @@ class Effect final : public Drawable {
     spi->fillRect(x - r, y - (r / 3) + 2, r * 2, ((r * 2) / 3) - 4, bColor);
   }
 
+  void drawHeart(TFT_eSPI *spi, uint32_t x, uint32_t y, uint32_t r,
+                 uint32_t color) {
+    spi->fillCircle(x - r / 2, y, r / 2, color);
+    spi->fillCircle(x + r / 2, y, r / 2, color);
+    float a = (sqrt(2) * r) / 4.0;
+    spi->fillTriangle(x, y, x - r / 2 - a, y + a, x + r / 2 + a, y + a, color);
+    spi->fillTriangle(x, y + (r / 2) + 2 * a, x - r / 2 - a, y + a, x + r / 2 + a, y + a,
+                      color);
+  }
+
  public:
   // constructor
   Effect() = default;
@@ -42,6 +52,8 @@ class Effect final : public Drawable {
       drawSweat(spi, 290, 110, 5, primaryColor);
     } else if (exp == Expression::Angry) {
       drawAngerMark(spi, 280, 50, 12, primaryColor, bgColor);
+    } else if (exp == Expression::Happy) {
+      drawHeart(spi, 280, 50, 12, primaryColor);
     }
   }
 };
