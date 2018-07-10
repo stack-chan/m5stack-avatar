@@ -5,11 +5,10 @@
 #include "ColorPalette.h"
 
 namespace m5avatar {
-ColorPalette::ColorPalette() {
-  colors[COLOR_PRIMARY] = TFT_WHITE;
-  colors[COLOR_SECONDARY] = TFT_BLACK;
-  colors[COLOR_BACKGROUND] = TFT_BLACK;
-}
+ColorPalette::ColorPalette()
+    : colors{{COLOR_PRIMARY, TFT_WHITE},
+             {COLOR_SECONDARY, TFT_BLACK},
+             {COLOR_BACKGROUND, TFT_BLACK}} {}
 
 uint32_t ColorPalette::get(const char* key) const {
   auto itr = colors.find(key);
