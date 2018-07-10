@@ -17,12 +17,12 @@ class DrawContext {
   float eyeOpenRatio;
   float mouthOpenRatio;
   Gaze gaze;
-  ColorPalette palette;
+  ColorPalette * const palette;
   const char* speechText;
 
  public:
   DrawContext() = delete;
-  DrawContext(Expression expression, float breath, ColorPalette palette,
+  DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
               const char* speechText);
   ~DrawContext() = default;
@@ -33,7 +33,7 @@ class DrawContext {
   float getEyeOpenRatio() const;
   float getMouthOpenRatio() const;
   Gaze getGaze() const;
-  ColorPalette getColorPalette() const;
+  ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
 };
 }  // namespace m5avatar

@@ -125,7 +125,7 @@ void Avatar::start() { _isDrawing = true; }
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
-                                     this->palette, g, this->eyeOpenRatio,
+                                     &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText);
   face->draw(ctx);
   delete ctx;

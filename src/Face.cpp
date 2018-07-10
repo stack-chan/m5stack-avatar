@@ -74,7 +74,7 @@ BoundingRect *Face::getBoundingRect() { return boundingRect; }
 void Face::draw(DrawContext *ctx) {
   sprite->setColorDepth(8);
   sprite->createSprite(320, 240);
-  sprite->fillSprite(ctx->getColorPalette().get(COLOR_BACKGROUND));
+  sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   float breath = _min(1.0f, ctx->getBreath());
 
   // TODO(meganetaaan): unify drawing process of each parts

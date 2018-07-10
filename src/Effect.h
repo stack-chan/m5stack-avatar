@@ -45,8 +45,8 @@ class Effect final : public Drawable {
   Effect(const Effect &other) = default;
   Effect &operator=(const Effect &other) = default;
   void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) override {
-    uint32_t primaryColor = ctx->getColorPalette().get(COLOR_PRIMARY);
-    uint32_t bgColor = ctx->getColorPalette().get(COLOR_BACKGROUND);
+    uint32_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
+    uint32_t bgColor = ctx->getColorPalette()->get(COLOR_BACKGROUND);
     Expression exp = ctx->getExpression();
     if (exp == Expression::Doubt) {
       drawSweat(spi, 290, 110, 5, primaryColor);
