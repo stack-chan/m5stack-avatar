@@ -17,6 +17,36 @@
 * :kiss:         リップシンク（音声に合わせて口を動かす）できます。
 * :art:          色を変更できます。
 
+## インストール
+
+### 前提
+
+* [Getting Started: Installing the USB Driver](http://www.m5stack.com/assets/docs/)にしたがって、USBドライバがインストールされている
+* 何らかの開発環境がセットアップされている
+  * このライブラリはArduino IDE, Platform IOで動作確認しています。
+
+### Arduino IDEを使う場合
+
+* [ダウンロードリンク](https://github.com/meganetaaan/m5stack-avatar/archive/master.zip)からM5Stack-AvatarのZIPをダウンロードします
+* Arduino IDEのメニューから"Sketch > Include Library > Add ZIP Library..."を選択します
+* ダウンロードしたZIPを指定します
+* M5Stack-Avatarライブラリが登録され、使用可能になります。
+
+### Platform IOを使う場合
+
+* cliからPlatform IOプロジェクトを初期化します。
+```sh
+mkdir my-avatar
+cd my-avatar
+platformio init -d . -b m5stack-core-esp32
+```
+* cliからライブラリをインストールします。
+```sh
+platformio lib install M5Stack
+platformio lib install M5Stack-Avatar
+```
+* ライブラリがプロジェクトの.piolibdeps配下にダウンロードされ、使用可能になります。
+
 ## 使い方
 
 ```cpp
