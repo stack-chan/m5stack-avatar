@@ -4,12 +4,17 @@
 
 #ifndef BALLOON_H_
 #define BALLOON_H_
-#include <utility/In_eSPI.h>
+#include <M5Stack.h>
 #include "DrawContext.h"
 #include "Drawable.h"
 
-namespace m5avatar {
+const int16_t TEXT_HEIGHT = 8;
+const int16_t TEXT_SIZE = 2;
+const int16_t MIN_WIDTH = 32;
+const int cx = 240;
+const int cy = 220;
 
+namespace m5avatar {
 class Balloon final : public Drawable {
  public:
   // constructor
@@ -25,11 +30,14 @@ class Balloon final : public Drawable {
     if (strlen(text) == 0) {
       return;
     }
-    spi->fillEllipse(280, 220, 60, 40, backgroundColor);
-    spi->fillTriangle(220, 180, 270, 210, 240, 210, backgroundColor);
-    spi->setTextSize(2);
+    int textWidth = M5.Lcd.textWidth(text);
+    int textHeight = TEXT_HEIGHT * TEXT_SIZE;
+    spi->fillEllipse(cx, cy, _max(textWidth * 1.5, MIN_WIDTH), textHeight * 2, backgroundColor);
+    spi->fillTriangle(cx - 60, cy - 40, cx - 10, cy - 10, cx - 40, cy - 10, backgroundColor);
+    spi->setTextSize(TEXT_SIZE);
     spi->setTextColor(primaryColor, backgroundColor);
-    spi->drawString(text, 240, 200,
+    spi->setTextDatum(MC_DATUM);
+    spi->drawString(text, cx, cy,
                     2);  // Continue printing from new x position
   }
 };
