@@ -10,7 +10,7 @@
 
 const int16_t TEXT_HEIGHT = 8;
 const int16_t TEXT_SIZE = 2;
-const int16_t MIN_WIDTH = 32;
+const int16_t MIN_WIDTH = 40;
 const int cx = 240;
 const int cy = 220;
 
@@ -30,13 +30,15 @@ class Balloon final : public Drawable {
     if (strlen(text) == 0) {
       return;
     }
-    int textWidth = M5.Lcd.textWidth(text);
-    int textHeight = TEXT_HEIGHT * TEXT_SIZE;
-    spi->fillEllipse(cx, cy, _max(textWidth * 1.5, MIN_WIDTH), textHeight * 2, backgroundColor);
-    spi->fillTriangle(cx - 60, cy - 40, cx - 10, cy - 10, cx - 40, cy - 10, backgroundColor);
+    M5.Lcd.setTextSize(TEXT_SIZE);
+    M5.Lcd.setTextDatum(MC_DATUM);
     spi->setTextSize(TEXT_SIZE);
     spi->setTextColor(primaryColor, backgroundColor);
     spi->setTextDatum(MC_DATUM);
+    int textWidth = M5.Lcd.textWidth(text, 2);
+    int textHeight = TEXT_HEIGHT * TEXT_SIZE;
+    spi->fillEllipse(cx, cy, _max(textWidth, MIN_WIDTH), textHeight * 2, backgroundColor);
+    spi->fillTriangle(cx - 60, cy - 40, cx - 10, cy - 10, cx - 40, cy - 10, backgroundColor);
     spi->drawString(text, cx, cy,
                     2);  // Continue printing from new x position
   }
