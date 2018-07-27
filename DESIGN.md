@@ -49,8 +49,16 @@ User can use colors from their draw function but not necessary.
 
 * removeTask(task)
 * addTask(task)
+* getTasks()
 
 task...FreeRTOS like I/F
 
 task is managed by avatar using its name.
-all taskname are unique so avatar cannot have tasks with the same name.
+all taskname are unique so that avatar cannot have tasks with the same name.
+
+Task {
+  members:
+  name
+  run
+}
+
