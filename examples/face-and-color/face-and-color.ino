@@ -15,6 +15,7 @@ const Expression expressions[] = {
   Expression::Sleepy,
   Expression::Happy,
   Expression::Sad,
+  Expression::Doubt,
   Expression::Neutral
 };
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);

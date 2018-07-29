@@ -1,7 +1,6 @@
 #include <M5Stack.h>
-#include "Avatar.h"
-#include "faces/DogFace.h"
-#include "tasks/LipSync.h"
+#include <Avatar.h>
+#include <faces/DogFace.h>
 
 using namespace m5avatar;
 
@@ -16,6 +15,7 @@ const Expression expressions[] = {
   Expression::Sleepy,
   Expression::Happy,
   Expression::Sad,
+  Expression::Doubt,
   Expression::Neutral
 };
 const int expressionsSize = sizeof(expressions) / sizeof(Expression);
@@ -67,9 +67,6 @@ void loop()
   if (M5.BtnC.wasPressed())
   {
     avatar.setExpression(expressions[idx]);
-    avatar.setSpeechText("Hi!");
-    delay(2000);
-    avatar.setSpeechText("");
     idx = (idx + 1) % expressionsSize;
   }
 }
