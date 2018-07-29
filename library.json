@@ -19,7 +19,7 @@
     "name": "M5Stack",
     "version": ">=0.2.0"
   },
-  "version": "0.6.1",
+  "version": "0.6.2",
   "frameworks": "arduino",
   "platforms": "espressif32"
 }
