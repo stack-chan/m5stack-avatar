@@ -4,5 +4,6 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 lib/aqtkpico_esp32
+lib/aquestalk_esp32
 const.h
 /tmp/
