@@ -76,46 +76,48 @@ Face *Avatar::getFace() const { return face; }
 void Avatar::addTask(TaskFunction_t f, const char* name) {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): set a task handler
-  xTaskCreatePinnedToCore(f, /* Function to implement the task */
+  xTaskCreate(f, /* Function to implement the task */
                           name, /* Name of the task */
                           DEFAULT_STACK_SIZE, /* Stack size in words */
                           ctx,                /* Task input parameter */
                           1,                  /* P2014riority of the task */
-                          NULL,               /* Task handle. */
-                          1); /* Core where the task should run */
+                          NULL);              /* Task handle. */
+  // xTaskCreatePinnedToCore(f, /* Function to implement the task */
+  //                         name, /* Name of the task */
+  //                         DEFAULT_STACK_SIZE, /* Stack size in words */
+  //                         ctx,                /* Task input parameter */
+  //                         1,                  /* P2014riority of the task */
+  //                         NULL,               /* Task handle. */
+  //                         1); /* Core where the task should run */
 }
 
 void Avatar::init() {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
-  xTaskCreatePinnedToCore(drawLoop,     /* Function to implement the task */
+  xTaskCreate(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
                           4096,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           1,            /* Priority of the task */
-                          NULL,         /* Task handle. */
-                          1);           /* Core where the task should run */
-  xTaskCreatePinnedToCore(saccade,      /* Function to implement the task */
+                          NULL);        /* Task handle. */
+  xTaskCreate(saccade,      /* Function to implement the task */
                           "saccade",    /* Name of the task */
                           4096,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           3,            /* Priority of the task */
-                          NULL,         /* Task handle. */
-                          1);           /* Core where the task should run */
-  xTaskCreatePinnedToCore(updateBreath, /* Function to implement the task */
+                          NULL);        /* Task handle. */
+  xTaskCreate(updateBreath, /* Function to implement the task */
                           "breath",     /* Name of the task */
                           4096,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
-                          NULL,         /* Task handle. */
-                          1);           /* Core where the task should run */
-  xTaskCreatePinnedToCore(blink,        /* Function to implement the task */
+                          NULL);        /* Task handle. */
+  xTaskCreate(blink,        /* Function to implement the task */
                           "blink",      /* Name of the task */
                           4096,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
-                          NULL,         /* Task handle. */
-                          1);           /* Core where the task should run */
+                          NULL);        /* Task handle. */
 }
 
 void Avatar::stop() { _isDrawing = false; }
