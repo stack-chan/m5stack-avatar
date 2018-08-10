@@ -13,8 +13,8 @@ Avatar *avatar;
 void setup()
 {
   int iret;
-  iret = TTS.create(AQUESTALK_KEY);
   M5.begin();
+  iret = TTS.createK(AQUESTALK_KEY);
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
