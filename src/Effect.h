@@ -109,6 +109,10 @@ class Effect final : public Drawable {
       case Expression::Sleepy:
         drawBubbleMark(spi, 290, 40, 10, primaryColor, offset);
         drawBubbleMark(spi, 270, 52, 6, primaryColor, -offset);
+        break;
+      default:
+        // noop
+        break;
     }
   }
 };
