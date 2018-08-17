@@ -1,7 +1,7 @@
-#include <M5Stack.h>
-#include <Avatar.h>
-#include <tasks/LipSync.h>
 #include <AquesTalkTTS.h>
+#include <Avatar.h>
+#include <M5Stack.h>
+#include <tasks/LipSync.h>
 
 using namespace m5avatar;
 
@@ -9,12 +9,14 @@ using namespace m5avatar;
 // NULL or wrong value is just ignored
 const char* AQUESTALK_KEY = "XXXX-XXXX-XXXX-XXXX";
 
-Avatar *avatar;
-void setup()
-{
+Avatar* avatar;
+void setup() {
   int iret;
   M5.begin();
-  iret = TTS.createK(AQUESTALK_KEY);
+  // For Kanji-to-speech mode (requires dictionary file saved on microSD)
+  // See http://blog-yama.a-quest.com/?eid=970195
+  // iret = TTS.createK(AQUESTALK_KEY);
+  iret = TTS.create(AQUESTALK_KEY);
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
   avatar = new Avatar();
@@ -22,11 +24,11 @@ void setup()
   avatar->addTask(lipSync, "lipSync");
 }
 
-void loop()
-{
+void loop() {
   M5.update();
-  if (M5.BtnA.wasPressed())
-  {
+  if (M5.BtnA.wasPressed()) {
+    // Need to initialize with createK(AQUESTALK_KEY)
+    // TTS.play("こんにちは。", 80);
     TTS.play("konnichiwa", 80);
     avatar->setSpeechText("Hello");
     delay(1000);
