@@ -71,4 +71,48 @@ void loop()
 }
 ```
 
-see `examples` directory for further usage
+### Using LipSync
+
+* setup AquesTalk-ESP32 (http://blog-yama.a-quest.com/?eid=970195).
+  * (For parsing Kainji statement) Copy the dictionary file from above link to the microSD card.
+  * You don't need to copy AquesTalkTTS files. They are included in this library.
+
+* Write below to open avatar mouth according to the audio output.
+
+```cpp
+#include <AquesTalkTTS.h>
+#include <M5Stack.h>
+#include <Avatar.h>
+#include <tasks/LipSync.h>
+
+using namespace m5avatar;
+
+// AquesTalk License Key
+// NULL or wrong value is just ignored
+const char* AQUESTALK_KEY = "XXXX-XXXX-XXXX-XXXX";
+Avatar avatar;
+
+void setup() {
+  int iret;
+  M5.begin();
+  // For Kanji-to-speech mode (requires dictionary file saved on microSD)
+  // iret = TTS.createK(AQUESTALK_KEY);
+  iret = TTS.create(AQUESTALK_KEY);
+  avatar.init();
+  avatar.addTask(lipSync, "lipSync");
+}
+
+void loop() {
+  M5.update();
+  if (M5.BtnA.wasPressed()) {
+    // For Kanji-to-speech mode
+    // TTS.play("こんにちは。", 80);
+    TTS.play("konnichiwa", 80);
+  }
+}
+
+```
+
+### Further usage
+
+see `examples` directory.
