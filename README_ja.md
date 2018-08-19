@@ -71,4 +71,48 @@ void loop()
 }
 ```
 
-その他の使い方は `examples` ディレクトリを参照ください。
+### リップシンク機能を使う場合
+
+* AquesTalk-ESP32 をセットアップします（http://blog-yama.a-quest.com/?eid=970195）
+  * （漢字かな混じり文から音声出力する場合）辞書データをあらかじめmicroSDカードにコピーしてください
+  * 記事中にあるAquesTalkTTSのソースは本ライブラリに同梱されているため不要です
+
+* 下記コード例のように記述すると、出力に合わせてアバターの口が動きます
+
+```cpp
+#include <AquesTalkTTS.h>
+#include <M5Stack.h>
+#include <Avatar.h>
+#include <tasks/LipSync.h>
+
+using namespace m5avatar;
+
+// AquesTalk のライセンスキー
+// NULLや誤った値を指定すると単に無視されます
+const char* AQUESTALK_KEY = "XXXX-XXXX-XXXX-XXXX";
+Avatar avatar;
+
+void setup() {
+  int iret;
+  M5.begin();
+  // 漢字かな混じり文から音声出力する場合(辞書ファイルが必要)
+  // iret = TTS.createK(AQUESTALK_KEY);
+  iret = TTS.create(AQUESTALK_KEY);
+  avatar.init();
+  avatar.addTask(lipSync, "lipSync");
+}
+
+void loop() {
+  M5.update();
+  if (M5.BtnA.wasPressed()) {
+    // 漢字かな混じり文から音声出力する場合
+    // TTS.play("こんにちは。", 80);
+    TTS.play("konnichiwa", 80);
+  }
+}
+
+```
+
+### その他の使い方
+
+`examples` ディレクトリを参照ください。
