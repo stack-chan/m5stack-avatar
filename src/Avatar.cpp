@@ -31,7 +31,7 @@ void drawLoop(void *args) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
-    delay(33);
+    // delay(33);
   }
 }
 
@@ -66,6 +66,8 @@ Avatar::Avatar(Face *face)
       mouthOpenRatio{0},
       gazeV{0},
       gazeH{0},
+      rotation{0},
+      scale{1},
       palette{ColorPalette()},
       speechText{""} {}
 
@@ -128,7 +130,8 @@ void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
-                                     this->mouthOpenRatio, this->speechText);
+                                     this->mouthOpenRatio, this->speechText,
+                                     this->rotation, this->scale);
   face->draw(ctx);
   delete ctx;
 }
@@ -140,6 +143,10 @@ void Avatar::setExpression(Expression expression) {
 }
 
 void Avatar::setBreath(float breath) { this->breath = breath; }
+
+void Avatar::setRotation(float radian) { this->rotation = radian; }
+
+void Avatar::setScale(float scale) { this->scale = scale; }
 
 void Avatar::setColorPalette(ColorPalette cp) { palette = cp; }
 

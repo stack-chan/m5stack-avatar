@@ -10,13 +10,21 @@ DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
                          const char* speechText)
+    : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1){};
+
+DrawContext::DrawContext(Expression expression, float breath,
+                         ColorPalette* const palette, Gaze gaze,
+                         float eyeOpenRatio, float mouthOpenRatio,
+                         const char* speechText, float rotation, float scale)
     : expression{expression},
       breath{breath},
       eyeOpenRatio{eyeOpenRatio},
       mouthOpenRatio{mouthOpenRatio},
       gaze{gaze},
       palette{palette},
-      speechText{speechText} {}
+      speechText{speechText},
+      rotation{rotation},
+      scale{scale}{}
 
 Expression DrawContext::getExpression() const { return expression; }
 
@@ -25,6 +33,10 @@ float DrawContext::getMouthOpenRatio() const { return mouthOpenRatio; }
 float DrawContext::getEyeOpenRatio() const { return eyeOpenRatio; }
 
 float DrawContext::getBreath() const { return breath; }
+
+float DrawContext::getRotation() const { return rotation; }
+
+float DrawContext::getScale() const { return scale; }
 
 const char* DrawContext::getspeechText() const { return speechText; }
 

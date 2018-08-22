@@ -7,6 +7,28 @@
 #define PRIMARY_COLOR WHITE
 #define SECONDARY_COLOR BLACK
 
+// TODO: move to another file
+void transformSprite(TFT_eSprite *from, TFT_eSprite *to, float r, float s) {
+  int width = from->width();
+  int height = from->height();
+  int cx = width / 2;
+  int cy = height / 2;
+  float cosr = cos(r);
+  float sinr = sin(r);
+
+  for (int y2 = 0; y2 < height; y2++) {
+    for (int x2 = 0; x2 < width; x2++) {
+      int x1 = (((x2 - cx) * cosr) - ((y2 - cy) * sinr)) / s + cx;
+      int y1 = (((x2 - cx) * sinr) + ((y2 - cy) * cosr)) / s + cy;
+      if (x1 < 0 || x1 >= width || y1 < 0 || y1 >= height) {
+        continue;
+      }
+      int color = from->readPixel(x1, y1);
+      to->drawPixel(x2, y2, color);
+    }
+  }
+}
+
 namespace m5avatar {
 Balloon b;
 Effect h;
@@ -40,7 +62,8 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
       eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
       boundingRect{new BoundingRect(0, 0, 320, 240)},
-      sprite{new TFT_eSprite(&M5.Lcd)} {}
+      sprite{new TFT_eSprite(&M5.Lcd)},
+      tmpSpr{new TFT_eSprite(&M5.Lcd)} {}
 
 Face::~Face() {
   delete mouth;
@@ -54,6 +77,7 @@ Face::~Face() {
   delete eyeblowL;
   delete eyeblowLPos;
   delete sprite;
+  delete tmpSpr;
   delete boundingRect;
 }
 
@@ -73,6 +97,8 @@ BoundingRect *Face::getBoundingRect() { return boundingRect; }
 
 void Face::draw(DrawContext *ctx) {
   sprite->setColorDepth(8);
+  // NOTE: setting below for 1-bit color depth
+  sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
   sprite->createSprite(320, 240);
   sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   float breath = _min(1.0f, ctx->getBreath());
@@ -103,7 +129,24 @@ void Face::draw(DrawContext *ctx) {
   b.draw(sprite, br, ctx);
   h.draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
-  sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
+
+  // TODO(meganetaaan): rethink responsibility for transform function
+  float scale = ctx->getScale();
+  float rotation = ctx->getRotation();
+
+  if (scale != 1.0 || rotation != 0) {
+    // TODO(meganetaaan): reduce memory usage, at least small(1-bit) color depth
+    tmpSpr->setColorDepth(8);
+    tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    tmpSpr->createSprite(320, 240);
+    tmpSpr->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    transformSprite(sprite, tmpSpr, rotation, scale);
+
+    tmpSpr->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
+    tmpSpr->deleteSprite();
+  } else {
+    sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
+  }
   sprite->deleteSprite();
 }
 }  // namespace m5avatar
