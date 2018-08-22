@@ -18,6 +18,8 @@ class Avatar {
   float mouthOpenRatio;
   float gazeV;
   float gazeH;
+  float rotation;
+  float scale;
   ColorPalette palette;
   const char *speechText;
 
@@ -38,6 +40,8 @@ class Avatar {
   void setEyeOpenRatio(float ratio);
   void setMouthOpenRatio(float ratio);
   void setSpeechText(const char *speechText);
+  void setRotation(float radian);
+  void setScale(float scale);
   void draw(void);
   bool isDrawing();
   void start();

@@ -27,6 +27,7 @@ class Face {
   BoundingRect *eyeblowLPos;
   BoundingRect *boundingRect;
   TFT_eSprite *sprite;
+  TFT_eSprite *tmpSpr;
 
  public:
   // constructor

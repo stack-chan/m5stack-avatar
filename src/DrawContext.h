@@ -19,12 +19,17 @@ class DrawContext {
   Gaze gaze;
   ColorPalette * const palette;
   const char* speechText;
+  float rotation = 0.0;
+  float scale = 1.0;
 
  public:
   DrawContext() = delete;
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
               const char* speechText);
+  DrawContext(Expression expression, float breath, ColorPalette* const palette,
+              Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
+              const char* speechText, float rotation, float scale);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -32,6 +37,8 @@ class DrawContext {
   float getBreath() const;
   float getEyeOpenRatio() const;
   float getMouthOpenRatio() const;
+  float getScale() const;
+  float getRotation() const;
   Gaze getGaze() const;
   ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
