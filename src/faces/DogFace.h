@@ -52,7 +52,6 @@ class DogMouth : public Drawable {
         minHeight{minHeight},
         maxHeight{maxHeight} {}
   void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
-    ColorPalette *cp = ctx->getColorPalette();
     uint32_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint32_t backgroundColor = ctx->getColorPalette()->get(COLOR_BACKGROUND);
     uint32_t cx = rect.getCenterX();
