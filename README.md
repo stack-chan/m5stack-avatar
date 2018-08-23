@@ -11,11 +11,12 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
 ## Features
 
-* :neutral_face: Draw avatar face
-* :smile:        Expression(Happy, Angry, Sad etc.)
-* :smiley_cat:   Customize face
-* :kiss:         Lip sync
-* :art:          Color Palette
+* :neutral_face:     Draw avatar face
+* :smile:            Expression(Happy, Angry, Sad etc.)
+* :smiley_cat:       Customize face
+* :kiss:             Lip sync
+* :art:              Color Palette
+* :arrows_clockwise: Zoom and Rotation
 
 ## Installation
 
