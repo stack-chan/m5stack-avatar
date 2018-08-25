@@ -28,6 +28,18 @@ AudioFileSourceID3 *id3;
 
 Avatar avatar;
 
+int levels[10];
+const int levelsSize = sizeof(levels) / sizeof(int);
+int levelsIdx = 0;
+
+int avgLevel() {
+  int sum = 0;
+  for (int i = 0; i < levelsSize; i++) {
+    sum += levels[i];
+  }
+  return sum / levelsSize;
+}
+
 void setup()
 {
   M5.begin();
@@ -35,26 +47,26 @@ void setup()
   SPIFFS.begin();
   delay(500);
   avatar.init();
-  
-  Serial.printf("Sample MP3 playback begins...\n");
-  
-  // pno_cs from https://ccrma.stanford.edu/~jos/pasp/Sound_Examples.html
-  file = new AudioFileSourceSPIFFS("/nyaan.mp3");
-  id3 = new AudioFileSourceID3(file);
-  out = new AudioOutputI2S(0, 1); // Output to builtInDAC
-  out->SetOutputModeMono(true);
-  out->SetGain(0.16);
-  mp3 = new AudioGeneratorMP3();
-  mp3->begin(id3, out);
 }
 
 void loop()
 {
-  if (mp3->isRunning()) {
-    avatar.setMouthOpenRatio(abs(out->getLevel() / 12000.0));
-    if (!mp3->loop()) mp3->stop();
-  } else {
-    Serial.printf("MP3 done\n");
-    delay(1000);
+  M5.update();
+  if (M5.BtnA.wasPressed()) {
+    Serial.printf("Sample MP3 playback begins...\n");
+    file = new AudioFileSourceSPIFFS("/nyaan.mp3");
+    id3 = new AudioFileSourceID3(file);
+    out = new AudioOutputI2S(0, 1);  // Output to builtInDAC
+    out->SetOutputModeMono(true);
+    out->SetGain(0.16);
+    mp3 = new AudioGeneratorMP3();
+    mp3->begin(id3, out);
+    while (mp3->isRunning()) {
+      levels[levelIdx] = abs(out->getLevel());
+      levelIdx = (levelIdx + 1) % levelsSize;
+      float f = avgLevel() / 12000.0;
+      avatar.setMouthOpenRatio(f);
+      if (!mp3->loop()) mp3->stop();
+    }
   }
 }
