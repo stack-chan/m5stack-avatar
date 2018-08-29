@@ -28,9 +28,9 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 
 ### Using Arduino IDE
 
-* Download [M5Stack-Avatar ZIP](https://github.com/meganetaaan/m5stack-avatar/archive/master.zip)
-* On Arduino IDE, Select "Sketch > Include Library > Add ZIP Library..."
-* Choose the ZIP
+* On Arduino IDE, Select "Sketch > Include Library > Manage Libraries..."
+* Search "m5stack avatar"
+* Select "M5Stack_Avatar" from the results then click "Install"
 * The library gets installed
 
 ### Using Platform IO

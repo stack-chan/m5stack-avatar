@@ -28,10 +28,10 @@
 
 ### Arduino IDEを使う場合
 
-* [ダウンロードリンク](https://github.com/meganetaaan/m5stack-avatar/archive/master.zip)からM5Stack-AvatarのZIPをダウンロードします
-* Arduino IDEのメニューから"Sketch > Include Library > Add ZIP Library..."を選択します
-* ダウンロードしたZIPを指定します
-* M5Stack-Avatarライブラリが登録され、使用可能になります。
+* Arduino IDEのメニューから"Sketch > Include Library > Manage Libraries..."を選択します
+* 検索窓（"Filter your search..."）に"m5stack avatar" と入力します
+* 検索結果から"M5Stack_Avatar"を選択し、"Install"ボタンをクリックします。
+* M5Stack-Avatarライブラリがインストールされ、使用可能になります。
 
 ### Platform IOを使う場合
 
