@@ -9,7 +9,7 @@ using namespace m5avatar;
 // NULL or wrong value is just ignored
 const char* AQUESTALK_KEY = "XXXX-XXXX-XXXX-XXXX";
 
-Avatar* avatar;
+Avatar avatar;
 void setup() {
   int iret;
   M5.begin();
@@ -19,9 +19,8 @@ void setup() {
   iret = TTS.create(AQUESTALK_KEY);
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
-  avatar = new Avatar();
-  avatar->init();
-  avatar->addTask(lipSync, "lipSync");
+  avatar.init();
+  avatar.addTask(lipSync, "lipSync");
 }
 
 void loop() {
@@ -30,8 +29,8 @@ void loop() {
     // Need to initialize with createK(AQUESTALK_KEY)
     // TTS.play("こんにちは。", 80);
     TTS.play("konnichiwa", 80);
-    avatar->setSpeechText("Hello");
+    avatar.setSpeechText("Hello");
     delay(1000);
-    avatar->setSpeechText("");
+    avatar.setSpeechText("");
   }
 }
