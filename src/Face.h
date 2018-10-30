@@ -4,6 +4,7 @@
 
 #ifndef FACE_H_
 #define FACE_H_
+
 #include "Balloon.h"
 #include "BoundingRect.h"
 #include "Eye.h"

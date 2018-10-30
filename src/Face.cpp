@@ -4,9 +4,6 @@
 
 #include "Face.h"
 
-#define PRIMARY_COLOR WHITE
-#define SECONDARY_COLOR BLACK
-
 // TODO: move to another file
 void transformSprite(TFT_eSprite *from, TFT_eSprite *to, float r, float s) {
   int width = from->width();
@@ -96,11 +93,13 @@ Drawable *Face::getRightEye() { return eyeR; }
 BoundingRect *Face::getBoundingRect() { return boundingRect; }
 
 void Face::draw(DrawContext *ctx) {
-  sprite->setColorDepth(8);
+  sprite->setColorDepth(COLOR_DEPTH);
   // NOTE: setting below for 1-bit color depth
   sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
   sprite->createSprite(320, 240);
-  sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+  if (COLOR_DEPTH != 1) {
+    sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+  }
   float breath = _min(1.0f, ctx->getBreath());
 
   // TODO(meganetaaan): unify drawing process of each parts
@@ -139,7 +138,9 @@ void Face::draw(DrawContext *ctx) {
     tmpSpr->setColorDepth(8);
     tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
     tmpSpr->createSprite(320, 240);
-    tmpSpr->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    if (COLOR_DEPTH != 1) {
+      // tmpSpr->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    }
     transformSprite(sprite, tmpSpr, rotation, scale);
 
     tmpSpr->pushSprite(boundingRect->getLeft(), boundingRect->getTop());

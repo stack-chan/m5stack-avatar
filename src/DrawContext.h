@@ -5,6 +5,9 @@
 #ifndef DRAWCONTEXT_H_
 #define DRAWCONTEXT_H_
 
+#define COLOR_DEPTH 1
+#define ERACER_COLOR 0x0000
+
 #include "ColorPalette.h"
 #include "Expression.h"
 #include "Gaze.h"
