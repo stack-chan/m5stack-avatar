@@ -135,11 +135,11 @@ void Face::draw(DrawContext *ctx) {
 
   if (scale != 1.0 || rotation != 0) {
     // TODO(meganetaaan): reduce memory usage, at least small(1-bit) color depth
-    tmpSpr->setColorDepth(8);
+    tmpSpr->setColorDepth(COLOR_DEPTH);
     tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
     tmpSpr->createSprite(320, 240);
     if (COLOR_DEPTH != 1) {
-      // tmpSpr->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+      sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
     }
     transformSprite(sprite, tmpSpr, rotation, scale);
 

@@ -4,7 +4,7 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-const uint32_t DEFAULT_STACK_SIZE = 4096;
+const uint32_t DEFAULT_STACK_SIZE = 2048;
 
 unsigned int seed = 0;
 
@@ -98,25 +98,25 @@ void Avatar::init() {
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
-                          4096,         /* Stack size in words */
+                          DEFAULT_STACK_SIZE,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           1,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(saccade,      /* Function to implement the task */
                           "saccade",    /* Name of the task */
-                          4096,         /* Stack size in words */
+                          DEFAULT_STACK_SIZE,         /* Stack size in words */
                           ctx,          /* Task input parameter */
-                          3,            /* Priority of the task */
+                          2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(updateBreath, /* Function to implement the task */
                           "breath",     /* Name of the task */
-                          4096,         /* Stack size in words */
+                          DEFAULT_STACK_SIZE,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(blink,        /* Function to implement the task */
                           "blink",      /* Name of the task */
-                          4096,         /* Stack size in words */
+                          DEFAULT_STACK_SIZE,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
@@ -147,6 +147,10 @@ void Avatar::setBreath(float breath) { this->breath = breath; }
 void Avatar::setRotation(float radian) { this->rotation = radian; }
 
 void Avatar::setScale(float scale) { this->scale = scale; }
+
+void Avatar::setPosition(int top, int left) {
+  this->getFace()->getBoundingRect()->setPosition(top, left);
+}
 
 void Avatar::setColorPalette(ColorPalette cp) { palette = cp; }
 

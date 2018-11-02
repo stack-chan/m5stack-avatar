@@ -41,6 +41,7 @@ class Avatar {
   void setMouthOpenRatio(float ratio);
   void setSpeechText(const char *speechText);
   void setRotation(float radian);
+  void setPosition(int top, int left);
   void setScale(float scale);
   void draw(void);
   bool isDrawing();
