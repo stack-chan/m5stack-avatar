@@ -98,25 +98,25 @@ void Avatar::init() {
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
-                          DEFAULT_STACK_SIZE,         /* Stack size in words */
+                          2048,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           1,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(saccade,      /* Function to implement the task */
                           "saccade",    /* Name of the task */
-                          DEFAULT_STACK_SIZE,         /* Stack size in words */
+                          512,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(updateBreath, /* Function to implement the task */
                           "breath",     /* Name of the task */
-                          DEFAULT_STACK_SIZE,         /* Stack size in words */
+                          512,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(blink,        /* Function to implement the task */
                           "blink",      /* Name of the task */
-                          DEFAULT_STACK_SIZE,         /* Stack size in words */
+                          512,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
