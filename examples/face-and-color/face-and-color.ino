@@ -42,7 +42,7 @@ void setup()
   cps[3] = new ColorPalette();
   cps[1]->set(COLOR_PRIMARY, TFT_YELLOW);
   cps[1]->set(COLOR_BACKGROUND, TFT_DARKCYAN);
-  cps[2]->set(COLOR_PRIMARY, TFT_BLACK);
+  cps[2]->set(COLOR_PRIMARY, TFT_DARKGREY);
   cps[2]->set(COLOR_BACKGROUND, TFT_WHITE);
   cps[3]->set(COLOR_PRIMARY, TFT_RED);
   cps[3]->set(COLOR_BACKGROUND, TFT_PINK);
