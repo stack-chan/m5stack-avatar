@@ -16,7 +16,7 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 * :smiley_cat:       Customize face
 * :kiss:             Lip sync
 * :art:              Color Palette
-* :arrows_clockwise: Zoom and Rotation
+* :arrows_clockwise: Move, Zoom and Rotation
 
 ## Installation
 
