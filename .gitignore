@@ -5,5 +5,6 @@
 .vscode/launch.json
 lib/aqtkpico_esp32
 lib/aquestalk_esp32
+src/*.ino
 const.h
 /tmp/
