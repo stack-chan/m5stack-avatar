@@ -20,7 +20,7 @@ void updateBreath(void *args) {
     c = c + 1 % 100;
     float f = sin(c * 2 * PI / 100.0);
     ctx->getAvatar()->setBreath(f);
-    delay(33);
+    vTaskDelay(33);
   }
 }
 
@@ -31,7 +31,7 @@ void drawLoop(void *args) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
-    // delay(33);
+    vTaskDelay(10);
   }
 }
 
@@ -41,7 +41,7 @@ void saccade(void *args) {
     float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
     float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
     ctx->getAvatar()->setGaze(vertical, horizontal);
-    delay(500 + 100 * random(20));
+    vTaskDelay(500 + 100 * random(20));
   }
 }
 
@@ -49,9 +49,9 @@ void blink(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   for (;;) {
     ctx->getAvatar()->setEyeOpenRatio(1);
-    delay(2500 + 100 * random(20));
+    vTaskDelay(2500 + 100 * random(20));
     ctx->getAvatar()->setEyeOpenRatio(0);
-    delay(300 + 10 * random(20));
+    vTaskDelay(300 + 10 * random(20));
   }
 }
 
