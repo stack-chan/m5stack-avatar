@@ -4,10 +4,12 @@
 
 #include "Face.h"
 
-// TODO: move to another file
+// TODO(meganetaaan): move to another file
 void transformSprite(TFT_eSprite *from, TFT_eSprite *to, float r, float s) {
-  int width = from->width();
-  int height = from->height();
+  int width = to->width();
+  int height = to->height();
+  int fromWidth = from->width();
+  int fromHeight = from->height();
   int cx = width / 2;
   int cy = height / 2;
   float cosr = cos(r);
@@ -15,9 +17,9 @@ void transformSprite(TFT_eSprite *from, TFT_eSprite *to, float r, float s) {
 
   for (int y2 = 0; y2 < height; y2++) {
     for (int x2 = 0; x2 < width; x2++) {
-      int x1 = (((x2 - cx) * cosr) - ((y2 - cy) * sinr)) / s + cx;
-      int y1 = (((x2 - cx) * sinr) + ((y2 - cy) * cosr)) / s + cy;
-      if (x1 < 0 || x1 >= width || y1 < 0 || y1 >= height) {
+      int x1 = ((((x2 - cx) * cosr) - ((y2 - cy) * sinr)) + cx) / s;
+      int y1 = ((((x2 - cx) * sinr) + ((y2 - cy) * cosr)) + cy) / s;
+      if (x1 < 0 || x1 >= fromWidth || y1 < 0 || y1 >= fromHeight) {
         continue;
       }
       int color = from->readPixel(x1, y1);
@@ -95,8 +97,9 @@ BoundingRect *Face::getBoundingRect() { return boundingRect; }
 void Face::draw(DrawContext *ctx) {
   sprite->setColorDepth(COLOR_DEPTH);
   // NOTE: setting below for 1-bit color depth
-  sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
-  sprite->createSprite(320, 240);
+  sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
+    ctx->getColorPalette()->get(COLOR_BACKGROUND));
+  sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
   if (COLOR_DEPTH != 1) {
     sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   }
@@ -134,10 +137,14 @@ void Face::draw(DrawContext *ctx) {
   float rotation = ctx->getRotation();
 
   if (scale != 1.0 || rotation != 0) {
-    // TODO(meganetaaan): reduce memory usage, at least small(1-bit) color depth
+    uint16_t w = boundingRect->getWidth();
+    uint16_t h = boundingRect->getHeight();
+    uint16_t tmpSprWidth = _min(w * scale, 320);
+    uint16_t tmpSprHeight = _min(h * scale, 240);
     tmpSpr->setColorDepth(COLOR_DEPTH);
-    tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY), ctx->getColorPalette()->get(COLOR_BACKGROUND));
-    tmpSpr->createSprite(320, 240);
+    tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
+      ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    tmpSpr->createSprite(tmpSprWidth, tmpSprHeight);
     if (COLOR_DEPTH != 1) {
       sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
     }
