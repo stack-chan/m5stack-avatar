@@ -75,15 +75,15 @@ void Avatar::setFace(Face *face) { this->face = face; }
 
 Face *Avatar::getFace() const { return face; }
 
-void Avatar::addTask(TaskFunction_t f, const char* name) {
+void Avatar::addTask(TaskFunction_t f, const char *name) {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): set a task handler
-  xTaskCreate(f, /* Function to implement the task */
-                          name, /* Name of the task */
-                          DEFAULT_STACK_SIZE, /* Stack size in words */
-                          ctx,                /* Task input parameter */
-                          1,                  /* P2014riority of the task */
-                          NULL);              /* Task handle. */
+  xTaskCreate(f,                  /* Function to implement the task */
+              name,               /* Name of the task */
+              DEFAULT_STACK_SIZE, /* Stack size in words */
+              ctx,                /* Task input parameter */
+              1,                  /* P2014riority of the task */
+              NULL);              /* Task handle. */
   // xTaskCreatePinnedToCore(f, /* Function to implement the task */
   //                         name, /* Name of the task */
   //                         DEFAULT_STACK_SIZE, /* Stack size in words */
@@ -97,29 +97,29 @@ void Avatar::init() {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */
-                          "drawLoop",   /* Name of the task */
-                          2048,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          1,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+              "drawLoop",   /* Name of the task */
+              2048,         /* Stack size in words */
+              ctx,          /* Task input parameter */
+              1,            /* Priority of the task */
+              NULL);        /* Task handle. */
   xTaskCreate(saccade,      /* Function to implement the task */
-                          "saccade",    /* Name of the task */
-                          512,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+              "saccade",    /* Name of the task */
+              1024,         /* Stack size in words */
+              ctx,          /* Task input parameter */
+              2,            /* Priority of the task */
+              NULL);        /* Task handle. */
   xTaskCreate(updateBreath, /* Function to implement the task */
-                          "breath",     /* Name of the task */
-                          512,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+              "breath",     /* Name of the task */
+              1024,         /* Stack size in words */
+              ctx,          /* Task input parameter */
+              2,            /* Priority of the task */
+              NULL);        /* Task handle. */
   xTaskCreate(blink,        /* Function to implement the task */
-                          "blink",      /* Name of the task */
-                          512,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+              "blink",      /* Name of the task */
+              1024,         /* Stack size in words */
+              ctx,          /* Task input parameter */
+              2,            /* Priority of the task */
+              NULL);        /* Task handle. */
 }
 
 void Avatar::stop() { _isDrawing = false; }
@@ -128,10 +128,9 @@ void Avatar::start() { _isDrawing = true; }
 
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
-  DrawContext *ctx = new DrawContext(this->expression, this->breath,
-                                     &this->palette, g, this->eyeOpenRatio,
-                                     this->mouthOpenRatio, this->speechText,
-                                     this->rotation, this->scale);
+  DrawContext *ctx = new DrawContext(
+      this->expression, this->breath, &this->palette, g, this->eyeOpenRatio,
+      this->mouthOpenRatio, this->speechText, this->rotation, this->scale);
   face->draw(ctx);
   delete ctx;
 }
