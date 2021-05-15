@@ -4,7 +4,11 @@
 
 #ifndef BALLOON_H_
 #define BALLOON_H_
-#include <M5Stack.h>
+# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2)
+  #include <M5Core2.h>
+# else
+  #include <M5Stack.h>
+# endif
 #include "DrawContext.h"
 #include "Drawable.h"
 

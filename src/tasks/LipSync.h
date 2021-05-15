@@ -6,7 +6,11 @@
 #define TASKS_LIPSYNC_H_
 
 #include <AquesTalkTTS.h>
-#include <M5Stack.h>
+# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2)
+  #include <M5Core2.h>
+# else
+  #include <M5Stack.h>
+# endif
 #include <Arduino.h>
 #include "../Avatar.h"
 
