@@ -5,7 +5,7 @@
 #ifndef FACES_DOGFACE_H_
 #define FACES_DOGFACE_H_
 
-# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2)
+# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
   #include <M5Core2.h>
 # else
   #include <M5Stack.h> // TODO(meganetaaan): include only the Sprite function not a whole library
