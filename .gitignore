@@ -1,3 +1,4 @@
+.pio/
 .pioenvs
 .piolibdeps
 .vscode/.browse.c_cpp.db*
@@ -6,6 +7,7 @@
 .vscode/settings.json
 lib/aqtkpico_esp32
 lib/aquestalk_esp32
+lib/aquestalk-esp32
 src/*.ino
 const.h
 /tmp/

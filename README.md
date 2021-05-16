@@ -17,6 +17,7 @@ Video: https://www.youtube.com/watch?v=C1Hj9kfY5qc
 * :kiss:             Lip sync
 * :art:              Color Palette
 * :arrows_clockwise: Move, Zoom and Rotation
+* :two:              Compatible with M5Stack Core2
 
 ## Installation
 
@@ -53,6 +54,7 @@ platformio lib install M5Stack-Avatar
 ```cpp
 
 #include <M5Stack.h>
+// #include <M5Core2.h> // When using M5Stack Core2
 #include <Avatar.h>
 
 using namespace m5avatar;
@@ -83,6 +85,7 @@ void loop()
 ```cpp
 #include <AquesTalkTTS.h>
 #include <M5Stack.h>
+// #include <M5Core2.h> // When using M5Stack Core2
 #include <Avatar.h>
 #include <tasks/LipSync.h>
 
