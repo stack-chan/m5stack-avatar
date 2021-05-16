@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo $@
 if [ $# -lt 1 ]; then
   echo "usage: build-example.sh example-name [options]" 1>&2
   exit 1
