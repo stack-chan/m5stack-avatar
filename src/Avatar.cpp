@@ -101,6 +101,17 @@ void Avatar::addTask(TaskFunction_t f, const char* name) {
 }
 
 void Avatar::init() {
+  // for compatibility with older version
+  start();
+}
+
+void Avatar::stop() { _isDrawing = false; }
+
+void Avatar::start() { 
+  // if the task already started, don't create another task;
+  if (_isDrawing) return;
+  _isDrawing = true;
+
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */
@@ -128,10 +139,6 @@ void Avatar::init() {
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
 }
-
-void Avatar::stop() { _isDrawing = false; }
-
-void Avatar::start() { _isDrawing = true; }
 
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
