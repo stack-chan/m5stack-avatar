@@ -66,7 +66,7 @@ Avatar::Avatar() : Avatar(new Face()) {}
 
 Avatar::Avatar(Face *face)
     : face{face},
-      _isDrawing{true},
+      _isDrawing{false},
       expression{Expression::Neutral},
       breath{0},
       eyeOpenRatio{1},
