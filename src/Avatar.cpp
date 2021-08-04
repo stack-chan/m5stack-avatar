@@ -16,50 +16,57 @@ Avatar *DriveContext::getAvatar() { return avatar; }
 void updateBreath(void *args) {
   int c = 0;
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
-  for (;;) {
+  Avatar *avatar = ctx->getAvatar();
+  while (avatar->isDrawing()) {
     c = c + 1 % 100;
     float f = sin(c * 2 * PI / 100.0);
-    ctx->getAvatar()->setBreath(f);
+    avatar->setBreath(f);
     vTaskDelay(33);
   }
+  vTaskDelete(NULL);
 }
 
 void drawLoop(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   Avatar *avatar = ctx->getAvatar();
-  for (;;) {
+  while (avatar->isDrawing()) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
     vTaskDelay(10);
   }
+  vTaskDelete(NULL);
 }
 
 void saccade(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
-  for (;;) {
+  Avatar *avatar = ctx->getAvatar();
+  while (avatar->isDrawing()) {
     float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
     float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
-    ctx->getAvatar()->setGaze(vertical, horizontal);
+    avatar->setGaze(vertical, horizontal);
     vTaskDelay(500 + 100 * random(20));
   }
+  vTaskDelete(NULL);
 }
 
 void blink(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
-  for (;;) {
-    ctx->getAvatar()->setEyeOpenRatio(1);
+  Avatar *avatar = ctx->getAvatar();
+  while (avatar->isDrawing()) {
+    avatar->setEyeOpenRatio(1);
     vTaskDelay(2500 + 100 * random(20));
-    ctx->getAvatar()->setEyeOpenRatio(0);
+    avatar->setEyeOpenRatio(0);
     vTaskDelay(300 + 10 * random(20));
   }
+  vTaskDelete(NULL);
 }
 
 Avatar::Avatar() : Avatar(new Face()) {}
 
 Avatar::Avatar(Face *face)
     : face{face},
-      _isDrawing{true},
+      _isDrawing{false},
       expression{Expression::Neutral},
       breath{0},
       eyeOpenRatio{1},
@@ -94,6 +101,17 @@ void Avatar::addTask(TaskFunction_t f, const char* name) {
 }
 
 void Avatar::init() {
+  // for compatibility with older version
+  start();
+}
+
+void Avatar::stop() { _isDrawing = false; }
+
+void Avatar::start() { 
+  // if the task already started, don't create another task;
+  if (_isDrawing) return;
+  _isDrawing = true;
+
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */
@@ -121,10 +139,6 @@ void Avatar::init() {
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
 }
-
-void Avatar::stop() { _isDrawing = false; }
-
-void Avatar::start() { _isDrawing = true; }
 
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
