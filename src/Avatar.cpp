@@ -122,19 +122,19 @@ void Avatar::start() {
                           NULL);        /* Task handle. */
   xTaskCreate(saccade,      /* Function to implement the task */
                           "saccade",    /* Name of the task */
-                          512,         /* Stack size in words */
+                          1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(updateBreath, /* Function to implement the task */
                           "breath",     /* Name of the task */
-                          512,         /* Stack size in words */
+                          1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */
   xTaskCreate(blink,        /* Function to implement the task */
                           "blink",      /* Name of the task */
-                          512,         /* Stack size in words */
+                          1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           2,            /* Priority of the task */
                           NULL);        /* Task handle. */

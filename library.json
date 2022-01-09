@@ -16,8 +16,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "name": "M5Stack",
-    "version": ">=0.2.0"
   },
   "version": "0.7.3",
   "frameworks": "arduino",
