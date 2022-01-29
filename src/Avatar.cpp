@@ -156,7 +156,15 @@ void Avatar::setExpression(Expression expression) {
   this->expression = expression;
 }
 
+Expression Avatar::getExpression() {
+  return this->expression;
+}
+
 void Avatar::setBreath(float breath) { this->breath = breath; }
+
+float Avatar::getBreath() {
+  return this->breath;
+}
 
 void Avatar::setRotation(float radian) { this->rotation = radian; }
 
