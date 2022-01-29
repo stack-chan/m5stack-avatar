@@ -179,6 +179,11 @@ void Avatar::setGaze(float vertical, float horizontal) {
   this->gazeH = horizontal;
 }
 
+void Avatar::getGaze(float *vertical, float *horizontal) {
+  *vertical = this->gazeV;
+  *horizontal = this->gazeH; 
+}
+
 void Avatar::setSpeechText(const char *speechText) {
   this->speechText = speechText;
 }

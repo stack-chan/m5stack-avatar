@@ -36,6 +36,7 @@ class Avatar {
   void init(void);
   void setBreath(float f);
   void setGaze(float vertical, float horizontal);
+  void getGaze(float *vertical, float *horizontal);
   void setExpression(Expression exp);
   void setEyeOpenRatio(float ratio);
   void setMouthOpenRatio(float ratio);
