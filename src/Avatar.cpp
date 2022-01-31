@@ -76,7 +76,8 @@ Avatar::Avatar(Face *face)
       rotation{0},
       scale{1},
       palette{ColorPalette()},
-      speechText{""} {}
+      speechText{""},
+      colorDepth{1}{}
 
 void Avatar::setFace(Face *face) { this->face = face; }
 
@@ -100,14 +101,14 @@ void Avatar::addTask(TaskFunction_t f, const char* name) {
   //                         1); /* Core where the task should run */
 }
 
-void Avatar::init() {
+void Avatar::init(int colorDepth) {
   // for compatibility with older version
-  start();
+  start(colorDepth);
 }
 
 void Avatar::stop() { _isDrawing = false; }
 
-void Avatar::start() { 
+void Avatar::start(int colorDepth) { 
   // if the task already started, don't create another task;
   if (_isDrawing) return;
   _isDrawing = true;
@@ -145,7 +146,7 @@ void Avatar::draw() {
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText,
-                                     this->rotation, this->scale);
+                                     this->rotation, this->scale, this->colorDepth);
   face->draw(ctx);
   delete ctx;
 }
