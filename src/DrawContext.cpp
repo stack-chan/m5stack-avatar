@@ -44,4 +44,6 @@ Gaze DrawContext::getGaze() const { return gaze; }
 
 ColorPalette* const DrawContext::getColorPalette() const { return palette; }
 
+int DrawContext::getColorDepth() const { return colorDepth; }
+
 }  // namespace m5avatar

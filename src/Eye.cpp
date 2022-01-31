@@ -19,7 +19,7 @@ void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
   uint32_t offsetX = g.getHorizontal() * 3;
   uint32_t offsetY = g.getVertical() * 3;
   uint32_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
-  uint32_t backgroundColor = COLOR_DEPTH == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
+  uint32_t backgroundColor = ctx->getColorDepth() == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
   if (openRatio > 0) {
     spi->fillCircle(x + offsetX, y + offsetY, r, primaryColor);
     // TODO(meganetaaan): Refactor
