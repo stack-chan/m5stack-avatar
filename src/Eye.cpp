@@ -10,7 +10,7 @@ Eye::Eye(uint16_t x, uint16_t y, uint16_t r, bool isLeft) : Eye(r, isLeft) {}
 
 Eye::Eye(uint16_t r, bool isLeft) : r{r}, isLeft{isLeft} {}
 
-void Eye::draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
+void Eye::draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
   Expression exp = ctx->getExpression();
   uint32_t x = rect.getCenterX();
   uint32_t y = rect.getCenterY();

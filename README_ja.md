@@ -52,7 +52,7 @@ platformio lib install M5Stack-Avatar
 
 ```cpp
 
-#include <M5Stack.h>
+#include <M5Unified.h>
 // #include <M5Core2.h> // M5Stack Core2の場合はこちらを使う
 #include <Avatar.h>
 
@@ -83,7 +83,7 @@ void loop()
 
 ```cpp
 #include <AquesTalkTTS.h>
-#include <M5Stack.h>
+#include <M5Unified.h>
 // #include <M5Core2.h> // M5Stack Core2の場合はこちらを使う
 #include <Avatar.h>
 #include <tasks/LipSync.h>

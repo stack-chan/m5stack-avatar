@@ -8,7 +8,7 @@
 # if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
   #include <M5Core2.h>
 # else
-  #include <M5Stack.h> // TODO(meganetaaan): include only the Sprite function not a whole library
+  #include <M5Unified.h> // TODO(meganetaaan): include only the Sprite function not a whole library
 # endif
 #include "../BoundingRect.h"
 #include "../DrawContext.h"
@@ -16,7 +16,7 @@
 
 namespace m5avatar {
 class DogEye : public Drawable {
-  void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
+  void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
     uint32_t cx = rect.getCenterX();
     uint32_t cy = rect.getCenterY();
     Gaze g = ctx->getGaze();
@@ -57,7 +57,7 @@ class DogMouth : public Drawable {
         maxWidth{maxWidth},
         minHeight{minHeight},
         maxHeight{maxHeight} {}
-  void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx) {
+  void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
     uint16_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t backgroundColor = COLOR_DEPTH == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
     uint32_t cx = rect.getCenterX();

@@ -4,11 +4,8 @@
 
 #ifndef BALLOON_H_
 #define BALLOON_H_
-# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
-  #include <M5Core2.h>
-# else
-  #include <M5Stack.h>
-# endif
+#define LGFX_USE_V1
+#include <M5Unified.h>
 #include "DrawContext.h"
 #include "Drawable.h"
 
@@ -28,7 +25,7 @@ class Balloon final : public Drawable {
   ~Balloon() = default;
   Balloon(const Balloon &other) = default;
   Balloon &operator=(const Balloon &other) = default;
-  void draw(TFT_eSPI *spi, BoundingRect rect,
+  void draw(M5Canvas *spi, BoundingRect rect,
             DrawContext *drawContext) override {
     const char *text = drawContext->getspeechText();
     if (strlen(text) == 0) {
@@ -39,7 +36,7 @@ class Balloon final : public Drawable {
     spi->setTextSize(TEXT_SIZE);
     spi->setTextColor(primaryColor, backgroundColor);
     spi->setTextDatum(MC_DATUM);
-    int textWidth = M5.Lcd.textWidth(text, 2);
+    int textWidth = M5.Lcd.textWidth(text);
     int textHeight = TEXT_HEIGHT * TEXT_SIZE;
     spi->fillEllipse(cx, cy, _max(textWidth, MIN_WIDTH) + 2, textHeight * 2 + 2,
                      primaryColor);
