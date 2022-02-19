@@ -21,7 +21,7 @@ class DogEye : public Drawable {
     uint32_t cy = rect.getCenterY();
     Gaze g = ctx->getGaze();
     ColorPalette *cp = ctx->getColorPalette();
-    uint16_t primaryColor = cp->get(COLOR_PRIMARY);
+    uint16_t primaryColor = COLOR_DEPTH == 1 ? 1 : cp->get(COLOR_PRIMARY);
     uint16_t backgroundColor = COLOR_DEPTH == 1 ? ERACER_COLOR : cp->get(COLOR_BACKGROUND);
     uint32_t offsetX = g.getHorizontal() * 8;
     uint32_t offsetY = g.getVertical() * 5;
@@ -58,7 +58,7 @@ class DogMouth : public Drawable {
         minHeight{minHeight},
         maxHeight{maxHeight} {}
   void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
-    uint16_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
+    uint16_t primaryColor = COLOR_DEPTH == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t backgroundColor = COLOR_DEPTH == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
     uint32_t cx = rect.getCenterX();
     uint32_t cy = rect.getCenterY();

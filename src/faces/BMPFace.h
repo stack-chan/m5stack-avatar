@@ -21,9 +21,9 @@ namespace m5avatar
 {
 class BMPEye : public Drawable
 {
-  void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
+  void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx)
   {
-    auto color = ctx->getColorPalette()->get(COLOR_PRIMARY);
+    auto color = COLOR_DEPTH == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t cx = rect.getCenterX();
     uint16_t cy = rect.getCenterY();
     float openRatio = ctx->getEyeOpenRatio();

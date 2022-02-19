@@ -5,6 +5,7 @@
 #ifndef EYE_H_
 #define EYE_H_
 
+#define LGFX_USE_V1
 #include <M5GFX.h>
 #include "DrawContext.h"
 #include "Drawable.h"

@@ -4,6 +4,7 @@
 
 #ifndef EFFECT_H_
 #define EFFECT_H_
+#define LGFX_USE_V1
 #include <M5GFX.h>
 #include "DrawContext.h"
 #include "Drawable.h"
@@ -89,7 +90,7 @@ class Effect final : public Drawable {
   Effect(const Effect &other) = default;
   Effect &operator=(const Effect &other) = default;
   void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) override {
-    uint32_t primaryColor = ctx->getColorPalette()->get(COLOR_PRIMARY);
+    uint32_t primaryColor = COLOR_DEPTH == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint32_t bgColor = COLOR_DEPTH == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
     float offset = ctx->getBreath();
     Expression exp = ctx->getExpression();

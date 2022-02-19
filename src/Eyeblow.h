@@ -5,6 +5,7 @@
 #ifndef EYEBLOW_H_
 #define EYEBLOW_H_
 
+#define LGFX_USE_V1
 #include <M5GFX.h>
 #include "BoundingRect.h"
 #include "DrawContext.h"
