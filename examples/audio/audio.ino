@@ -10,7 +10,7 @@ https://github.com/me-no-dev/arduino-esp32fs-plugin
 
 #include <HTTPClient.h>
 #include <ESP8266Spiram.h>
-#include <M5Stack.h>
+#include <M5Unified.h>
 #include <WiFi.h>
 #include "SPIFFS.h"
 #include "AudioFileSourceSPIFFS.h"

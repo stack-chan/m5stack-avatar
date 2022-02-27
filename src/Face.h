@@ -27,8 +27,8 @@ class Face {
   BoundingRect *eyeblowRPos;
   BoundingRect *eyeblowLPos;
   BoundingRect *boundingRect;
-  TFT_eSprite *sprite;
-  TFT_eSprite *tmpSpr;
+  M5Canvas *sprite;
+  M5Canvas *tmpSpr;
 
  public:
   // constructor
@@ -44,7 +44,7 @@ class Face {
        BoundingRect *eyeRPos, Drawable *eyeL, BoundingRect *eyeLPos,
        Drawable *eyeblowR, BoundingRect *eyeblowRPos, Drawable *eyeblowL,
        BoundingRect *eyeblowLPos,
-       BoundingRect *boundingRect, TFT_eSprite *spr, TFT_eSprite *tmpSpr);
+       BoundingRect *boundingRect, M5Canvas *spr, M5Canvas *tmpSpr);
   ~Face();
   Face(const Face &other) = default;
   Face &operator=(const Face &other) = default;

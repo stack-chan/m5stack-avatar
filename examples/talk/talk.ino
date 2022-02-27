@@ -1,6 +1,6 @@
 #include <AquesTalkTTS.h>
 #include <Avatar.h>
-#include <M5Stack.h>
+#include <M5Unified.h>
 #include <tasks/LipSync.h>
 
 using namespace m5avatar;
