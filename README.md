@@ -44,7 +44,7 @@ platformio init -d . -b m5stack-core-esp32
 ```
 * Install the library and its dependency
 ```sh
-platformio lib install M5Stack
+platformio lib install M5Unified
 platformio lib install M5Stack-Avatar
 ```
 * The library gets downloaded from repository to .piolibdeps directory

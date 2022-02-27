@@ -44,6 +44,7 @@ platformio init -d . -b m5stack-core-esp32
 ```
 * cliからライブラリをインストールします。
 ```sh
+platformio lib install M5Unified
 platformio lib install M5Stack-Avatar
 ```
 * ライブラリがプロジェクトの.piolibdeps配下にダウンロードされ、使用可能になります。
@@ -53,7 +54,6 @@ platformio lib install M5Stack-Avatar
 ```cpp
 
 #include <M5Unified.h>
-// #include <M5Core2.h> // M5Stack Core2の場合はこちらを使う
 #include <Avatar.h>
 
 using namespace m5avatar;
@@ -84,7 +84,6 @@ void loop()
 ```cpp
 #include <AquesTalkTTS.h>
 #include <M5Unified.h>
-// #include <M5Core2.h> // M5Stack Core2の場合はこちらを使う
 #include <Avatar.h>
 #include <tasks/LipSync.h>
 
