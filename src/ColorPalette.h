@@ -4,11 +4,7 @@
 
 #ifndef COLORPALETTE_H_
 #define COLORPALETTE_H_
-# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
-  #include <M5Core2.h>
-# else
-  #include <M5Stack.h>
-# endif
+#include <M5Unified.h>
 #include <string>
 #include <map>
 #define COLOR_PRIMARY "primary"

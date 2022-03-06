@@ -9,7 +9,7 @@
 # if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2)
   #include <M5Core2.h>
 # else
-  #include <M5Stack.h>
+  #include <M5Unified.h>
 # endif
 #include <Arduino.h>
 #include "../Avatar.h"

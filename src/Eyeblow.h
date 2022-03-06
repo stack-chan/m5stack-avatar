@@ -5,7 +5,8 @@
 #ifndef EYEBLOW_H_
 #define EYEBLOW_H_
 
-#include <utility/In_eSPI.h>
+#define LGFX_USE_V1
+#include <M5GFX.h>
 #include "BoundingRect.h"
 #include "DrawContext.h"
 #include "Drawable.h"
@@ -24,7 +25,7 @@ class Eyeblow final : public Drawable {
   ~Eyeblow() = default;
   Eyeblow(const Eyeblow &other) = default;
   Eyeblow &operator=(const Eyeblow &other) = default;
-  void draw(TFT_eSPI *spi, BoundingRect rect,
+  void draw(M5Canvas *spi, BoundingRect rect,
             DrawContext *drawContext) override;
 };
 

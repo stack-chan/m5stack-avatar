@@ -5,7 +5,8 @@
 #ifndef EYE_H_
 #define EYE_H_
 
-#include <utility/In_eSPI.h>
+#define LGFX_USE_V1
+#include <M5GFX.h>
 #include "DrawContext.h"
 #include "Drawable.h"
 
@@ -24,7 +25,7 @@ class Eye final : public Drawable {
   ~Eye() = default;
   Eye(const Eye &other) = default;
   Eye &operator=(const Eye &other) = default;
-  void draw(TFT_eSPI *spi, BoundingRect rect,
+  void draw(M5Canvas *spi, BoundingRect rect,
             DrawContext *drawContext) override;
   // void draw(TFT_eSPI *spi, DrawContext *drawContext) override; // deprecated
 };

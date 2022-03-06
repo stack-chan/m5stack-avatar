@@ -5,7 +5,7 @@
 #include "Face.h"
 
 // TODO(meganetaaan): move to another file
-void transformSprite(TFT_eSprite *from, TFT_eSprite *to, float r, float s) {
+void transformSprite(M5Canvas *from, M5Canvas *to, float r, float s) {
   int width = to->width();
   int height = to->height();
   int fromWidth = from->width();
@@ -61,8 +61,8 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
       eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
       boundingRect{new BoundingRect(0, 0, 320, 240)},
-      sprite{new TFT_eSprite(&M5.Lcd)},
-      tmpSpr{new TFT_eSprite(&M5.Lcd)} {}
+      sprite{new M5Canvas(&M5.Lcd)},
+      tmpSpr{new M5Canvas(&M5.Lcd)} {}
 
 Face::~Face() {
   delete mouth;

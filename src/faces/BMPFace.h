@@ -8,7 +8,7 @@
 # if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
   #include <M5Core2.h>
 # else
-  #include <M5Stack.h> // TODO(meganetaaan): include only the Sprite function not a whole library
+  #include <M5Unified.h> // TODO(meganetaaan): include only the Sprite function not a whole library
 # endif
 
 #include "../BoundingRect.h"
@@ -21,9 +21,9 @@ namespace m5avatar
 {
 class BMPEye : public Drawable
 {
-  void draw(TFT_eSPI *spi, BoundingRect rect, DrawContext *ctx)
+  void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx)
   {
-    auto color = ctx->getColorPalette()->get(COLOR_PRIMARY);
+    auto color = COLOR_DEPTH == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t cx = rect.getCenterX();
     uint16_t cy = rect.getCenterY();
     float openRatio = ctx->getEyeOpenRatio();
