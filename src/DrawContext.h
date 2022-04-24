@@ -5,7 +5,6 @@
 #ifndef DRAWCONTEXT_H_
 #define DRAWCONTEXT_H_
 
-#define COLOR_DEPTH 1
 #define ERACER_COLOR 0x0000
 
 #include "ColorPalette.h"
@@ -24,6 +23,7 @@ class DrawContext {
   const char* speechText;
   float rotation = 0.0;
   float scale = 1.0;
+  int colorDepth = 1;
 
  public:
   DrawContext() = delete;
@@ -32,7 +32,7 @@ class DrawContext {
               const char* speechText);
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, float rotation, float scale);
+              const char* speechText, float rotation, float scale, int colorDepth);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -45,6 +45,7 @@ class DrawContext {
   Gaze getGaze() const;
   ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
+  int getColorDepth() const;
 };
 }  // namespace m5avatar
 

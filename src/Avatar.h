@@ -22,6 +22,7 @@ class Avatar {
   float scale;
   ColorPalette palette;
   const char *speechText;
+  int colorDepth;
 
  public:
   Avatar();
@@ -33,9 +34,12 @@ class Avatar {
   ColorPalette getColorPalette() const;
   void setColorPalette(ColorPalette cp);
   void setFace(Face *face);
-  void init(void);
+  void init(int colorDepth = 1);
+  Expression getExpression();
   void setBreath(float f);
+  float getBreath();
   void setGaze(float vertical, float horizontal);
+  void getGaze(float *vertical, float *horizontal);
   void setExpression(Expression exp);
   void setEyeOpenRatio(float ratio);
   void setMouthOpenRatio(float ratio);
@@ -45,7 +49,7 @@ class Avatar {
   void setScale(float scale);
   void draw(void);
   bool isDrawing();
-  void start();
+  void start(int colorDepth = 1);
   void stop();
   void addTask(TaskFunction_t f, const char* name);
 };

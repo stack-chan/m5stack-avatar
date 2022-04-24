@@ -95,12 +95,12 @@ Drawable *Face::getRightEye() { return eyeR; }
 BoundingRect *Face::getBoundingRect() { return boundingRect; }
 
 void Face::draw(DrawContext *ctx) {
-  sprite->setColorDepth(COLOR_DEPTH);
+  sprite->setColorDepth(ctx->getColorDepth());
   // NOTE: setting below for 1-bit color depth
   sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
     ctx->getColorPalette()->get(COLOR_BACKGROUND));
   sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
-  if (COLOR_DEPTH != 1) {
+  if (ctx->getColorDepth() != 1) {
     sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   }
   float breath = _min(1.0f, ctx->getBreath());
@@ -141,11 +141,11 @@ void Face::draw(DrawContext *ctx) {
     uint16_t h = boundingRect->getHeight();
     uint16_t tmpSprWidth = _min(w * scale, 320);
     uint16_t tmpSprHeight = _min(h * scale, 240);
-    tmpSpr->setColorDepth(COLOR_DEPTH);
+    tmpSpr->setColorDepth(ctx->getColorDepth());
     tmpSpr->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
       ctx->getColorPalette()->get(COLOR_BACKGROUND));
     tmpSpr->createSprite(tmpSprWidth, tmpSprHeight);
-    if (COLOR_DEPTH != 1) {
+    if (ctx->getColorDepth() != 1) {
       sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
     }
     transformSprite(sprite, tmpSpr, rotation, scale);
