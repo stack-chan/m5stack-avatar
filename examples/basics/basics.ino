@@ -1,5 +1,3 @@
-// Include either M5Unified.h or M5Core2.h
-// #include <M5Core2.h>
 #include <M5Unified.h>
 #include <Avatar.h>
 
