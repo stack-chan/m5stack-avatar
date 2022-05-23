@@ -6,12 +6,7 @@
 #define TASKS_LIPSYNC_H_
 
 #include <AquesTalkTTS.h>
-# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2)
-  #include <M5Core2.h>
-# else
-  #include <M5Unified.h>
-# endif
-#include <Arduino.h>
+#include <M5Unified.h>
 #include "../Avatar.h"
 
 namespace m5avatar {
@@ -21,7 +16,7 @@ extern void lipSync(void *args) {
   for (;;) {
     int level = TTS.getLevel();
     float f = level / 12000.0;
-    float open = min(1.0, f);
+    float open = min(1.0f, f);
     avatar->setMouthOpenRatio(open);
     delay(33);
   }
