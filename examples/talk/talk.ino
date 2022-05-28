@@ -43,19 +43,19 @@ static void talk_task(void*)
   }
 }
 
-/// Wait for end of audio playback;
+/// 音声再生の終了を待機する;
 static void waitAquesTalk(void)
 {
   while (is_talking) { vTaskDelay(1); }
 }
 
-/// Stop end of audio playback;
+/// 音声再生を停止する;
 static void stopAquesTalk(void)
 {
   if (is_talking) { is_talking = false; vTaskDelay(1); }
 }
 
-/// Start audio playback. (If playback is in progress, it interrupts and starts a new audio playback.) ;
+/// 音声再生を開始する。(再生中の場合は中断して新たな音声再生を開始する) ;
 static void playAquesTalk(const char *koe)
 {
   stopAquesTalk();
@@ -75,6 +75,16 @@ void setup() {
   // If you want to use kana-kanji, you should modify AquesTalkTTS.h/AquesTalkTTS.cpp. 
   M5.Lcd.setBrightness(30);
   M5.Lcd.clear();
+
+  { /// custom setting
+    auto spk_cfg = M5.Speaker.config();
+    /// Increasing the sample_rate will improve the sound quality instead of increasing the CPU load.
+    spk_cfg.sample_rate = 96000; // default:64000 (64kHz)  e.g. 48000 , 50000 , 80000 , 96000 , 100000 , 128000 , 144000 , 192000 , 200000
+    M5.Speaker.config(spk_cfg);
+  }
+  M5.Speaker.begin();
+
+  
   int iret = CAqTkPicoF_Init(workbuf, LEN_FRAME, AQUESTALK_KEY);
   if (iret) {
     M5.Display.println("ERR:CAqTkPicoF_Init");
