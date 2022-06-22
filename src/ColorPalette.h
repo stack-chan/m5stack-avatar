@@ -24,8 +24,8 @@ namespace m5avatar {
 class ColorPalette {
  private:
   // ColorType colorType;
-  // uint32_t colors[2];
-  std::map<std::string, uint32_t> colors;
+  // uint16_t colors[2];
+  std::map<std::string, uint16_t> colors;
 
  public:
   // TODO(meganetaaan): constructor with color settings
@@ -34,8 +34,8 @@ class ColorPalette {
   ColorPalette(const ColorPalette &other) = default;
   ColorPalette &operator=(const ColorPalette &other) = default;
 
-  uint32_t get(const char *key) const;
-  void set(const char *key, uint32_t value);
+  uint16_t get(const char *key) const;
+  void set(const char *key, uint16_t value);
   void clear(void);
 };
 }  // namespace m5avatar

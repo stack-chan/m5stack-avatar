@@ -113,6 +113,7 @@ void Avatar::start(int colorDepth) {
   if (_isDrawing) return;
   _isDrawing = true;
 
+  this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreate(drawLoop,     /* Function to implement the task */

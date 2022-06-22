@@ -10,7 +10,7 @@ ColorPalette::ColorPalette()
              {COLOR_SECONDARY, TFT_BLACK},
              {COLOR_BACKGROUND, TFT_BLACK}} {}
 
-uint32_t ColorPalette::get(const char* key) const {
+uint16_t ColorPalette::get(const char* key) const {
   auto itr = colors.find(key);
   if (itr != colors.end()) {
     return itr->second;
@@ -22,7 +22,7 @@ uint32_t ColorPalette::get(const char* key) const {
   }
 }
 
-void ColorPalette::set(const char* key, uint32_t value) {
+void ColorPalette::set(const char* key, uint16_t value) {
   auto itr = colors.find(key);
   if (itr != colors.end()) {
     Serial.println("Overwriting");
