@@ -118,3 +118,8 @@ void loop() {
 ### Further usage
 
 see `examples` directory.
+
+### Migration from 0.7.x to 0.8.x
+
+`M5Stack-Avatar` now depends on `M5Unified`, the integrated library for all devices of M5Stack series.
+Since 0.8.0, Sketches with avatar should include `M5Unified.h` instead of `M5Stack.h` or `M5Core2.h`
