@@ -147,7 +147,7 @@ void Avatar::draw() {
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText,
-                                     this->rotation, this->scale, this->colorDepth);
+                                     this->rotation, this->scale, this->colorDepth, this->speechFont);
   face->draw(ctx);
   delete ctx;
 }
@@ -196,6 +196,10 @@ void Avatar::getGaze(float *vertical, float *horizontal) {
 
 void Avatar::setSpeechText(const char *speechText) {
   this->speechText = speechText;
+}
+
+void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
+  this->speechFont = speechFont;
 }
 
 }  // namespace m5avatar
