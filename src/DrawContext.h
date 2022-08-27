@@ -7,6 +7,7 @@
 
 #define ERACER_COLOR 0x0000
 
+#include "M5GFX.h"
 #include "ColorPalette.h"
 #include "Expression.h"
 #include "Gaze.h"
@@ -24,15 +25,16 @@ class DrawContext {
   float rotation = 0.0;
   float scale = 1.0;
   int colorDepth = 1;
+  const lgfx::IFont* speechFont = nullptr; // = &fonts::lgfxJapanGothicP_16; //  = &fonts::efontCN_10;
 
  public:
   DrawContext() = delete;
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText);
+              const char* speechText, const lgfx::IFont* speechFont);
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, float rotation, float scale, int colorDepth);
+              const char* speechText, float rotation, float scale, int colorDepth, const lgfx::IFont* speechFont);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -46,6 +48,7 @@ class DrawContext {
   ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
   int getColorDepth() const;
+  const lgfx::IFont* getSpeechFont() const; 
 };
 }  // namespace m5avatar
 

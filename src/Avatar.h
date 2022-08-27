@@ -6,6 +6,7 @@
 #define AVATAR_H_
 #include "ColorPalette.h"
 #include "Face.h"
+#include <M5GFX.h>
 
 namespace m5avatar {
 class Avatar {
@@ -23,6 +24,7 @@ class Avatar {
   ColorPalette palette;
   const char *speechText;
   int colorDepth;
+  const lgfx::IFont *speechFont;
 
  public:
   Avatar();
@@ -44,6 +46,7 @@ class Avatar {
   void setEyeOpenRatio(float ratio);
   void setMouthOpenRatio(float ratio);
   void setSpeechText(const char *speechText);
+  void setSpeechFont(const lgfx::IFont *speechFont);
   void setRotation(float radian);
   void setPosition(int top, int left);
   void setScale(float scale);
