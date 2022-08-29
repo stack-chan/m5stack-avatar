@@ -12,8 +12,6 @@
 const int16_t TEXT_HEIGHT = 8;
 const int16_t TEXT_SIZE = 2;
 const int16_t MIN_WIDTH = 40;
-const uint32_t primaryColor = TFT_BLACK;
-const uint32_t backgroundColor = TFT_WHITE;
 const int cx = 240;
 const int cy = 220;
 
@@ -32,6 +30,9 @@ class Balloon final : public Drawable {
     if (strlen(text) == 0) {
       return;
     }
+    ColorPalette* cp = drawContext->getColorPalette();
+    uint16_t primaryColor = cp->get(COLOR_PRIMARY);
+    uint16_t backgroundColor = cp->get(COLOR_BACKGROUND);
     M5.Lcd.setTextSize(TEXT_SIZE);
     M5.Lcd.setTextDatum(MC_DATUM);
     spi->setTextSize(TEXT_SIZE);
