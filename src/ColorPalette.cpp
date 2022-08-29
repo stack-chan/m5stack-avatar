@@ -8,7 +8,9 @@ namespace m5avatar {
 ColorPalette::ColorPalette()
     : colors{{COLOR_PRIMARY, TFT_WHITE},
              {COLOR_SECONDARY, TFT_BLACK},
-             {COLOR_BACKGROUND, TFT_BLACK}} {}
+             {COLOR_BACKGROUND, TFT_BLACK},
+             {COLOR_BALLOON_FOREGROUND, TFT_BLACK},
+             {COLOR_BALLOON_BACKGROUND, TFT_WHITE}} {}
 
 uint16_t ColorPalette::get(const char* key) const {
   auto itr = colors.find(key);

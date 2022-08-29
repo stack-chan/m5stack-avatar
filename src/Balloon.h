@@ -31,8 +31,8 @@ class Balloon final : public Drawable {
       return;
     }
     ColorPalette* cp = drawContext->getColorPalette();
-    uint16_t primaryColor = cp->get(COLOR_PRIMARY);
-    uint16_t backgroundColor = cp->get(COLOR_BACKGROUND);
+    uint16_t primaryColor = cp->get(COLOR_BALLOON_FOREGROUND);
+    uint16_t backgroundColor = cp->get(COLOR_BALLOON_BACKGROUND);
     M5.Lcd.setTextSize(TEXT_SIZE);
     M5.Lcd.setTextDatum(MC_DATUM);
     spi->setTextSize(TEXT_SIZE);
