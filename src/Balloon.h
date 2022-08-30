@@ -31,8 +31,8 @@ class Balloon final : public Drawable {
       return;
     }
     ColorPalette* cp = drawContext->getColorPalette();
-    uint16_t primaryColor = cp->get(COLOR_PRIMARY);
-    uint16_t backgroundColor = cp->get(COLOR_BACKGROUND);
+    uint16_t primaryColor = cp->get(COLOR_BALLOON_FOREGROUND);
+    uint16_t backgroundColor = cp->get(COLOR_BALLOON_BACKGROUND);
     M5.Lcd.setTextSize(TEXT_SIZE);
     M5.Lcd.setTextDatum(MC_DATUM);
     spi->setTextSize(TEXT_SIZE);
@@ -41,15 +41,15 @@ class Balloon final : public Drawable {
     M5.Lcd.setFont(font);
     int textWidth = M5.Lcd.textWidth(text);
     int textHeight = TEXT_HEIGHT * TEXT_SIZE;
-    spi->fillEllipse(cx, cy, _max(textWidth, MIN_WIDTH) + 2, textHeight * 2 + 2,
+    spi->fillEllipse(cx - 20, cy,textWidth + 2, textHeight * 2 + 2,
                      primaryColor);
     spi->fillTriangle(cx - 62, cy - 42, cx - 8, cy - 10, cx - 41, cy - 8,
                       primaryColor);
-    spi->fillEllipse(cx, cy, _max(textWidth, MIN_WIDTH), textHeight * 2,
+    spi->fillEllipse(cx - 20, cy, textWidth, textHeight * 2,
                      backgroundColor);
     spi->fillTriangle(cx - 60, cy - 40, cx - 10, cy - 10, cx - 40, cy - 10,
                       backgroundColor);
-    spi->drawString(text, cx, cy, font);//&fonts::lgfxJapanGothic_16);  // Continue printing from new x position
+    spi->drawString(text, cx - textWidth / 6 - 15, cy, font);  // Continue printing from new x position
   }
 };
 

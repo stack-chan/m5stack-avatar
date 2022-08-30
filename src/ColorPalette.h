@@ -10,6 +10,8 @@
 #define COLOR_PRIMARY "primary"
 #define COLOR_SECONDARY "secondary"
 #define COLOR_BACKGROUND "background"
+#define COLOR_BALLOON_FOREGROUND "balloon_f"
+#define COLOR_BALLOON_BACKGROUND "balloon_b"
 
 namespace m5avatar {
 // enum class ColorType
