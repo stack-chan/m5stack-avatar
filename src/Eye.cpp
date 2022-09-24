@@ -18,8 +18,8 @@ void Eye::draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
   float openRatio = ctx->getEyeOpenRatio();
   uint32_t offsetX = g.getHorizontal() * 3;
   uint32_t offsetY = g.getVertical() * 3;
-  uint32_t primaryColor = ctx->getColorDepth() == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
-  uint32_t backgroundColor = ctx->getColorDepth() == 1 ? 0 : ctx->getColorPalette()->get(COLOR_BACKGROUND);
+  uint16_t primaryColor = ctx->getColorDepth() == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
+  uint16_t backgroundColor = ctx->getColorDepth() == 1 ? 0 : ctx->getColorPalette()->get(COLOR_BACKGROUND);
 
   if (openRatio > 0) {
     spi->fillCircle(x + offsetX, y + offsetY, r, primaryColor);
