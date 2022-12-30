@@ -37,7 +37,7 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
       eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
       boundingRect{new BoundingRect(0, 0, 320, 240)},
-      sprite{new M5Canvas(&M5.Lcd)},
+      sprite{new M5Canvas(&M5.Lcd)} {}
 
 Face::~Face() {
   delete mouth;
