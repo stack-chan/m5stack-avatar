@@ -28,7 +28,6 @@ class Face {
   BoundingRect *eyeblowLPos;
   BoundingRect *boundingRect;
   M5Canvas *sprite;
-  M5Canvas *tmpSpr;
 
  public:
   // constructor
