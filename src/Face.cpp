@@ -37,7 +37,8 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
       eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
       boundingRect{new BoundingRect(0, 0, 320, 240)},
-      sprite{new M5Canvas(&M5.Lcd)} {}
+      sprite{new M5Canvas(&M5.Lcd)},
+      tmpSprite{new M5Canvas(&M5.Lcd)} {}
 
 Face::~Face() {
   delete mouth;
@@ -76,6 +77,8 @@ void Face::draw(DrawContext *ctx) {
     ctx->getColorPalette()->get(COLOR_BACKGROUND));
   if (ctx->getColorDepth() != 1) {
     sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+  } else {
+    sprite->fillSprite(0);
   }
   float breath = _min(1.0f, ctx->getBreath());
 
@@ -111,9 +114,20 @@ void Face::draw(DrawContext *ctx) {
   float rotation = ctx->getRotation();
 
   if (scale != 1.0 || rotation != 0) {
-    sprite->pushRotateZoom(rotation, scale, scale);
+    tmpSprite->setColorDepth(ctx->getColorDepth());
+    tmpSprite->createSprite(M5.Display.width(), M5.Display.height());
+    tmpSprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
+      ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    if (ctx->getColorDepth() != 1) {
+      tmpSprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
+    } else {
+      tmpSprite->fillSprite(0);
+    }
+    sprite->pushRotateZoom(tmpSprite, rotation, scale, scale);
+    tmpSprite->pushSprite(&M5.Display, 0, 0);
+    tmpSprite->deleteSprite();
   } else {
-    sprite->pushSprite(boundingRect->getLeft(), boundingRect->getTop());
+    sprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop());
   }
   sprite->deleteSprite();
 }
