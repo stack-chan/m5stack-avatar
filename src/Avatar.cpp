@@ -13,6 +13,8 @@ DriveContext::DriveContext(Avatar *avatar) : avatar{avatar} {}
 
 Avatar *DriveContext::getAvatar() { return avatar; }
 
+TaskHandle_t drawTaskHandle;
+
 void updateBreath(void *args) {
   int c = 0;
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
@@ -108,6 +110,14 @@ void Avatar::init(int colorDepth) {
 
 void Avatar::stop() { _isDrawing = false; }
 
+void Avatar::suspend() {
+  vTaskSuspend(drawTaskHandle);
+}
+
+void Avatar::resume() {
+  vTaskResume(drawTaskHandle);
+}
+
 void Avatar::start(int colorDepth) { 
   // if the task already started, don't create another task;
   if (_isDrawing) return;
@@ -121,7 +131,7 @@ void Avatar::start(int colorDepth) {
                           2048,         /* Stack size in words */
                           ctx,          /* Task input parameter */
                           1,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+                          &drawTaskHandle);        /* Task handle. */
   xTaskCreate(saccade,      /* Function to implement the task */
                           "saccade",    /* Name of the task */
                           1024,         /* Stack size in words */

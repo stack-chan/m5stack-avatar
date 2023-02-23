@@ -55,6 +55,8 @@ class Avatar {
   void start(int colorDepth = 1);
   void stop();
   void addTask(TaskFunction_t f, const char* name);
+  void suspend();
+  void resume();
 };
 
 class DriveContext {
