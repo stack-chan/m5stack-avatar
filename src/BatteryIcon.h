@@ -13,21 +13,20 @@ namespace m5avatar {
 
 class BatteryIcon final : public Drawable {
  private:
-  void drawBatteryIcon(M5Canvas *spi, uint32_t x, uint32_t y) {
-    drawBatteryIcon(spi, x, y, 0);
-  }
-
-  void drawBatteryIcon(M5Canvas *spi, uint32_t x, uint32_t y, float offset) {
-    uint16_t color = 0;
-    if (M5.Power.isCharging()) {
-      color = (uint16_t)0x00FF00;
-    } else {
-      color = (uint16_t)0xFF0000;
-    }
+  void drawBatteryIcon(M5Canvas *spi, uint32_t x, uint32_t y, uint16_t fgcolor, uint16_t bgcolor, float offset) {
+    int32_t battery_level = M5.Power.getBatteryLevel();
+    //M5.Log.printf("batterylevel:%d\n", battery_level);
+//    if (M5.Power.isCharging()) {
+      //color = TFT_GREEN;
+    //} else {
+      //color = TFT_RED;
+    //}
     //uint32_t battery_level = M5.Power.getBatteryLevel();
     //M5.Log.printf("BatteryLevel:%d\n", battery_level);
-    spi->fillRect(x, y + 5, 5, 5, color);
-    spi->fillRect(x + 5, y, 30, 15, color);
+    spi->drawRect(x, y + 5, 5, 5, fgcolor);
+    spi->drawRect(x + 5, y, 30, 15, fgcolor);
+    int battery_width = 30 * (float)(battery_level / 100.0f);
+    spi->fillRect(x + 5 + 30 - battery_width, y, battery_width, 15, fgcolor);
   }
 
  public:
@@ -40,7 +39,7 @@ class BatteryIcon final : public Drawable {
     uint16_t primaryColor = ctx->getColorDepth() == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t bgColor = ctx->getColorDepth() == 1 ? ERACER_COLOR : ctx->getColorPalette()->get(COLOR_BACKGROUND);
     float offset = ctx->getBreath();
-    drawBatteryIcon(spi, 5, 5, -offset);
+    drawBatteryIcon(spi, 285, 5, primaryColor, bgColor, -offset);
   };
 
 };
