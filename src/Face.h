@@ -11,6 +11,7 @@
 #include "Eyeblow.h"
 #include "Mouth.h"
 #include "Effect.h"
+#include "BatteryIcon.h"
 
 namespace m5avatar {
 

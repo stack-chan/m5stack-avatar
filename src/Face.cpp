@@ -7,6 +7,7 @@
 namespace m5avatar {
 Balloon b;
 Effect h;
+BatteryIcon battery;
 BoundingRect br;
 
 Face::Face()
@@ -107,6 +108,7 @@ void Face::draw(DrawContext *ctx) {
   // TODO(meganetaaan): make balloons and effects selectable
   b.draw(sprite, br, ctx);
   h.draw(sprite, br, ctx);
+  battery.draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
 
   // TODO(meganetaaan): rethink responsibility for transform function
