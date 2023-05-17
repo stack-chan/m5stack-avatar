@@ -20,12 +20,12 @@ class BatteryIcon final : public Drawable {
   void drawBatteryIcon(M5Canvas *spi, uint32_t x, uint32_t y, float offset) {
     uint16_t color = 0;
     if (M5.Power.isCharging()) {
-      color = 0x00FF00;
+      color = (uint16_t)0x00FF00;
     } else {
-      color = 0xFF0000;
+      color = (uint16_t)0xFF0000;
     }
-    uint32_t battery_level = M5.Power.getBatteryLevel();
-    M5.Log.printf("BatteryLevel:%d\n", battery_level);
+    //uint32_t battery_level = M5.Power.getBatteryLevel();
+    //M5.Log.printf("BatteryLevel:%d\n", battery_level);
     spi->fillRect(x, y + 5, 5, 5, color);
     spi->fillRect(x + 5, y, 30, 15, color);
   }
