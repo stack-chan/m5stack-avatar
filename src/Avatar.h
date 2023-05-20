@@ -25,6 +25,7 @@ class Avatar {
   const char *speechText;
   int colorDepth;
   const lgfx::IFont *speechFont;
+  bool batteryIcon;
 
  public:
   Avatar();
@@ -57,6 +58,7 @@ class Avatar {
   void addTask(TaskFunction_t f, const char* name);
   void suspend();
   void resume();
+  void setBatteryIcon(bool batteryIcon);
 };
 
 class DriveContext {

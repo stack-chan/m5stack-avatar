@@ -157,7 +157,7 @@ void Avatar::draw() {
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText,
-                                     this->rotation, this->scale, this->colorDepth, this->speechFont);
+                                     this->rotation, this->scale, this->colorDepth, this->batteryIcon, this->speechFont);
   face->draw(ctx);
   delete ctx;
 }
@@ -210,6 +210,10 @@ void Avatar::setSpeechText(const char *speechText) {
 
 void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
   this->speechFont = speechFont;
+}
+
+void Avatar::setBatteryIcon(bool batteryIcon) {
+  this->batteryIcon = batteryIcon;
 }
 
 }  // namespace m5avatar

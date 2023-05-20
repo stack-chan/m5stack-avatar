@@ -9,13 +9,13 @@ namespace m5avatar {
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, const lgfx::IFont* speechFont)
-    : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1, 1, speechFont){};
+                         const char* speechText, bool batteryIcon, const lgfx::IFont* speechFont)
+    : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1, 1, false, speechFont){};
 
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, float rotation, float scale, int colorDepth, const lgfx::IFont* speechFont) 
+                         const char* speechText, float rotation, float scale, int colorDepth, bool batteryIcon, const lgfx::IFont* speechFont) 
     : expression{expression},
       breath{breath},
       eyeOpenRatio{eyeOpenRatio},
@@ -26,6 +26,7 @@ DrawContext::DrawContext(Expression expression, float breath,
       rotation{rotation},
       scale{scale},
       colorDepth{colorDepth},
+      batteryIcon(batteryIcon),
       speechFont{speechFont}{}
 
 Expression DrawContext::getExpression() const { return expression; }
@@ -49,5 +50,7 @@ ColorPalette* const DrawContext::getColorPalette() const { return palette; }
 int DrawContext::getColorDepth() const { return colorDepth; }
 
 const lgfx::IFont* DrawContext::getSpeechFont() const { return speechFont; }
+
+bool DrawContext::getBatteryIcon() const { return batteryIcon; }
 
 }  // namespace m5avatar

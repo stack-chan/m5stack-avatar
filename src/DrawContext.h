@@ -25,16 +25,17 @@ class DrawContext {
   float rotation = 0.0;
   float scale = 1.0;
   int colorDepth = 1;
+  bool batteryIcon = true;
   const lgfx::IFont* speechFont = nullptr; // = &fonts::lgfxJapanGothicP_16; //  = &fonts::efontCN_10;
 
  public:
   DrawContext() = delete;
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, const lgfx::IFont* speechFont);
+              const char* speechText, bool batteryIcon, const lgfx::IFont* speechFont);
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, float rotation, float scale, int colorDepth, const lgfx::IFont* speechFont);
+              const char* speechText, float rotation, float scale, int colorDepth, bool batteryIcon, const lgfx::IFont* speechFont);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -48,6 +49,7 @@ class DrawContext {
   ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
   int getColorDepth() const;
+  bool getBatteryIcon() const;
   const lgfx::IFont* getSpeechFont() const; 
 };
 }  // namespace m5avatar
