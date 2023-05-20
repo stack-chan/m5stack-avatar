@@ -24,8 +24,9 @@ class Avatar {
   ColorPalette palette;
   const char *speechText;
   int colorDepth;
-  const lgfx::IFont *speechFont;
   bool batteryIcon;
+  int32_t batteryLevel;
+  const lgfx::IFont *speechFont;
 
  public:
   Avatar();
@@ -59,6 +60,7 @@ class Avatar {
   void suspend();
   void resume();
   void setBatteryIcon(bool batteryIcon);
+  void setBatteryLevel(int32_t batteryLevel);
 };
 
 class DriveContext {
