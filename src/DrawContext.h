@@ -12,7 +12,9 @@
 #include "Expression.h"
 #include "Gaze.h"
 
+
 namespace m5avatar {
+enum BatteryIconStatus { disCharge, isCharging, invisible };
 class DrawContext {
  private:
   Expression expression;
@@ -25,7 +27,7 @@ class DrawContext {
   float rotation = 0.0;
   float scale = 1.0;
   int colorDepth = 1;
-  bool batteryIcon = true;
+  BatteryIconStatus batteryIconStatus = BatteryIconStatus::invisible;
   int32_t batteryLevel = 0;
   const lgfx::IFont* speechFont = nullptr; // = &fonts::lgfxJapanGothicP_16; //  = &fonts::efontCN_10;
 
@@ -33,10 +35,10 @@ class DrawContext {
   DrawContext() = delete;
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, bool batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont);
+              const char* speechText, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, float rotation, float scale, int colorDepth, bool batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont);
+              const char* speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -50,7 +52,7 @@ class DrawContext {
   ColorPalette* const getColorPalette() const;
   const char* getspeechText() const;
   int getColorDepth() const;
-  bool getBatteryIcon() const;
+  BatteryIconStatus getBatteryIconStatus() const;
   int32_t getBatteryLevel() const;
   const lgfx::IFont* getSpeechFont() const; 
 };

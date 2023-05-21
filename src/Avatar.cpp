@@ -154,10 +154,22 @@ void Avatar::start(int colorDepth) {
 
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
+  if (power != nullptr) {
+    if ((millis() - last_power_display_time) > 3000) {
+      // バッテリー残量の更新は3秒に一度
+      if (power->isCharging()) {
+        this->batteryIconStatus = BatteryIconStatus::isCharging;
+      } else {
+        this->batteryIconStatus = BatteryIconStatus::disCharge;
+      }
+      this->batteryLevel = power->getBatteryLevel();
+      last_power_display_time = millis();
+    }
+  }
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText,
-                                     this->rotation, this->scale, this->colorDepth, this->batteryIcon, this->batteryLevel, this->speechFont);
+                                     this->rotation, this->scale, this->colorDepth, this->batteryIconStatus, this->batteryLevel, this->speechFont);
   face->draw(ctx);
   delete ctx;
 }
@@ -212,12 +224,15 @@ void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
   this->speechFont = speechFont;
 }
 
-void Avatar::setBatteryIcon(bool batteryIcon) {
-  this->batteryIcon = batteryIcon;
-}
-
-void Avatar::setBatteryLevel(int32_t batteryLevel) {
-  this->batteryLevel = batteryLevel;
+void Avatar::setM5PowerClass(m5::Power_Class* power) {
+  this->power = power;
+  if (power->isCharging()) {
+    this->batteryIconStatus = BatteryIconStatus::isCharging;
+  } else {
+    this->batteryIconStatus = BatteryIconStatus::disCharge;
+  }
+  this->batteryLevel = power->getBatteryLevel();
+  this->last_power_display_time = millis();
 }
 
 }  // namespace m5avatar

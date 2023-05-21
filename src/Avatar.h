@@ -24,9 +24,11 @@ class Avatar {
   ColorPalette palette;
   const char *speechText;
   int colorDepth;
-  bool batteryIcon;
+  BatteryIconStatus batteryIconStatus;
   int32_t batteryLevel;
   const lgfx::IFont *speechFont;
+  m5::Power_Class* power = nullptr;
+  uint64_t last_power_display_time = 0;
 
  public:
   Avatar();
@@ -59,9 +61,9 @@ class Avatar {
   void addTask(TaskFunction_t f, const char* name);
   void suspend();
   void resume();
-  void setBatteryIcon(bool batteryIcon);
-  void setBatteryLevel(int32_t batteryLevel);
+  void setM5PowerClass(m5::Power_Class* power);
 };
+
 
 class DriveContext {
  private:

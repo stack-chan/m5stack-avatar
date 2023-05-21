@@ -9,13 +9,13 @@ namespace m5avatar {
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, bool batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont)
-    : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1, 1, false, 0, speechFont){};
+                         const char* speechText, BatteryIconStatus batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont)
+    : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1, 1, BatteryIconStatus::invisible, 0, speechFont){};
 
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, float rotation, float scale, int colorDepth, bool batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont) 
+                         const char* speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont) 
     : expression{expression},
       breath{breath},
       eyeOpenRatio{eyeOpenRatio},
@@ -26,7 +26,7 @@ DrawContext::DrawContext(Expression expression, float breath,
       rotation{rotation},
       scale{scale},
       colorDepth{colorDepth},
-      batteryIcon(batteryIcon),
+      batteryIconStatus(batteryIconStatus),
       batteryLevel(batteryLevel),
       speechFont{speechFont}{}
 
@@ -52,7 +52,7 @@ int DrawContext::getColorDepth() const { return colorDepth; }
 
 const lgfx::IFont* DrawContext::getSpeechFont() const { return speechFont; }
 
-bool DrawContext::getBatteryIcon() const { return batteryIcon; }
+BatteryIconStatus DrawContext::getBatteryIconStatus() const { return batteryIconStatus; }
 
 int32_t DrawContext::getBatteryLevel() const { return batteryLevel; }
 
