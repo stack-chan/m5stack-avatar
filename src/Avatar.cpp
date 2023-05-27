@@ -79,7 +79,8 @@ Avatar::Avatar(Face *face)
       scale{1},
       palette{ColorPalette()},
       speechText{""},
-      colorDepth{1}{}
+      colorDepth{1},
+      batteryIconStatus{BatteryIconStatus::invisible}{}
 
 void Avatar::setFace(Face *face) { this->face = face; }
 
@@ -154,18 +155,6 @@ void Avatar::start(int colorDepth) {
 
 void Avatar::draw() {
   Gaze g = Gaze(this->gazeV, this->gazeH);
-  if (power != nullptr) {
-    if ((millis() - last_power_display_time) > 3000) {
-      // バッテリー残量の更新は3秒に一度
-      if (power->isCharging()) {
-        this->batteryIconStatus = BatteryIconStatus::isCharging;
-      } else {
-        this->batteryIconStatus = BatteryIconStatus::disCharge;
-      }
-      this->batteryLevel = power->getBatteryLevel();
-      last_power_display_time = millis();
-    }
-  }
   DrawContext *ctx = new DrawContext(this->expression, this->breath,
                                      &this->palette, g, this->eyeOpenRatio,
                                      this->mouthOpenRatio, this->speechText,
@@ -224,15 +213,24 @@ void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
   this->speechFont = speechFont;
 }
 
-void Avatar::setM5PowerClass(m5::Power_Class* power) {
-  this->power = power;
-  if (power->isCharging()) {
-    this->batteryIconStatus = BatteryIconStatus::isCharging;
+void Avatar::setBatteryIcon(bool batteryIcon) {
+  if (!batteryIcon) {
+    batteryIconStatus = BatteryIconStatus::invisible;
   } else {
-    this->batteryIconStatus = BatteryIconStatus::disCharge;
+    batteryIconStatus = BatteryIconStatus::unknown;
   }
-  this->batteryLevel = power->getBatteryLevel();
-  this->last_power_display_time = millis();
+}
+
+void Avatar::setBatteryStatus(bool isCharging, int32_t batteryLevel) {
+  if (this->batteryIconStatus != BatteryIconStatus::invisible) {
+    if (isCharging) {
+      this->batteryIconStatus = BatteryIconStatus::charging;
+    } else {
+      this->batteryIconStatus = BatteryIconStatus::discharging;  
+    }
+    this->batteryLevel = batteryLevel;
+  }
+
 }
 
 }  // namespace m5avatar

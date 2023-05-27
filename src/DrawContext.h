@@ -14,7 +14,7 @@
 
 
 namespace m5avatar {
-enum BatteryIconStatus { disCharge, isCharging, invisible };
+enum BatteryIconStatus { discharging, charging, invisible, unknown };
 class DrawContext {
  private:
   Expression expression;

@@ -18,7 +18,7 @@ class BatteryIcon final : public Drawable {
     spi->drawRect(x + 5, y, 30, 15, fgcolor);
     int battery_width = 30 * (float)(batteryLevel / 100.0f);
     spi->fillRect(x + 5 + 30 - battery_width, y, battery_width, 15, fgcolor);
-    if (batteryIconStatus == BatteryIconStatus::isCharging) {
+    if (batteryIconStatus == BatteryIconStatus::charging) {
       spi->fillTriangle(x + 20, y, x + 15, y + 8, x + 20, y + 8, bgcolor);
       spi->fillTriangle(x + 18, y + 7, x + 18, y + 15, x + 23, y + 7, bgcolor);
       spi->drawLine(x + 20, y, x + 15, y + 8, fgcolor);
