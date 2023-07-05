@@ -117,7 +117,7 @@ void Face::draw(DrawContext *ctx) {
 
   if (scale != 1.0 || rotation != 0) {
     tmpSprite->setColorDepth(ctx->getColorDepth());
-    tmpSprite->createSprite(M5.Display.width(), M5.Display.height());
+    tmpSprite->createSprite((int32_t)((float)M5.Display.width() * scale), (int32_t)((float)M5.Display.height() * scale));
     tmpSprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
       ctx->getColorPalette()->get(COLOR_BACKGROUND));
     if (ctx->getColorDepth() != 1) {
@@ -126,7 +126,7 @@ void Face::draw(DrawContext *ctx) {
       tmpSprite->fillSprite(0);
     }
     sprite->pushRotateZoom(tmpSprite, rotation, scale, scale);
-    tmpSprite->pushSprite(&M5.Display, 0, 0);
+    tmpSprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop());
     tmpSprite->deleteSprite();
   } else {
     sprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop());
