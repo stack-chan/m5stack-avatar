@@ -4,7 +4,7 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-const uint32_t DEFAULT_STACK_SIZE = 2048;
+const uint32_t DEFAULT_STACK_SIZE = 1024;//2048;
 
 unsigned int seed = 0;
 
@@ -14,19 +14,6 @@ DriveContext::DriveContext(Avatar *avatar) : avatar{avatar} {}
 Avatar *DriveContext::getAvatar() { return avatar; }
 
 TaskHandle_t drawTaskHandle;
-
-void updateBreath(void *args) {
-  int c = 0;
-  DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
-  Avatar *avatar = ctx->getAvatar();
-  while (avatar->isDrawing()) {
-    c = c + 1 % 100;
-    float f = sin(c * 2 * PI / 100.0);
-    avatar->setBreath(f);
-    vTaskDelay(33);
-  }
-  vTaskDelete(NULL);
-}
 
 void drawLoop(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
@@ -40,28 +27,41 @@ void drawLoop(void *args) {
   vTaskDelete(NULL);
 }
 
-void saccade(void *args) {
+void facialLoop(void *args) {
+  int c = 0;
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   Avatar *avatar = ctx->getAvatar();
-  while (avatar->isDrawing()) {
-    float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
-    float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
-    avatar->setGaze(vertical, horizontal);
-    vTaskDelay(500 + 100 * random(20));
-  }
-  vTaskDelete(NULL);
-}
+  uint32_t saccade_interval = 1000;
+  uint32_t blink_interval = 1000;
+  unsigned long last_saccade_millis = 0;
+  unsigned long last_blink_millis = 0;
+  bool eye_open = true;
+  for (;;) {
 
-void blink(void *args) {
-  DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
-  Avatar *avatar = ctx->getAvatar();
-  while (avatar->isDrawing()) {
-    avatar->setEyeOpenRatio(1);
-    vTaskDelay(2500 + 100 * random(20));
-    avatar->setEyeOpenRatio(0);
-    vTaskDelay(300 + 10 * random(20));
+    if ((millis() - last_saccade_millis) > saccade_interval) {
+      float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+      float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+      avatar->setGaze(vertical, horizontal);
+      saccade_interval = 500 + 100 * random(20);
+      last_saccade_millis = millis();
+    }
+
+    if ((millis()- last_blink_millis) > blink_interval) {
+      if (eye_open) {
+        avatar->setEyeOpenRatio(1);
+        blink_interval = 2500 + 100 * random(20);
+      } else {
+        avatar->setEyeOpenRatio(0);
+        blink_interval = 300 + 10 * random(20);
+      }
+      eye_open = !eye_open;
+      last_blink_millis = millis();
+    }
+    c = c + 1 % 100;
+    float f = sin(c * 2 * PI / 100.0);
+    avatar->setBreath(f);
+    vTaskDelay(33);
   }
-  vTaskDelete(NULL);
 }
 
 Avatar::Avatar() : Avatar(new Face()) {}
@@ -93,7 +93,7 @@ void Avatar::addTask(TaskFunction_t f, const char* name) {
                           name, /* Name of the task */
                           DEFAULT_STACK_SIZE, /* Stack size in words */
                           ctx,                /* Task input parameter */
-                          1,                  /* P2014riority of the task */
+                          3,                  /* P2014riority of the task */
                           NULL);              /* Task handle. */
   // xTaskCreatePinnedToCore(f, /* Function to implement the task */
   //                         name, /* Name of the task */
@@ -127,30 +127,21 @@ void Avatar::start(int colorDepth) {
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
-  xTaskCreate(drawLoop,     /* Function to implement the task */
+  xTaskCreateUniversal(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
                           2048,         /* Stack size in words */
                           ctx,          /* Task input parameter */
-                          1,            /* Priority of the task */
-                          &drawTaskHandle);        /* Task handle. */
-  xTaskCreate(saccade,      /* Function to implement the task */
-                          "saccade",    /* Name of the task */
+                          2,            /* Priority of the task */
+                          &drawTaskHandle,        /* Task handle. */
+                          APP_CPU_NUM);
+
+  xTaskCreateUniversal(facialLoop,      /* Function to implement the task */
+                          "facialLoop",    /* Name of the task */
                           1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
-  xTaskCreate(updateBreath, /* Function to implement the task */
-                          "breath",     /* Name of the task */
-                          1024,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
-  xTaskCreate(blink,        /* Function to implement the task */
-                          "blink",      /* Name of the task */
-                          1024,         /* Stack size in words */
-                          ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
-                          NULL);        /* Task handle. */
+                          3,            /* Priority of the task */
+                          NULL,         /* Task handle. */
+                          APP_CPU_NUM);
 }
 
 void Avatar::draw() {
