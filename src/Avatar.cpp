@@ -4,7 +4,7 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-const uint32_t DEFAULT_STACK_SIZE = 1024;//2048;
+const uint32_t DEFAULT_STACK_SIZE = 1024;
 
 unsigned int seed = 0;
 
@@ -22,7 +22,7 @@ void drawLoop(void *args) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
-    vTaskDelay(10);
+    vTaskDelay(33);
   }
   vTaskDelete(NULL);
 }
@@ -36,7 +36,7 @@ void facialLoop(void *args) {
   unsigned long last_saccade_millis = 0;
   unsigned long last_blink_millis = 0;
   bool eye_open = true;
-  for (;;) {
+  while (avatar->isDrawing()) {
 
     if ((millis() - last_saccade_millis) > saccade_interval) {
       float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
@@ -57,11 +57,12 @@ void facialLoop(void *args) {
       eye_open = !eye_open;
       last_blink_millis = millis();
     }
-    c = c + 1 % 100;
+    c = (c + 1) % 100;
     float f = sin(c * 2 * PI / 100.0);
     avatar->setBreath(f);
     vTaskDelay(33);
   }
+  vTaskDelete(NULL);
 }
 
 Avatar::Avatar() : Avatar(new Face()) {}
@@ -89,12 +90,13 @@ Face *Avatar::getFace() const { return face; }
 void Avatar::addTask(TaskFunction_t f, const char* name) {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): set a task handler
-  xTaskCreate(f, /* Function to implement the task */
+  xTaskCreateUniversal(f, /* Function to implement the task */
                           name, /* Name of the task */
                           DEFAULT_STACK_SIZE, /* Stack size in words */
                           ctx,                /* Task input parameter */
-                          3,                  /* P2014riority of the task */
-                          NULL);              /* Task handle. */
+                          4,                  /* P2014riority of the task */
+                          NULL,               /* Task handle. */
+                          APP_CPU_NUM);
   // xTaskCreatePinnedToCore(f, /* Function to implement the task */
   //                         name, /* Name of the task */
   //                         DEFAULT_STACK_SIZE, /* Stack size in words */
