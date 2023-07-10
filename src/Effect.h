@@ -59,7 +59,7 @@ class Effect final : public Drawable {
   }
 
   void drawAngerMark(M5Canvas *spi, uint32_t x, uint32_t y, uint32_t r,
-                     uint16_t color, uint32_t bColor, float offset) {
+                     uint16_t color, uint16_t bColor, float offset) {
     r = r + abs(r * 0.4 * offset);
     spi->fillRect(x - (r / 3), y - r, (r * 2) / 3, r * 2, color);
     spi->fillRect(x - r, y - (r / 3), r * 2, (r * 2) / 3, color);
