@@ -4,7 +4,7 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-const uint32_t DEFAULT_STACK_SIZE = 1024;
+const uint32_t DEFAULT_STACK_SIZE = 2048;
 
 unsigned int seed = 0;
 
@@ -94,7 +94,7 @@ void Avatar::addTask(TaskFunction_t f, const char* name) {
                           name, /* Name of the task */
                           DEFAULT_STACK_SIZE, /* Stack size in words */
                           ctx,                /* Task input parameter */
-                          4,                  /* P2014riority of the task */
+                          3,                  /* P2014riority of the task */
                           NULL,               /* Task handle. */
                           APP_CPU_NUM);
   // xTaskCreatePinnedToCore(f, /* Function to implement the task */
@@ -133,7 +133,7 @@ void Avatar::start(int colorDepth) {
                           "drawLoop",   /* Name of the task */
                           2048,         /* Stack size in words */
                           ctx,          /* Task input parameter */
-                          2,            /* Priority of the task */
+                          1,            /* Priority of the task */
                           &drawTaskHandle,        /* Task handle. */
                           APP_CPU_NUM);
 
@@ -141,7 +141,7 @@ void Avatar::start(int colorDepth) {
                           "facialLoop",    /* Name of the task */
                           1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
-                          3,            /* Priority of the task */
+                          2,            /* Priority of the task */
                           NULL,         /* Task handle. */
                           APP_CPU_NUM);
 }
