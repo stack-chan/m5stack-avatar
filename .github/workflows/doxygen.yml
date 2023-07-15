@@ -1,0 +1,21 @@
+name: A job to build doxgen document and deploy it on github-pages
+on:
+  push:
+    branches: [main, master, doxygen]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  doxygen-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mattnotmitt/doxygen-action@v1.9.5
+        with:
+          working-directory: "src/"
+      - name: Deploy pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: "html"
