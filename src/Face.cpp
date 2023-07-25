@@ -117,7 +117,7 @@ void Face::draw(DrawContext *ctx) {
 
   if (scale != 1.0 || rotation != 0) {
     tmpSprite->setColorDepth(ctx->getColorDepth());
-    tmpSprite->createSprite((int32_t)((float)M5.Display.width() * scale), (int32_t)((float)M5.Display.height() * scale));
+    tmpSprite->createSprite((int32_t)((float)320 * scale), (int32_t)((float)240 * scale));
     tmpSprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
       ctx->getColorPalette()->get(COLOR_BACKGROUND));
     if (ctx->getColorDepth() != 1) {
