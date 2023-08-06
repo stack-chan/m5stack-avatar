@@ -61,7 +61,6 @@ class Avatar {
   void resume();
   void setBatteryIcon(bool iconStatus);
   void setBatteryStatus(bool isCharging, int32_t batteryLevel);
-  void resetDraw();
 };
 
 
