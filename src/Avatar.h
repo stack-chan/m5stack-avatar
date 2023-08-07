@@ -31,7 +31,7 @@ class Avatar {
  public:
   Avatar();
   explicit Avatar(Face *face);
-  ~Avatar() = default;
+  ~Avatar();
   Avatar(const Avatar &other) = default;
   Avatar &operator=(const Avatar &other) = default;
   Face *getFace() const;

@@ -5,9 +5,6 @@
 #include "Face.h"
 
 namespace m5avatar {
-Balloon b;
-Effect h;
-BatteryIcon battery;
 BoundingRect br;
 
 Face::Face()
@@ -54,6 +51,9 @@ Face::~Face() {
   delete eyeblowLPos;
   delete sprite;
   delete boundingRect;
+  delete b;
+  delete h;
+  delete battery;
 }
 
 void Face::setMouth(Drawable *mouth) { this->mouth = mouth; }
@@ -106,9 +106,9 @@ void Face::draw(DrawContext *ctx) {
   eyeblowL->draw(sprite, rect, ctx);
 
   // TODO(meganetaaan): make balloons and effects selectable
-  b.draw(sprite, br, ctx);
-  h.draw(sprite, br, ctx);
-  battery.draw(sprite, br, ctx);
+  b->draw(sprite, br, ctx);
+  h->draw(sprite, br, ctx);
+  battery->draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
 
   // TODO(meganetaaan): rethink responsibility for transform function
@@ -117,7 +117,7 @@ void Face::draw(DrawContext *ctx) {
 
   if (scale != 1.0 || rotation != 0) {
     tmpSprite->setColorDepth(ctx->getColorDepth());
-    tmpSprite->createSprite((int32_t)((float)M5.Display.width() * scale), (int32_t)((float)M5.Display.height() * scale));
+    tmpSprite->createSprite((int32_t)((float)320 * scale), (int32_t)((float)240 * scale));
     tmpSprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
       ctx->getColorPalette()->get(COLOR_BACKGROUND));
     if (ctx->getColorDepth() != 1) {

@@ -36,11 +36,14 @@ void facialLoop(void *args) {
   unsigned long last_saccade_millis = 0;
   unsigned long last_blink_millis = 0;
   bool eye_open = true;
+  float vertical = 0.0f;
+  float horizontal = 0.0f;
+  float breath = 0.0f;
   while (avatar->isDrawing()) {
 
     if ((millis() - last_saccade_millis) > saccade_interval) {
-      float vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
-      float horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+      vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+      horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
       avatar->setGaze(vertical, horizontal);
       saccade_interval = 500 + 100 * random(20);
       last_saccade_millis = millis();
@@ -58,8 +61,8 @@ void facialLoop(void *args) {
       last_blink_millis = millis();
     }
     c = (c + 1) % 100;
-    float f = sin(c * 2 * PI / 100.0);
-    avatar->setBreath(f);
+    breath = sin(c * 2 * PI / 100.0);
+    avatar->setBreath(breath);
     vTaskDelay(33);
   }
   vTaskDelete(NULL);
@@ -82,6 +85,10 @@ Avatar::Avatar(Face *face)
       speechText{""},
       colorDepth{1},
       batteryIconStatus{BatteryIconStatus::invisible}{}
+
+Avatar::~Avatar() {
+  delete face;
+}
 
 void Avatar::setFace(Face *face) { this->face = face; }
 
@@ -159,7 +166,9 @@ void Avatar::draw() {
 bool Avatar::isDrawing() { return _isDrawing; }
 
 void Avatar::setExpression(Expression expression) {
+  suspend();
   this->expression = expression;
+  resume();
 }
 
 Expression Avatar::getExpression() {
