@@ -115,22 +115,45 @@ void Face::draw(DrawContext *ctx) {
   float scale = ctx->getScale();
   float rotation = ctx->getRotation();
 
-  if (scale != 1.0 || rotation != 0) {
-    tmpSprite->setColorDepth(ctx->getColorDepth());
-    tmpSprite->createSprite((int32_t)((float)320 * scale), (int32_t)((float)240 * scale));
-    tmpSprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
-      ctx->getColorPalette()->get(COLOR_BACKGROUND));
-    if (ctx->getColorDepth() != 1) {
-      tmpSprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
-    } else {
-      tmpSprite->fillSprite(0);
-    }
-    sprite->pushRotateZoom(tmpSprite, rotation, scale, scale);
-    tmpSprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop());
-    tmpSprite->deleteSprite();
-  } else {
-    sprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop());
+// ▼▼▼▼ここから▼▼▼▼
+  static constexpr uint8_t y_step = 8;
+
+  if (tmpSprite->getBuffer() == nullptr) {
+    // 出力先と同じcolorDepthを指定することで、DMA転送が可能になる。
+    tmpSprite->setColorDepth(M5.Display.getColorDepth());
+
+    // 確保するメモリは高さ8ピクセルの横長の細長い短冊状とする。
+    tmpSprite->createSprite(boundingRect->getWidth(), y_step);
   }
+
+  // 背景クリア用の色を設定
+  tmpSprite->setBaseColor((ctx->getColorDepth() != 1) ? ctx->getColorPalette()->get(COLOR_BACKGROUND) : (uint16_t)0);
+  int y = 0;
+  do {
+    // 背景色で塗り潰し
+    tmpSprite->clear();
+
+    // 傾きとズームを反映してspriteからtmpSpriteに転写
+    sprite->pushRotateZoom(tmpSprite, boundingRect->getWidth()>>1, (boundingRect->getHeight()>>1) - y, rotation, scale, scale);
+
+    // tmpSpriteから画面に転写
+    M5.Display.startWrite();
+
+    // 事前にstartWriteしておくことで、pushSprite はDMA転送を開始するとすぐに処理を終えて戻ってくる。
+    tmpSprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop() + y);
+
+    // DMA転送中にdelay処理を設けることにより、DMA転送中に他のタスクへCPU処理時間を譲ることができる。
+    delay(1);
+
+    // endWriteによってDMA転送の終了を待つ。
+    M5.Display.endWrite();
+
+  } while ((y += y_step) < M5.Display.height());
+
+// 削除するのが良いかどうか要検討 (次回メモリ確保できない場合は描画できなくなるので、維持しておいても良いかも？)
+// tmpSprite->deleteSprite();
+// ▲▲▲▲ここまで▲▲▲▲
+
   sprite->deleteSprite();
 }
 }  // namespace m5avatar
