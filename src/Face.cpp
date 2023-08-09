@@ -120,6 +120,7 @@ void Face::draw(DrawContext *ctx) {
 
   if (tmpSprite->getBuffer() == nullptr) {
     // 出力先と同じcolorDepthを指定することで、DMA転送が可能になる。
+    // Display自体は16bit or 24bitしか指定できないが、細長なので1bitではなくても大丈夫。
     tmpSprite->setColorDepth(M5.Display.getColorDepth());
 
     // 確保するメモリは高さ8ピクセルの横長の細長い短冊状とする。
@@ -127,7 +128,7 @@ void Face::draw(DrawContext *ctx) {
   }
 
   // 背景クリア用の色を設定
-  tmpSprite->setBaseColor((ctx->getColorDepth() != 1) ? ctx->getColorPalette()->get(COLOR_BACKGROUND) : (uint16_t)0);
+  tmpSprite->setBaseColor(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   int y = 0;
   do {
     // 背景色で塗り潰し
@@ -148,7 +149,7 @@ void Face::draw(DrawContext *ctx) {
     // endWriteによってDMA転送の終了を待つ。
     M5.Display.endWrite();
 
-  } while ((y += y_step) < M5.Display.height());
+  } while ((y += y_step) < boundingRect->getHeight());
 
 // 削除するのが良いかどうか要検討 (次回メモリ確保できない場合は描画できなくなるので、維持しておいても良いかも？)
 // tmpSprite->deleteSprite();
