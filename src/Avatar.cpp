@@ -21,7 +21,7 @@ void drawLoop(void *args) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
-    vTaskDelay(33);
+    vTaskDelay(10/portTICK_PERIOD_MS);
   }
   vTaskDelete(NULL);
 }
@@ -62,7 +62,7 @@ void facialLoop(void *args) {
     c = (c + 1) % 100;
     breath = sin(c * 2 * PI / 100.0);
     avatar->setBreath(breath);
-    vTaskDelay(33);
+    vTaskDelay(33/portTICK_PERIOD_MS);
   }
   vTaskDelete(NULL);
 }
