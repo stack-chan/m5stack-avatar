@@ -3,6 +3,7 @@
 // license information.
 
 #include "Face.h"
+#include "AvatarMath.h"
 
 namespace m5avatar {
 BoundingRect br;
@@ -144,7 +145,7 @@ void Face::draw(DrawContext *ctx) {
     tmpSprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop() + y);
 
     // DMA転送中にdelay処理を設けることにより、DMA転送中に他のタスクへCPU処理時間を譲ることができる。
-    delay(1);
+    vTaskDelay(1/portTICK_PERIOD_MS);
 
     // endWriteによってDMA転送の終了を待つ。
     M5.Display.endWrite();

@@ -3,6 +3,7 @@
 // license information.
 
 #include "Mouth.h"
+#include "AvatarMath.h"
 
 namespace m5avatar {
 

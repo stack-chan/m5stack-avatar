@@ -4,8 +4,8 @@
 
 #ifndef BOUNDINGRECT_H_
 #define BOUNDINGRECT_H_
-#include <Arduino.h>
 
+#include <M5GFX.h>
 namespace m5avatar {
 class BoundingRect {
  private:

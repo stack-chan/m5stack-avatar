@@ -3,6 +3,10 @@
 // license information.
 
 #include "Avatar.h"
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include "AvatarMath.h"
+
 namespace m5avatar {
 const uint32_t DEFAULT_STACK_SIZE = 2048;
 
@@ -41,27 +45,27 @@ void facialLoop(void *args) {
   float breath = 0.0f;
   while (avatar->isDrawing()) {
 
-    if ((millis() - last_saccade_millis) > saccade_interval) {
+    if ((lgfx::v1::millis() - last_saccade_millis) > saccade_interval) {
       vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
       horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
       avatar->setGaze(vertical, horizontal);
-      saccade_interval = 500 + 100 * random(20);
-      last_saccade_millis = millis();
+      saccade_interval = 500 + 100 * m5avatar::random(20);
+      last_saccade_millis = lgfx::v1::millis();
     }
 
-    if ((millis()- last_blink_millis) > blink_interval) {
+    if ((lgfx::v1::millis()- last_blink_millis) > blink_interval) {
       if (eye_open) {
         avatar->setEyeOpenRatio(1);
-        blink_interval = 2500 + 100 * random(20);
+        blink_interval = 2500 + 100 * m5avatar::random(20);
       } else {
         avatar->setEyeOpenRatio(0);
-        blink_interval = 300 + 10 * random(20);
+        blink_interval = 300 + 10 * m5avatar::random(20);
       }
       eye_open = !eye_open;
-      last_blink_millis = millis();
+      last_blink_millis = lgfx::v1::millis();
     }
     c = (c + 1) % 100;
-    breath = sin(c * 2 * PI / 100.0);
+    breath = sin(c * 2 * 3.1415 / 100.0);
     avatar->setBreath(breath);
     vTaskDelay(33);
   }
@@ -97,7 +101,7 @@ Face *Avatar::getFace() const { return face; }
 void Avatar::addTask(TaskFunction_t f, const char* name) {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): set a task handler
-  xTaskCreateUniversal(f, /* Function to implement the task */
+  xTaskCreatePinnedToCore(f, /* Function to implement the task */
                           name, /* Name of the task */
                           DEFAULT_STACK_SIZE, /* Stack size in words */
                           ctx,                /* Task input parameter */
@@ -136,7 +140,7 @@ void Avatar::start(int colorDepth) {
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): keep handle of these tasks
-  xTaskCreateUniversal(drawLoop,     /* Function to implement the task */
+  xTaskCreatePinnedToCore(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
                           2048,         /* Stack size in words */
                           ctx,          /* Task input parameter */
@@ -144,7 +148,7 @@ void Avatar::start(int colorDepth) {
                           &drawTaskHandle,        /* Task handle. */
                           APP_CPU_NUM);
 
-  xTaskCreateUniversal(facialLoop,      /* Function to implement the task */
+  xTaskCreatePinnedToCore(facialLoop,      /* Function to implement the task */
                           "facialLoop",    /* Name of the task */
                           1024,         /* Stack size in words */
                           ctx,          /* Task input parameter */
