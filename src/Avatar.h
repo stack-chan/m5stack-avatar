@@ -8,6 +8,10 @@
 #include "Face.h"
 #include <M5GFX.h>
 
+#ifndef APP_CPU_NUM
+#define APP_CPU_NUM PRO_CPU_NUM
+#endif
+
 namespace m5avatar {
 class Avatar {
  private:
