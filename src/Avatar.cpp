@@ -3,9 +3,25 @@
 // license information.
 
 #include "Avatar.h"
+
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
+
 namespace m5avatar {
 
 unsigned int seed = 0;
+
+#ifdef SDL_h_
+#define TaskResult() return 0
+#define TaskDelay(ms) lgfx::delay(ms)
+long random(long howbig) {
+  return std::rand() % howbig;
+}
+#else
+#define TaskResult() vTaskDelete(NULL)
+#define TaskDelay(ms) vTaskDelay(ms/portTICK_PERIOD_MS)
+#endif
 
 // TODO(meganetaaan): make read-only
 DriveContext::DriveContext(Avatar *avatar) : avatar{avatar} {}
@@ -14,19 +30,19 @@ Avatar *DriveContext::getAvatar() { return avatar; }
 
 TaskHandle_t drawTaskHandle;
 
-void drawLoop(void *args) {
+TaskResult_t drawLoop(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   Avatar *avatar = ctx->getAvatar();
   while (avatar->isDrawing()) {
     if (avatar->isDrawing()) {
       avatar->draw();
     }
-    vTaskDelay(10/portTICK_PERIOD_MS);
+    TaskDelay(10);
   }
-  vTaskDelete(NULL);
+  TaskResult();
 }
 
-void facialLoop(void *args) {
+TaskResult_t facialLoop(void *args) {
   int c = 0;
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   Avatar *avatar = ctx->getAvatar();
@@ -40,15 +56,15 @@ void facialLoop(void *args) {
   float breath = 0.0f;
   while (avatar->isDrawing()) {
 
-    if ((millis() - last_saccade_millis) > saccade_interval) {
+    if ((lgfx::millis() - last_saccade_millis) > saccade_interval) {
       vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
       horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
       avatar->setGaze(vertical, horizontal);
       saccade_interval = 500 + 100 * random(20);
-      last_saccade_millis = millis();
+      last_saccade_millis = lgfx::millis();
     }
 
-    if ((millis()- last_blink_millis) > blink_interval) {
+    if ((lgfx::millis()- last_blink_millis) > blink_interval) {
       if (eye_open) {
         avatar->setEyeOpenRatio(1);
         blink_interval = 2500 + 100 * random(20);
@@ -57,14 +73,14 @@ void facialLoop(void *args) {
         blink_interval = 300 + 10 * random(20);
       }
       eye_open = !eye_open;
-      last_blink_millis = millis();
+      last_blink_millis = lgfx::millis();
     }
     c = (c + 1) % 100;
     breath = sin(c * 2 * PI / 100.0);
     avatar->setBreath(breath);
-    vTaskDelay(33/portTICK_PERIOD_MS);
+    TaskDelay(33);
   }
-  vTaskDelete(NULL);
+  TaskResult();
 }
 
 Avatar::Avatar() : Avatar(new Face()) {}
@@ -100,6 +116,9 @@ void Avatar::addTask(TaskFunction_t f
                     , TaskHandle_t* const task_handle
                     , const BaseType_t core_id) {
   DriveContext *ctx = new DriveContext(this);
+#ifdef SDL_h_
+  SDL_CreateThreadWithStackSize(f, name, stack_size, ctx);
+#else
   // TODO(meganetaaan): set a task handler
   xTaskCreateUniversal(f,                    /* Function to implement the task */
                           name,              /* Name of the task */
@@ -108,6 +127,7 @@ void Avatar::addTask(TaskFunction_t f
                           priority,          /* Priority of the task */
                           task_handle,       /* Task handle. */
                           core_id);          /* Core No*/
+#endif
 }
 
 void Avatar::init(int colorDepth) {
@@ -118,11 +138,15 @@ void Avatar::init(int colorDepth) {
 void Avatar::stop() { _isDrawing = false; }
 
 void Avatar::suspend() {
+#ifndef SDL_h_
   vTaskSuspend(drawTaskHandle);
+#endif
 }
 
 void Avatar::resume() {
+#ifndef SDL_h_
   vTaskResume(drawTaskHandle);
+#endif
 }
 
 void Avatar::start(int colorDepth) { 
@@ -132,6 +156,10 @@ void Avatar::start(int colorDepth) {
 
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
+#ifdef SDL_h_
+  SDL_CreateThreadWithStackSize(drawLoop, "drawLoop", 2048, ctx);
+  SDL_CreateThreadWithStackSize(facialLoop, "facialLoop", 1024, ctx);
+#else
   // TODO(meganetaaan): keep handle of these tasks
   xTaskCreateUniversal(drawLoop,     /* Function to implement the task */
                           "drawLoop",   /* Name of the task */
@@ -148,6 +176,7 @@ void Avatar::start(int colorDepth) {
                           2,            /* Priority of the task */
                           NULL,         /* Task handle. */
                           APP_CPU_NUM);
+#endif
 }
 
 void Avatar::draw() {

@@ -4,6 +4,10 @@
 
 #include "Face.h"
 
+#ifndef _min
+#define _min(a, b) std::min(a, b)
+#endif
+
 namespace m5avatar {
 BoundingRect br;
 
@@ -144,7 +148,7 @@ void Face::draw(DrawContext *ctx) {
     tmpSprite->pushSprite(&M5.Display, boundingRect->getLeft(), boundingRect->getTop() + y);
 
     // DMA転送中にdelay処理を設けることにより、DMA転送中に他のタスクへCPU処理時間を譲ることができる。
-    delay(1);
+    lgfx::delay(1);
 
     // endWriteによってDMA転送の終了を待つ。
     M5.Display.endWrite();
