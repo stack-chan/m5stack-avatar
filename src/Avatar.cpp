@@ -117,7 +117,11 @@ void Avatar::addTask(TaskFunction_t f
                     , const BaseType_t core_id) {
   DriveContext *ctx = new DriveContext(this);
 #ifdef SDL_h_
-  SDL_CreateThreadWithStackSize(f, name, stack_size, ctx);
+  if (task_handle == NULL) {
+    SDL_CreateThreadWithStackSize(f, name, stack_size, ctx);
+  } else {
+    *task_handle = SDL_CreateThreadWithStackSize(f, name, stack_size, ctx);
+  }
 #else
   // TODO(meganetaaan): set a task handler
   xTaskCreateUniversal(f,                    /* Function to implement the task */
@@ -157,7 +161,7 @@ void Avatar::start(int colorDepth) {
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
 #ifdef SDL_h_
-  SDL_CreateThreadWithStackSize(drawLoop, "drawLoop", 2048, ctx);
+  drawTaskHandle = SDL_CreateThreadWithStackSize(drawLoop, "drawLoop", 2048, ctx);
   SDL_CreateThreadWithStackSize(facialLoop, "facialLoop", 1024, ctx);
 #else
   // TODO(meganetaaan): keep handle of these tasks

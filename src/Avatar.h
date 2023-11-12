@@ -12,7 +12,7 @@
 typedef SDL_ThreadFunction TaskFunction_t;
 typedef int BaseType_t;
 typedef unsigned int UBaseType_t;
-typedef void* TaskHandle_t;
+typedef SDL_Thread* TaskHandle_t;
 typedef int TaskResult_t;
 #define APP_CPU_NUM (1)
 #else
