@@ -22,7 +22,7 @@ class Avatar {
   float rotation;
   float scale;
   ColorPalette palette;
-  const char *speechText;
+  String speechText;
   int colorDepth;
   BatteryIconStatus batteryIconStatus;
   int32_t batteryLevel;
