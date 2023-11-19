@@ -9,13 +9,13 @@ namespace m5avatar {
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, BatteryIconStatus batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont)
+                         String speechText, BatteryIconStatus batteryIcon, int32_t batteryLevel, const lgfx::IFont* speechFont)
     : DrawContext(expression, breath, palette, gaze, eyeOpenRatio, mouthOpenRatio, speechText, 0, 1, 1, BatteryIconStatus::invisible, 0, speechFont){};
 
 DrawContext::DrawContext(Expression expression, float breath,
                          ColorPalette* const palette, Gaze gaze,
                          float eyeOpenRatio, float mouthOpenRatio,
-                         const char* speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont) 
+                         String speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont) 
     : expression{expression},
       breath{breath},
       eyeOpenRatio{eyeOpenRatio},
@@ -42,7 +42,7 @@ float DrawContext::getRotation() const { return rotation; }
 
 float DrawContext::getScale() const { return scale; }
 
-const char* DrawContext::getspeechText() const { return speechText; }
+String  DrawContext::getspeechText() const { return speechText; }
 
 Gaze DrawContext::getGaze() const { return gaze; }
 

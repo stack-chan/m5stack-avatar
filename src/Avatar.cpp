@@ -4,7 +4,6 @@
 
 #include "Avatar.h"
 namespace m5avatar {
-const uint32_t DEFAULT_STACK_SIZE = 2048;
 
 unsigned int seed = 0;
 
@@ -94,23 +93,21 @@ void Avatar::setFace(Face *face) { this->face = face; }
 
 Face *Avatar::getFace() const { return face; }
 
-void Avatar::addTask(TaskFunction_t f, const char* name) {
+void Avatar::addTask(TaskFunction_t f
+                    , const char* name
+                    , const uint32_t stack_size
+                    , UBaseType_t priority
+                    , TaskHandle_t* const task_handle
+                    , const BaseType_t core_id) {
   DriveContext *ctx = new DriveContext(this);
   // TODO(meganetaaan): set a task handler
-  xTaskCreateUniversal(f, /* Function to implement the task */
-                          name, /* Name of the task */
-                          DEFAULT_STACK_SIZE, /* Stack size in words */
-                          ctx,                /* Task input parameter */
-                          3,                  /* P2014riority of the task */
-                          NULL,               /* Task handle. */
-                          APP_CPU_NUM);
-  // xTaskCreatePinnedToCore(f, /* Function to implement the task */
-  //                         name, /* Name of the task */
-  //                         DEFAULT_STACK_SIZE, /* Stack size in words */
-  //                         ctx,                /* Task input parameter */
-  //                         1,                  /* P2014riority of the task */
-  //                         NULL,               /* Task handle. */
-  //                         1); /* Core where the task should run */
+  xTaskCreateUniversal(f,                    /* Function to implement the task */
+                          name,              /* Name of the task */
+                          stack_size,        /* Stack size in words */
+                          ctx,               /* Task input parameter */
+                          priority,          /* Priority of the task */
+                          task_handle,       /* Task handle. */
+                          core_id);          /* Core No*/
 }
 
 void Avatar::init(int colorDepth) {
@@ -208,7 +205,7 @@ void Avatar::getGaze(float *vertical, float *horizontal) {
 }
 
 void Avatar::setSpeechText(const char *speechText) {
-  this->speechText = speechText;
+  this->speechText = String(speechText);
 }
 
 void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
