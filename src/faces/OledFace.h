@@ -14,8 +14,8 @@ namespace m5avatar {
 class OledFace : public Face {
  public:
   OledFace()
-      : Face(new Mouth(), new BoundingRect(168, 163), new Eye(),
-             new BoundingRect(103, 80), new Eye(),
+      : Face(new Mouth(50, 90, 4, 60), new BoundingRect(168, 163), new Eye(8, false),
+             new BoundingRect(103, 80), new Eye(8, true),
              new BoundingRect(106, 240), new Eyeblow(15, 2, false),
              new BoundingRect(67, 96), new Eyeblow(15, 2, true),
              new BoundingRect(72, 230)) {}
