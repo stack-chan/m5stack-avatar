@@ -5,11 +5,7 @@
 #ifndef FACES_BMPFACE_H_
 #define FACES_BMPFACE_H_
 
-# if defined(ARDUINO_M5STACK_Core2) || defined(M5AVATAR_CORE2) || defined(_M5Core2_H_)
-  #include <M5Core2.h>
-# else
-  #include <M5Unified.h> // TODO(meganetaaan): include only the Sprite function not a whole library
-# endif
+#include <M5Unified.h> // TODO(meganetaaan): include only the Sprite function not a whole library
 
 #include "../BoundingRect.h"
 #include "../DrawContext.h"
@@ -23,7 +19,7 @@ class BMPEye : public Drawable
 {
   void draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx)
   {
-    auto color = COLOR_DEPTH == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
+    uint16_t color = ctx->getColorDepth() == 1 ? 1 : ctx->getColorPalette()->get(COLOR_PRIMARY);
     uint16_t cx = rect.getCenterX();
     uint16_t cy = rect.getCenterY();
     float openRatio = ctx->getEyeOpenRatio();

@@ -25,9 +25,9 @@ class Balloon final : public Drawable {
   Balloon &operator=(const Balloon &other) = default;
   void draw(M5Canvas *spi, BoundingRect rect,
             DrawContext *drawContext) override {
-    const char *text = drawContext->getspeechText();
+    String text = drawContext->getspeechText();
     const lgfx::IFont *font = drawContext->getSpeechFont();
-    if (strlen(text) == 0) {
+    if (text.length() == 0) {
       return;
     }
     ColorPalette* cp = drawContext->getColorPalette();

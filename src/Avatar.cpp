@@ -238,7 +238,7 @@ void Avatar::getGaze(float *vertical, float *horizontal) {
 }
 
 void Avatar::setSpeechText(const char *speechText) {
-  this->speechText = speechText;
+  this->speechText = String(speechText);
 }
 
 void Avatar::setSpeechFont(const lgfx::IFont *speechFont) {
