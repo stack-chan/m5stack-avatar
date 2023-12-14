@@ -12,6 +12,10 @@
 #include "Expression.h"
 #include "Gaze.h"
 
+#ifndef ARDUINO
+#include <string>
+typedef std::string String;
+#endif  // ARDUINO
 
 namespace m5avatar {
 enum BatteryIconStatus { discharging, charging, invisible, unknown };

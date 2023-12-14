@@ -23,6 +23,11 @@ typedef void TaskResult_t;
 #define APP_CPU_NUM PRO_CPU_NUM
 #endif
 
+#ifndef ARDUINO
+#include <string>
+typedef std::string String;
+#endif  // ARDUINO
+
 namespace m5avatar {
 class Avatar {
  private:
