@@ -28,6 +28,16 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
            BoundingRect *eyeRPos, Drawable *eyeL, BoundingRect *eyeLPos,
            Drawable *eyeblowR, BoundingRect *eyeblowRPos, Drawable *eyeblowL,
            BoundingRect *eyeblowLPos)
+    : Face(mouth, mouthPos, eyeR, eyeRPos, eyeL, eyeLPos, eyeblowR,
+           eyeblowRPos, eyeblowL, eyeblowLPos,
+           new BoundingRect(0, 0, 320, 240),
+           new M5Canvas(&M5.Lcd), new M5Canvas(&M5.Lcd)) {}
+
+Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
+       BoundingRect *eyeRPos, Drawable *eyeL, BoundingRect *eyeLPos,
+       Drawable *eyeblowR, BoundingRect *eyeblowRPos, Drawable *eyeblowL,
+       BoundingRect *eyeblowLPos,
+       BoundingRect *boundingRect, M5Canvas *spr, M5Canvas *tmpSpr)
     : mouth{mouth},
       eyeR{eyeR},
       eyeL{eyeL},
@@ -38,9 +48,9 @@ Face::Face(Drawable *mouth, BoundingRect *mouthPos, Drawable *eyeR,
       eyeLPos{eyeLPos},
       eyeblowRPos{eyeblowRPos},
       eyeblowLPos{eyeblowLPos},
-      boundingRect{new BoundingRect(0, 0, 320, 240)},
-      sprite{new M5Canvas(&M5.Lcd)},
-      tmpSprite{new M5Canvas(&M5.Lcd)} {}
+      boundingRect{boundingRect},
+      sprite{spr},
+      tmpSprite{tmpSpr} {}
 
 Face::~Face() {
   delete mouth;
