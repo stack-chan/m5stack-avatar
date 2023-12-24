@@ -12,6 +12,14 @@ namespace m5avatar {
 
 unsigned int seed = 0;
 
+#ifndef rand_r
+#define init_rand() srand(seed)
+#define _rand() rand()
+#else
+#define init_rand() ;
+#define _rand() rand_r(&seed)
+#endif
+
 #ifdef SDL_h_
 #define TaskResult() return 0
 #define TaskDelay(ms) lgfx::delay(ms)
@@ -54,11 +62,12 @@ TaskResult_t facialLoop(void *args) {
   float vertical = 0.0f;
   float horizontal = 0.0f;
   float breath = 0.0f;
+  init_rand();
   while (avatar->isDrawing()) {
 
     if ((lgfx::millis() - last_saccade_millis) > saccade_interval) {
-      vertical = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
-      horizontal = rand_r(&seed) / (RAND_MAX / 2.0) - 1;
+      vertical = _rand() / (RAND_MAX / 2.0) - 1;
+      horizontal = _rand() / (RAND_MAX / 2.0) - 1;
       avatar->setGaze(vertical, horizontal);
       saccade_interval = 500 + 100 * random(20);
       last_saccade_millis = lgfx::millis();
