@@ -19,7 +19,7 @@ uint16_t ColorPalette::get(const char* key) const {
   } else {
     // NOTE: if no value it returns BLACK(0x00) as the default value of the
     // type(int)
-    Serial.printf("no color with the key %s\n", key);
+    M5_LOGI("no color with the key %s", key);
     return TFT_BLACK;
   }
 }
@@ -27,7 +27,7 @@ uint16_t ColorPalette::get(const char* key) const {
 void ColorPalette::set(const char* key, uint16_t value) {
   auto itr = colors.find(key);
   if (itr != colors.end()) {
-    Serial.println("Overwriting");
+    M5_LOGI("Overwriting");
   }
   itr->second = value;
 }

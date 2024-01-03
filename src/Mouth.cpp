@@ -4,6 +4,10 @@
 
 #include "Mouth.h"
 
+#ifndef _min
+#define _min(a, b) std::min(a, b)
+#endif
+
 namespace m5avatar {
 
 Mouth::Mouth(uint16_t minWidth, uint16_t maxWidth, uint16_t minHeight,
