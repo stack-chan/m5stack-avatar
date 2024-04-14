@@ -12,3 +12,6 @@ lib/aquestalk-esp32
 src/*.ino
 const.h
 /tmp/
+
+# for macOS
+.DS_Store 
