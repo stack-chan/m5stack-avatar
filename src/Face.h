@@ -30,6 +30,9 @@ class Face {
   BoundingRect *boundingRect;
   M5Canvas *sprite;
   M5Canvas *tmpSprite;
+  Balloon *b;
+  Effect *h;
+  BatteryIcon *battery;
 
  public:
   // constructor

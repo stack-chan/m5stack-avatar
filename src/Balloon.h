@@ -9,6 +9,11 @@
 #include "DrawContext.h"
 #include "Drawable.h"
 
+#ifndef ARDUINO
+#include <string>
+typedef std::string String;
+#endif  // ARDUINO
+
 const int16_t TEXT_HEIGHT = 8;
 const int16_t TEXT_SIZE = 2;
 const int16_t MIN_WIDTH = 40;
@@ -25,9 +30,9 @@ class Balloon final : public Drawable {
   Balloon &operator=(const Balloon &other) = default;
   void draw(M5Canvas *spi, BoundingRect rect,
             DrawContext *drawContext) override {
-    const char *text = drawContext->getspeechText();
+    String text = drawContext->getspeechText();
     const lgfx::IFont *font = drawContext->getSpeechFont();
-    if (strlen(text) == 0) {
+    if (text.length() == 0) {
       return;
     }
     ColorPalette* cp = drawContext->getColorPalette();
@@ -39,7 +44,7 @@ class Balloon final : public Drawable {
     spi->setTextColor(primaryColor, backgroundColor);
     spi->setTextDatum(MC_DATUM);
     M5.Lcd.setFont(font);
-    int textWidth = M5.Lcd.textWidth(text);
+    int textWidth = M5.Lcd.textWidth(text.c_str());
     int textHeight = TEXT_HEIGHT * TEXT_SIZE;
     spi->fillEllipse(cx - 20, cy,textWidth + 2, textHeight * 2 + 2,
                      primaryColor);
@@ -49,7 +54,7 @@ class Balloon final : public Drawable {
                      backgroundColor);
     spi->fillTriangle(cx - 60, cy - 40, cx - 10, cy - 10, cx - 40, cy - 10,
                       backgroundColor);
-    spi->drawString(text, cx - textWidth / 6 - 15, cy, font);  // Continue printing from new x position
+    spi->drawString(text.c_str(), cx - textWidth / 6 - 15, cy, font);  // Continue printing from new x position
   }
 };
 

@@ -3,7 +3,6 @@
 // license information.
 
 #include "BoundingRect.h"
-#include <Arduino.h>
 
 namespace m5avatar {
 BoundingRect::BoundingRect(int16_t top, int16_t left)

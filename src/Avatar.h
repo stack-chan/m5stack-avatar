@@ -8,6 +8,26 @@
 #include "Face.h"
 #include <M5GFX.h>
 
+#ifdef SDL_h_
+typedef SDL_ThreadFunction TaskFunction_t;
+typedef int BaseType_t;
+typedef unsigned int UBaseType_t;
+typedef SDL_Thread* TaskHandle_t;
+typedef int TaskResult_t;
+#define APP_CPU_NUM (1)
+#else
+typedef void TaskResult_t;
+#endif
+
+#ifndef APP_CPU_NUM
+#define APP_CPU_NUM PRO_CPU_NUM
+#endif
+
+#ifndef ARDUINO
+#include <string>
+typedef std::string String;
+#endif  // ARDUINO
+
 namespace m5avatar {
 class Avatar {
  private:
@@ -22,7 +42,7 @@ class Avatar {
   float rotation;
   float scale;
   ColorPalette palette;
-  const char *speechText;
+  String speechText;
   int colorDepth;
   BatteryIconStatus batteryIconStatus;
   int32_t batteryLevel;
@@ -31,7 +51,7 @@ class Avatar {
  public:
   Avatar();
   explicit Avatar(Face *face);
-  ~Avatar() = default;
+  ~Avatar();
   Avatar(const Avatar &other) = default;
   Avatar &operator=(const Avatar &other) = default;
   Face *getFace() const;
@@ -56,7 +76,12 @@ class Avatar {
   bool isDrawing();
   void start(int colorDepth = 1);
   void stop();
-  void addTask(TaskFunction_t f, const char* name);
+  void addTask(TaskFunction_t f
+              , const char* name
+              , const uint32_t stack_size=2048
+              , UBaseType_t priority=4
+              , TaskHandle_t* const task_handle=NULL
+              , const BaseType_t core_id=APP_CPU_NUM);
   void suspend();
   void resume();
   void setBatteryIcon(bool iconStatus);

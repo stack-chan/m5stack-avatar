@@ -15,9 +15,13 @@
     }
   ],
   "license": "MIT",
-  "dependencies": {
-  },
-  "version": "0.8.4",
-  "frameworks": "arduino",
-  "platforms": "espressif32"
+  "dependencies": [
+    {
+      "name": "M5Unified",
+      "version": ">=0.1.11"
+    }
+  ],
+  "version": "0.9.2",
+  "frameworks": ["arduino", "espidf", "*"],
+  "platforms": ["espressif32", "native"]
 }

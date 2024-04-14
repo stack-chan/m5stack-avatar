@@ -12,6 +12,10 @@
 #include "Expression.h"
 #include "Gaze.h"
 
+#ifndef ARDUINO
+#include <string>
+typedef std::string String;
+#endif  // ARDUINO
 
 namespace m5avatar {
 enum BatteryIconStatus { discharging, charging, invisible, unknown };
@@ -23,7 +27,7 @@ class DrawContext {
   float mouthOpenRatio;
   Gaze gaze;
   ColorPalette * const palette;
-  const char* speechText;
+  String speechText;
   float rotation = 0.0;
   float scale = 1.0;
   int colorDepth = 1;
@@ -35,10 +39,10 @@ class DrawContext {
   DrawContext() = delete;
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
+              String speechText, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
   DrawContext(Expression expression, float breath, ColorPalette* const palette,
               Gaze gaze, float eyeOpenRatio, float mouthOpenRatio,
-              const char* speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
+              String speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont* speechFont);
   ~DrawContext() = default;
   DrawContext(const DrawContext& other) = delete;
   DrawContext& operator=(const DrawContext& other) = delete;
@@ -50,7 +54,7 @@ class DrawContext {
   float getRotation() const;
   Gaze getGaze() const;
   ColorPalette* const getColorPalette() const;
-  const char* getspeechText() const;
+  String getspeechText() const;
   int getColorDepth() const;
   BatteryIconStatus getBatteryIconStatus() const;
   int32_t getBatteryLevel() const;
