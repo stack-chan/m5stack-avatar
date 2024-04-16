@@ -38,14 +38,18 @@ class Avatar {
   float breath;
 
   // eyes variables
-  // float eyeOpenRatio;
-  float leftEyeOpenRatio_;
   float rightEyeOpenRatio_;
+  float rightGazeV_;
+  float rightGazeH_;
+
+  float leftEyeOpenRatio_;
+  float leftGazeV_;
+  float leftGazeH_;
+
   bool isAutoBlink_;
 
   float mouthOpenRatio;
-  float gazeV;
-  float gazeH;
+
   float rotation;
   float scale;
   ColorPalette palette;
@@ -69,15 +73,17 @@ class Avatar {
   Expression getExpression();
   void setBreath(float f);
   float getBreath();
-  void setGaze(float vertical, float horizontal);
-  void getGaze(float *vertical, float *horizontal);
+  void setRightGaze(float vertical, float horizontal);
+  void getRightGaze(float *vertical, float *horizontal);
+  void setLeftGaze(float vertical, float horizontal);
+  void getLeftGaze(float *vertical, float *horizontal);
   void setExpression(Expression exp);
   // eyes functions
   void setEyeOpenRatio(float ratio);
-  void setLeftEyeOpenRatio(float ratio);
-  float getLeftEyeOpenRatio();
   void setRightEyeOpenRatio(float ratio);
   float getRightEyeOpenRatio();
+  void setLeftEyeOpenRatio(float ratio);
+  float getLeftEyeOpenRatio();
   void setIsAutoBlink(bool b);
   bool getIsAutoBlink();
 

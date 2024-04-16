@@ -39,6 +39,7 @@ TaskHandle_t drawTaskHandle;
 TaskResult_t drawLoop(void *args) {
   DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
   Avatar *avatar = ctx->getAvatar();
+  // update drawings in the display
   while (avatar->isDrawing()) {
     if (avatar->isDrawing()) {
       avatar->draw();
@@ -61,17 +62,19 @@ TaskResult_t facialLoop(void *args) {
   float horizontal = 0.0f;
   float breath = 0.0f;
   init_rand();
+  // update facial internal state
   while (avatar->isDrawing()) {
     if ((lgfx::millis() - last_saccade_millis) > saccade_interval) {
       vertical = _rand() / (RAND_MAX / 2.0) - 1;
       horizontal = _rand() / (RAND_MAX / 2.0) - 1;
-      avatar->setGaze(vertical, horizontal);
+      avatar->setRightGaze(vertical, horizontal);
+      avatar->setLeftGaze(vertical, horizontal);
       saccade_interval = 500 + 100 * random(20);
       last_saccade_millis = lgfx::millis();
     }
 
     if (avatar->getIsAutoBlink()) {
-      /* code */ if ((lgfx::millis() - last_blink_millis) > blink_interval) {
+      if ((lgfx::millis() - last_blink_millis) > blink_interval) {
         if (eye_open) {
           avatar->setEyeOpenRatio(1.0f);
           blink_interval = 2500 + 100 * random(20);
@@ -99,12 +102,14 @@ Avatar::Avatar(Face *face)
       _isDrawing{false},
       expression{Expression::Neutral},
       breath{0},
-      leftEyeOpenRatio_{1},
-      rightEyeOpenRatio_{1},
+      leftEyeOpenRatio_{1.0f},
+      leftGazeH_{1.0f},
+      leftGazeV_{1.0f},
+      rightEyeOpenRatio_{1.0f},
+      rightGazeH_{1.0f},
+      rightGazeV_{1.0f},
       isAutoBlink_{true},
       mouthOpenRatio{0},
-      gazeV{0},
-      gazeH{0},
       rotation{0},
       scale{1},
       palette{ColorPalette()},
@@ -192,10 +197,11 @@ void Avatar::start(int colorDepth) {
 }
 
 void Avatar::draw() {
-  Gaze g = Gaze(this->gazeV, this->gazeH);
+  Gaze rightGaze = Gaze(this->rightGazeV_, this->rightGazeV_);
+  Gaze leftGaze = Gaze(this->leftGazeV_, this->leftGazeH_);
   DrawContext *ctx = new DrawContext(
-      this->expression, this->breath, &this->palette, g,
-      0.5f * this->leftEyeOpenRatio_ + 0.5f * this->rightEyeOpenRatio_,
+      this->expression, this->breath, &this->palette, rightGaze,
+      this->rightEyeOpenRatio_, leftGaze, this->leftEyeOpenRatio_,
       this->mouthOpenRatio, this->speechText, this->rotation, this->scale,
       this->colorDepth, this->batteryIconStatus, this->batteryLevel,
       this->speechFont);
@@ -232,8 +238,8 @@ ColorPalette Avatar::getColorPalette(void) const { return this->palette; }
 void Avatar::setMouthOpenRatio(float ratio) { this->mouthOpenRatio = ratio; }
 
 void Avatar::setEyeOpenRatio(float ratio) {
-  setLeftEyeOpenRatio(ratio);
   setRightEyeOpenRatio(ratio);
+  setLeftEyeOpenRatio(ratio);
 }
 
 void Avatar::setLeftEyeOpenRatio(float ratio) {
@@ -252,14 +258,24 @@ void Avatar::setIsAutoBlink(bool b) { this->isAutoBlink_ = b; }
 
 bool Avatar::getIsAutoBlink() { return this->isAutoBlink_; }
 
-void Avatar::setGaze(float vertical, float horizontal) {
-  this->gazeV = vertical;
-  this->gazeH = horizontal;
+void Avatar::setRightGaze(float vertical, float horizontal) {
+  this->rightGazeV_ = vertical;
+  this->rightGazeH_ = horizontal;
 }
 
-void Avatar::getGaze(float *vertical, float *horizontal) {
-  *vertical = this->gazeV;
-  *horizontal = this->gazeH;
+void Avatar::getRightGaze(float *vertical, float *horizontal) {
+  *vertical = this->rightGazeV_;
+  *horizontal = this->rightGazeH_;
+}
+
+void Avatar::setLeftGaze(float vertical, float horizontal) {
+  this->leftGazeV_ = vertical;
+  this->leftGazeH_ = horizontal;
+}
+
+void Avatar::getLeftGaze(float *vertical, float *horizontal) {
+  *vertical = this->leftGazeV_;
+  *horizontal = this->leftGazeH_;
 }
 
 void Avatar::setSpeechText(const char *speechText) {
