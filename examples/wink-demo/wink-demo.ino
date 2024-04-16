@@ -2,9 +2,16 @@
 #include <M5Unified.h>
 
 m5avatar::Avatar avatar;
+m5avatar::ColorPalette* palettes[2];
 
 void setup() {
   M5.begin();
+
+  palettes[0] = new m5avatar::ColorPalette();
+  palettes[1] = new m5avatar::ColorPalette();
+  palettes[1]->set(COLOR_PRIMARY, TFT_YELLOW);
+  palettes[1]->set(COLOR_BACKGROUND, TFT_DARKCYAN);
+
   avatar.init();  // start drawing
 }
 
@@ -17,6 +24,8 @@ void loop() {
   }
   if (M5.BtnB.wasPressed()) {
     avatar.setIsAutoBlink(!avatar.getIsAutoBlink());
+    avatar.setColorPalette(
+        *palettes[static_cast<uint8_t>(!avatar.getIsAutoBlink())]);
   }
   if (M5.BtnC.wasPressed()) {
     // switch left eye
