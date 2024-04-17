@@ -16,11 +16,6 @@ jobs:
         run: |
           curl -OL https://raw.githubusercontent.com/jothepro/doxygen-awesome-css/main/doxygen-awesome.css
       - uses: mattnotmitt/doxygen-action@v1.9.5
-      - name: copy file
-        uses: canastro/copy-file-action@master
-        with:
-          source: "docs"
-          target: "html"
       - name: Deploy pages
         uses: peaceiris/actions-gh-pages@v3
         with:
