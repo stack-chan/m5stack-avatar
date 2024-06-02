@@ -99,12 +99,12 @@ $(document).ready(function(){initNavTree('classm5avatar_1_1_draw_context.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afcd68a02474cdb6947ceeac74562cd28"><td class="memItemLeft" align="right" valign="top"><a id="afcd68a02474cdb6947ceeac74562cd28" name="afcd68a02474cdb6947ceeac74562cd28"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DrawContext</b> (Expression expression, float breath, <a class="el" href="classm5avatar_1_1_color_palette.html">ColorPalette</a> *const palette, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> gaze, float eyeOpenRatio, float mouthOpenRatio, String speechText, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont *speechFont)</td></tr>
-<tr class="separator:afcd68a02474cdb6947ceeac74562cd28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8271e4a1064dcc3e4ef560c95049b5e"><td class="memItemLeft" align="right" valign="top"><a id="aa8271e4a1064dcc3e4ef560c95049b5e" name="aa8271e4a1064dcc3e4ef560c95049b5e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DrawContext</b> (Expression expression, float breath, <a class="el" href="classm5avatar_1_1_color_palette.html">ColorPalette</a> *const palette, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> gaze, float eyeOpenRatio, float mouthOpenRatio, String speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont *speechFont)</td></tr>
-<tr class="separator:aa8271e4a1064dcc3e4ef560c95049b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d073b438b68a23dc7611ec78e82f64e"><td class="memItemLeft" align="right" valign="top"><a id="a0d073b438b68a23dc7611ec78e82f64e" name="a0d073b438b68a23dc7611ec78e82f64e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DrawContext</b> (Expression expression, float breath, <a class="el" href="classm5avatar_1_1_color_palette.html">ColorPalette</a> *const palette, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> rightGaze, float rightEyeOpenRatio, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> leftGaze, float leftEyeOpenRatio, float mouthOpenRatio, String speechText, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont *speechFont)</td></tr>
+<tr class="separator:a0d073b438b68a23dc7611ec78e82f64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e69ce60ee13db4d2808536190b68b97"><td class="memItemLeft" align="right" valign="top"><a id="a7e69ce60ee13db4d2808536190b68b97" name="a7e69ce60ee13db4d2808536190b68b97"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DrawContext</b> (Expression expression, float breath, <a class="el" href="classm5avatar_1_1_color_palette.html">ColorPalette</a> *const palette, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> rightGaze, float rightEyeOpenRatio, <a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a> leftGaze, float leftEyeOpenRatio, float mouthOpenRatio, String speechText, float rotation, float scale, int colorDepth, BatteryIconStatus batteryIconStatus, int32_t batteryLevel, const lgfx::IFont *speechFont)</td></tr>
+<tr class="separator:a7e69ce60ee13db4d2808536190b68b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b9b02f4df1492ab22c435606ada2769"><td class="memItemLeft" align="right" valign="top"><a id="a5b9b02f4df1492ab22c435606ada2769" name="a5b9b02f4df1492ab22c435606ada2769"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DrawContext</b> (const <a class="el" href="classm5avatar_1_1_draw_context.html">DrawContext</a> &amp;other)=delete</td></tr>
 <tr class="separator:a5b9b02f4df1492ab22c435606ada2769"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,9 +117,18 @@ Expression&#160;</td><td class="memItemRight" valign="bottom"><b>getExpression</
 <tr class="memitem:ae4045e0a548b29e7a4b5078e7e4c8ca6"><td class="memItemLeft" align="right" valign="top"><a id="ae4045e0a548b29e7a4b5078e7e4c8ca6" name="ae4045e0a548b29e7a4b5078e7e4c8ca6"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getBreath</b> () const</td></tr>
 <tr class="separator:ae4045e0a548b29e7a4b5078e7e4c8ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef73599bb32e6dc9416d244e46a62a92"><td class="memItemLeft" align="right" valign="top"><a id="aef73599bb32e6dc9416d244e46a62a92" name="aef73599bb32e6dc9416d244e46a62a92"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getEyeOpenRatio</b> () const</td></tr>
-<tr class="separator:aef73599bb32e6dc9416d244e46a62a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed58e1b5a377a8e79e15d08b9f8f076f"><td class="memItemLeft" align="right" valign="top"><a id="aed58e1b5a377a8e79e15d08b9f8f076f" name="aed58e1b5a377a8e79e15d08b9f8f076f"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>getRightEyeOpenRatio</b> () const</td></tr>
+<tr class="separator:aed58e1b5a377a8e79e15d08b9f8f076f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a288be4f564323c435ccac3ce8599fed5"><td class="memItemLeft" align="right" valign="top"><a id="a288be4f564323c435ccac3ce8599fed5" name="a288be4f564323c435ccac3ce8599fed5"></a>
+<a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getRightGaze</b> () const</td></tr>
+<tr class="separator:a288be4f564323c435ccac3ce8599fed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b4b8658603569db173b161e672d10b4"><td class="memItemLeft" align="right" valign="top"><a id="a6b4b8658603569db173b161e672d10b4" name="a6b4b8658603569db173b161e672d10b4"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>getLeftEyeOpenRatio</b> () const</td></tr>
+<tr class="separator:a6b4b8658603569db173b161e672d10b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a49ac45e08d1a33f9b5bbe827d0db69"><td class="memItemLeft" align="right" valign="top"><a id="a8a49ac45e08d1a33f9b5bbe827d0db69" name="a8a49ac45e08d1a33f9b5bbe827d0db69"></a>
+<a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getLeftGaze</b> () const</td></tr>
+<tr class="separator:a8a49ac45e08d1a33f9b5bbe827d0db69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d153089bb7b7da5b331eb0f7525f2fc"><td class="memItemLeft" align="right" valign="top"><a id="a4d153089bb7b7da5b331eb0f7525f2fc" name="a4d153089bb7b7da5b331eb0f7525f2fc"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getMouthOpenRatio</b> () const</td></tr>
 <tr class="separator:a4d153089bb7b7da5b331eb0f7525f2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,9 +138,6 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>getScale</b> () cons
 <tr class="memitem:a6b2e2a49b4cd2b76efdecaec947e3b20"><td class="memItemLeft" align="right" valign="top"><a id="a6b2e2a49b4cd2b76efdecaec947e3b20" name="a6b2e2a49b4cd2b76efdecaec947e3b20"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getRotation</b> () const</td></tr>
 <tr class="separator:a6b2e2a49b4cd2b76efdecaec947e3b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad384228a24663b672d0fa8f3409ecb82"><td class="memItemLeft" align="right" valign="top"><a id="ad384228a24663b672d0fa8f3409ecb82" name="ad384228a24663b672d0fa8f3409ecb82"></a>
-<a class="el" href="classm5avatar_1_1_gaze.html">Gaze</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getGaze</b> () const</td></tr>
-<tr class="separator:ad384228a24663b672d0fa8f3409ecb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7537c0559c333003b84e1a5eff575ba5"><td class="memItemLeft" align="right" valign="top"><a id="a7537c0559c333003b84e1a5eff575ba5" name="a7537c0559c333003b84e1a5eff575ba5"></a>
 <a class="el" href="classm5avatar_1_1_color_palette.html">ColorPalette</a> *const&#160;</td><td class="memItemRight" valign="bottom"><b>getColorPalette</b> () const</td></tr>
 <tr class="separator:a7537c0559c333003b84e1a5eff575ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
