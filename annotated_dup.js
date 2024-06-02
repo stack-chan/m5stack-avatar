@@ -21,6 +21,5 @@ var annotated_dup =
       [ "Gaze", "classm5avatar_1_1_gaze.html", null ],
       [ "Mouth", "classm5avatar_1_1_mouth.html", null ],
       [ "OledFace", "classm5avatar_1_1_oled_face.html", null ]
-    ] ],
-    [ "AquesTalkTTS", "class_aques_talk_t_t_s.html", null ]
+    ] ]
 ];

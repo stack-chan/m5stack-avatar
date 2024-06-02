@@ -1,0 +1,12 @@
+<map id="m5avatar::Drawable" name="m5avatar::Drawable">
+<area shape="rect" id="node1" title=" " alt="" coords="654,5,794,75"/>
+<area shape="rect" id="node2" href="$classm5avatar_1_1_b_m_p_eye.html" title=" " alt="" coords="5,174,141,214"/>
+<area shape="rect" id="node3" href="$classm5avatar_1_1_balloon.html" title=" " alt="" coords="166,137,295,251"/>
+<area shape="rect" id="node4" href="$classm5avatar_1_1_battery_icon.html" title=" " alt="" coords="320,137,472,251"/>
+<area shape="rect" id="node5" href="$classm5avatar_1_1_dog_eye.html" title=" " alt="" coords="496,174,627,214"/>
+<area shape="rect" id="node6" href="$classm5avatar_1_1_dog_mouth.html" title=" " alt="" coords="651,152,797,236"/>
+<area shape="rect" id="node7" href="$classm5avatar_1_1_effect.html" title=" " alt="" coords="821,137,939,251"/>
+<area shape="rect" id="node8" href="$classm5avatar_1_1_eye.html" title=" " alt="" coords="964,123,1071,265"/>
+<area shape="rect" id="node9" href="$classm5avatar_1_1_eyeblow.html" title=" " alt="" coords="1095,130,1230,258"/>
+<area shape="rect" id="node10" href="$classm5avatar_1_1_mouth.html" title=" " alt="" coords="1255,130,1377,258"/>
+</map>

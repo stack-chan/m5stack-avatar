@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "AquesTalkTTS", "class_aques_talk_t_t_s.html", null ],
     [ "m5avatar::Avatar", "classm5avatar_1_1_avatar.html", null ],
     [ "m5avatar::BoundingRect", "classm5avatar_1_1_bounding_rect.html", null ],
     [ "m5avatar::ColorPalette", "classm5avatar_1_1_color_palette.html", null ],

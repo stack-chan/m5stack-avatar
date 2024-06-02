@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>m5stack-avatar: Main Page</title>
+<title>m5stack-avatar: M5Stack-Avatar</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,10 +89,124 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">m5stack-avatar Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">M5Stack-Avatar </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p ><a class="anchor" id="md_README"></a> <a href="https://platformio.org/"><img src="https://img.shields.io/badge/powered-PlatformIO-brightgreen" alt="Powered By PlatformIO" class="inline"/></a> <a href="https://travis-ci.com/meganetaaan/m5stack-avatar"><img src="https://travis-ci.com/meganetaaan/m5stack-avatar.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a></p>
+<p ><img src="docs/image/avatar.gif" alt="M5Stack-Avatar" class="inline"/></p>
+<p >Video: <a href="https://www.youtube.com/watch?v=C1Hj9kfY5qc">https://www.youtube.com/watch?v=C1Hj9kfY5qc</a></p>
+<p >日本語</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Features</h1>
+<ul>
+<li>:neutral_face: Draw avatar face</li>
+<li>:smile: Expression(Happy, Angry, Sad etc.)</li>
+<li>:smiley_cat: Customize face</li>
+<li>:kiss: Lip sync</li>
+<li>:art: Color Palette</li>
+<li>:arrows_clockwise: Move, Zoom and Rotation</li>
+<li>:two: Compatible with M5Stack Core2</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Installation</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Prerequisites</h2>
+<ul>
+<li>USB Driver is installed throwgh <a href="http://www.m5stack.com/assets/docs/">Getting Started: Installing the USB Driver</a></li>
+<li>Any of IDE is set up<ul>
+<li>This library is confirmed on <b>Arduino IDE</b> and <b>Platform IO</b> for now</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Using Arduino IDE</h2>
+<ul>
+<li>On Arduino IDE, Select "Sketch &gt; Include Library &gt; Manage Libraries..."</li>
+<li>Search "m5stack avatar"</li>
+<li>Select "M5Stack_Avatar" from the results then click "Install"</li>
+<li>The library gets installed</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Using Platform IO</h2>
+<ul>
+<li>Initialize your Platform IO project <div class="fragment"><div class="line">mkdir my-avatar</div>
+<div class="line">cd my-avatar</div>
+<div class="line">platformio init -d . -b m5stack-core-esp32</div>
+</div><!-- fragment --></li>
+<li>Install the library and its dependency <div class="fragment"><div class="line">platformio lib install M5Unified</div>
+<div class="line">platformio lib install M5Stack-Avatar</div>
+</div><!-- fragment --></li>
+<li>The library gets downloaded from repository to .piolibdeps directory</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Usage</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;M5Unified.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Avatar.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">using namespace </span>m5avatar;</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_class" href="classm5avatar_1_1_avatar.html">Avatar</a> avatar;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> setup()</div>
+<div class="line">{</div>
+<div class="line">  M5.begin();</div>
+<div class="line">  avatar.init(); <span class="comment">// start drawing</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> loop()</div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// avatar&#39;s face updates in another thread</span></div>
+<div class="line">  <span class="comment">// so no need to loop-by-loop rendering</span></div>
+<div class="line">}</div>
+<div class="ttc" id="aclassm5avatar_1_1_avatar_html"><div class="ttname"><a href="classm5avatar_1_1_avatar.html">m5avatar::Avatar</a></div><div class="ttdef"><b>Definition:</b> Avatar.h:33</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+Using LipSync</h2>
+<ul>
+<li>setup AquesTalk-ESP32 (<a href="http://blog-yama.a-quest.com/?eid=970195">http://blog-yama.a-quest.com/?eid=970195</a>).<ul>
+<li>(For parsing Kainji statement) Copy the dictionary file from above link to the microSD card.</li>
+<li>You don't need to copy AquesTalkTTS files. They are included in this library.</li>
+</ul>
+</li>
+<li>Write below to open avatar mouth according to the audio output.</li>
+</ul>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;AquesTalkTTS.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;M5Unified.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Avatar.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;tasks/LipSync.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">using namespace </span>m5avatar;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// AquesTalk License Key</span></div>
+<div class="line"><span class="comment">// NULL or wrong value is just ignored</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* AQUESTALK_KEY = <span class="stringliteral">&quot;XXXX-XXXX-XXXX-XXXX&quot;</span>;</div>
+<div class="line"><a class="code hl_class" href="classm5avatar_1_1_avatar.html">Avatar</a> avatar;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  <span class="keywordtype">int</span> iret;</div>
+<div class="line">  M5.begin();</div>
+<div class="line">  <span class="comment">// For Kanji-to-speech mode (requires dictionary file saved on microSD)</span></div>
+<div class="line">  <span class="comment">// iret = TTS.createK(AQUESTALK_KEY);</span></div>
+<div class="line">  iret = TTS.create(AQUESTALK_KEY);</div>
+<div class="line">  avatar.init();</div>
+<div class="line">  avatar.addTask(lipSync, <span class="stringliteral">&quot;lipSync&quot;</span>);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  M5.update();</div>
+<div class="line">  <span class="keywordflow">if</span> (M5.BtnA.wasPressed()) {</div>
+<div class="line">    <span class="comment">// For Kanji-to-speech mode</span></div>
+<div class="line">    <span class="comment">// TTS.play(&quot;こんにちは。&quot;, 80);</span></div>
+<div class="line">    TTS.play(<span class="stringliteral">&quot;konnichiwa&quot;</span>, 80);</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+Further usage</h2>
+<p >see <code>examples</code> directory.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Migration from 0.7.x to 0.8.x</h2>
+<p ><code>M5Stack-Avatar</code> now depends on <code>M5Unified</code>, the integrated library for all devices of M5Stack series. Since 0.8.0, Sketches with avatar should include <code>M5Unified.h</code> instead of <code>M5Stack.h</code> or <code>M5Core2.h</code> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

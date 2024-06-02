@@ -25,6 +25,17 @@
 var NAVTREE =
 [
   [ "m5stack-avatar", "index.html", [
+    [ "Features", "index.html#autotoc_md1", null ],
+    [ "Installation", "index.html#autotoc_md2", [
+      [ "Prerequisites", "index.html#autotoc_md3", null ],
+      [ "Using Arduino IDE", "index.html#autotoc_md4", null ],
+      [ "Using Platform IO", "index.html#autotoc_md5", null ]
+    ] ],
+    [ "Usage", "index.html#autotoc_md6", [
+      [ "Using LipSync", "index.html#autotoc_md7", null ],
+      [ "Further usage", "index.html#autotoc_md8", null ],
+      [ "Migration from 0.7.x to 0.8.x", "index.html#autotoc_md9", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
