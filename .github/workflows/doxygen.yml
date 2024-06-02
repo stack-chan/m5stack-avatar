@@ -1,9 +1,10 @@
 name: A job to build doxgen document and deploy it on github-pages
 on:
   push:
-    branches: [main, master, doxygen]
-  pull_request:
-    branches: [main, master]
+    branches:
+      - main
+      - master
+      - 'doxygen*'
   workflow_dispatch:
 
 jobs:
