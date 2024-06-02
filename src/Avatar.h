@@ -4,15 +4,16 @@
 
 #ifndef AVATAR_H_
 #define AVATAR_H_
+#include <M5GFX.h>
+
 #include "ColorPalette.h"
 #include "Face.h"
-#include <M5GFX.h>
 
 #ifdef SDL_h_
 typedef SDL_ThreadFunction TaskFunction_t;
 typedef int BaseType_t;
 typedef unsigned int UBaseType_t;
-typedef SDL_Thread* TaskHandle_t;
+typedef SDL_Thread *TaskHandle_t;
 typedef int TaskResult_t;
 #define APP_CPU_NUM (1)
 #else
@@ -35,10 +36,20 @@ class Avatar {
   bool _isDrawing;
   Expression expression;
   float breath;
-  float eyeOpenRatio;
+
+  // eyes variables
+  float rightEyeOpenRatio_;
+  float rightGazeV_;
+  float rightGazeH_;
+
+  float leftEyeOpenRatio_;
+  float leftGazeV_;
+  float leftGazeH_;
+
+  bool isAutoBlink_;
+
   float mouthOpenRatio;
-  float gazeV;
-  float gazeH;
+
   float rotation;
   float scale;
   ColorPalette palette;
@@ -62,10 +73,20 @@ class Avatar {
   Expression getExpression();
   void setBreath(float f);
   float getBreath();
-  void setGaze(float vertical, float horizontal);
-  void getGaze(float *vertical, float *horizontal);
+  void setRightGaze(float vertical, float horizontal);
+  void getRightGaze(float *vertical, float *horizontal);
+  void setLeftGaze(float vertical, float horizontal);
+  void getLeftGaze(float *vertical, float *horizontal);
   void setExpression(Expression exp);
+  // eyes functions
   void setEyeOpenRatio(float ratio);
+  void setRightEyeOpenRatio(float ratio);
+  float getRightEyeOpenRatio();
+  void setLeftEyeOpenRatio(float ratio);
+  float getLeftEyeOpenRatio();
+  void setIsAutoBlink(bool b);
+  bool getIsAutoBlink();
+
   void setMouthOpenRatio(float ratio);
   void setSpeechText(const char *speechText);
   void setSpeechFont(const lgfx::IFont *speechFont);
@@ -76,18 +97,15 @@ class Avatar {
   bool isDrawing();
   void start(int colorDepth = 1);
   void stop();
-  void addTask(TaskFunction_t f
-              , const char* name
-              , const uint32_t stack_size=2048
-              , UBaseType_t priority=4
-              , TaskHandle_t* const task_handle=NULL
-              , const BaseType_t core_id=APP_CPU_NUM);
+  void addTask(TaskFunction_t f, const char *name,
+               const uint32_t stack_size = 2048, UBaseType_t priority = 4,
+               TaskHandle_t *const task_handle = NULL,
+               const BaseType_t core_id = APP_CPU_NUM);
   void suspend();
   void resume();
   void setBatteryIcon(bool iconStatus);
   void setBatteryStatus(bool isCharging, int32_t batteryLevel);
 };
-
 
 class DriveContext {
  private:
