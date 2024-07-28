@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2024
  *
  */
-#ifndef CUSTOM_MOUTHS_HPP_
-#define CUSTOM_MOUTHS_HPP_
+#ifndef M5AVATAR_MOUTHS_HPP_
+#define M5AVATAR_MOUTHS_HPP_
 
 #include <BoundingRect.h>
 #include <DrawContext.h>
