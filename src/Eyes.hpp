@@ -1,3 +1,13 @@
+/**
+ * @file Eyes.hpp
+ * @author botamochi (botamochi6277@gmail.com)
+ * @brief Eye components
+ * @version 0.1
+ * @date 2024-07-28
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
 #ifndef M5AVATAR_EYES_HPP_
 #define M5AVATAR_EYES_HPP_
 
