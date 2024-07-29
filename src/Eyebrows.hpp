@@ -51,6 +51,12 @@ class BowEyebrow : public BaseEyebrow {
     void draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
 };
 
+class RectEyebrow : public BaseEyebrow {
+   public:
+    using BaseEyebrow::BaseEyebrow;
+    void draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
+};
+
 }  // namespace m5avatar
 
 #endif

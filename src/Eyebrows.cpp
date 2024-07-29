@@ -23,11 +23,15 @@ void BaseEyebrow::update(M5Canvas *canvas, BoundingRect rect,
         ctx->getColorDepth() == 1 ? ERACER_COLOR : cp->get(COLOR_BACKGROUND);
     center_x_ = rect.getCenterX();
     center_y_ = rect.getCenterY();
+    expression_ = ctx->getExpression();
 }
 
 void EllipseEyebrow::draw(M5Canvas *canvas, BoundingRect rect,
                           DrawContext *ctx) {
     this->update(canvas, rect, ctx);
+    if (width_ == 0 || height_ == 0) {
+        return;  // draw nothing
+    }
 
     canvas->fillEllipse(center_x_, center_y_, this->width_ / 2,
                         this->height_ / 2, primary_color_);
@@ -41,6 +45,24 @@ void BowEyebrow::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
     float stroke_angle = 100.0f;
     canvas->fillArc(center_x_, center_y_, width_ / 2, width_ / 2 - thickness,
                     angle0, angle0 + stroke_angle, primary_color_);
+}
+
+void RectEyebrow::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);
+
+    if (width_ == 0 || height_ == 0) {
+        return;
+    }
+    float angle = 0.0f;
+    if (expression_ == Expression::Angry) {
+        angle = is_left_ ? -M_PI / 6.0f : M_PI / 6.0f;
+    }
+    if (expression_ == Expression::Sad) {
+        angle = is_left_ ? M_PI / 6.0f : -M_PI / 6.0f;
+    }
+
+    fillRotatedRect(canvas, center_x_, center_y_, width_, height_, angle,
+                    primary_color_);
 }
 
 }  // namespace m5avatar
