@@ -63,6 +63,12 @@ class PinkDemonEye : public BaseEye {
     void overwriteOpenRatio();
     void draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
 };
+
+class DoggyEye : public BaseEye {
+   public:
+    using BaseEye::BaseEye;
+    void draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
+};
 }  // namespace m5avatar
 
 #endif

@@ -312,4 +312,20 @@ void PinkDemonEye::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
     this->drawEyeLid(canvas);
 }
 
+void DoggyEye::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);
+
+    if (this->open_ratio_ == 0) {
+        // eye closed
+        canvas->fillRect(center_x_ - 15, center_y_ - 2, 30, 4, primary_color_);
+        return;
+    }
+    canvas->fillEllipse(center_x_, center_y_, 30, 25, primary_color_);
+    canvas->fillEllipse(center_x_, center_y_, 28, 23, background_color_);
+
+    canvas->fillEllipse(shifted_x_, shifted_y_, 18, 18, primary_color_);
+    canvas->fillEllipse(shifted_x_ - 3, shifted_y_ - 3, 3, 3,
+                        background_color_);
+}
+
 }  // namespace m5avatar

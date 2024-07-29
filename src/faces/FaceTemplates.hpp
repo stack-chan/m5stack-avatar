@@ -21,8 +21,8 @@ class OmegaFace : public Face {
                //  left eye
                new EllipseEye(true), new BoundingRect(165, 84 + 154),
                //  hide eye brows with setting these height zero
-               new EllipseEyebrow(15, 0, false), new BoundingRect(67, 96),
-               new EllipseEyebrow(15, 0, true), new BoundingRect(72, 230)) {}
+               new EllipseEyebrow(0, 0, false), new BoundingRect(67, 96),
+               new EllipseEyebrow(0, 0, true), new BoundingRect(72, 230)) {}
 };
 
 class GirlyFace : public Face {
@@ -68,8 +68,21 @@ class PinkDemonFace : public Face {
                new PinkDemonEye(52, 134, true), new BoundingRect(134, 218),
 
                //  hide eye brows with setting these height zero
-               new Eyeblow(15, 0, false), new BoundingRect(67, 96),
-               new Eyeblow(15, 0, true), new BoundingRect(72, 230)) {}
+               new EllipseEyebrow(15, 0, false), new BoundingRect(67, 96),
+               new EllipseEyebrow(15, 0, true), new BoundingRect(72, 230)) {}
+};
+
+class DoggyFace : public Face {
+   public:
+    DoggyFace()
+        : Face(new DoggyMouth(50, 90, 4, 60), new BoundingRect(168, 163),
+               // right eye, second eye arg is center position of eye
+               new DoggyEye(false), new BoundingRect(103, 80),
+               //  left eye
+               new DoggyEye(true), new BoundingRect(106, 240),
+               //  hide eye brows with setting these height zero
+               new RectEyebrow(15, 2, false), new BoundingRect(67, 96),
+               new RectEyebrow(15, 2, true), new BoundingRect(72, 230)) {}
 };
 
 }  // namespace m5avatar

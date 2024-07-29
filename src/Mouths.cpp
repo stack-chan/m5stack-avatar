@@ -10,7 +10,7 @@ BaseMouth::BaseMouth(uint16_t min_width, uint16_t max_width,
       min_height_{min_height},
       max_height_{max_height} {}
 
-void BaseMouth::update(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
+void BaseMouth::update(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
     primary_color_ = ctx->getColorDepth() == 1
                          ? 1
                          : ctx->getColorPalette()->get(COLOR_PRIMARY);
@@ -25,36 +25,38 @@ void BaseMouth::update(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
     open_ratio_ = ctx->getMouthOpenRatio();
 }
 
-void OmegaMouth::draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
-    this->update(spi, rect, ctx);  // update drawing cache
+void OmegaMouth::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);  // update drawing cache
     uint32_t h = min_height_ + (max_height_ - min_height_) * open_ratio_;
     uint32_t w = min_width_ + (max_width_ - min_width_) * (1 - open_ratio_);
 
     // inner mouse
-    spi->fillEllipse(center_x_, center_y_ - max_height_ / 2, max_width_ / 4,
-                     static_cast<int32_t>(max_height_ * open_ratio_),
-                     primary_color_);
+    canvas->fillEllipse(center_x_, center_y_ - max_height_ / 2, max_width_ / 4,
+                        static_cast<int32_t>(max_height_ * open_ratio_),
+                        primary_color_);
 
     // omega
-    spi->fillEllipse(center_x_ - 16, center_y_ - max_height_ / 2, 20, 15,
-                     primary_color_);  // outer
-    spi->fillEllipse(center_x_ + 16, center_y_ - max_height_ / 2, 20, 15,
-                     primary_color_);
-    spi->fillEllipse(center_x_ - 16, center_y_ - max_height_ / 2, 18, 13,
-                     background_color_);  // inner
-    spi->fillEllipse(center_x_ + 16, center_y_ - max_height_ / 2, 18, 13,
-                     background_color_);
+    canvas->fillEllipse(center_x_ - 16, center_y_ - max_height_ / 2, 20, 15,
+                        primary_color_);  // outer
+    canvas->fillEllipse(center_x_ + 16, center_y_ - max_height_ / 2, 20, 15,
+                        primary_color_);
+    canvas->fillEllipse(center_x_ - 16, center_y_ - max_height_ / 2, 18, 13,
+                        background_color_);  // inner
+    canvas->fillEllipse(center_x_ + 16, center_y_ - max_height_ / 2, 18, 13,
+                        background_color_);
     // mask for omega
-    spi->fillRect(center_x_ - max_width_ / 2, center_y_ - max_height_ * 1.5,
-                  max_width_, max_height_, background_color_);
+    canvas->fillRect(center_x_ - max_width_ / 2, center_y_ - max_height_ * 1.5,
+                     max_width_, max_height_, background_color_);
 
     // cheek
-    spi->fillEllipse(center_x_ - 132, center_y_ - 23, 24, 10, secondary_color_);
-    spi->fillEllipse(center_x_ + 132, center_y_ - 23, 24, 10, secondary_color_);
+    canvas->fillEllipse(center_x_ - 132, center_y_ - 23, 24, 10,
+                        secondary_color_);
+    canvas->fillEllipse(center_x_ + 132, center_y_ - 23, 24, 10,
+                        secondary_color_);
 }
 
-void UShapeMouth::draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
-    this->update(spi, rect, ctx);  // update drawing cache
+void UShapeMouth::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);  // update drawing cache
     uint32_t h = min_height_ + (max_height_ - min_height_) * open_ratio_;
     uint32_t w = min_width_ + (max_width_ - min_width_) * (1 - open_ratio_);
 
@@ -62,20 +64,43 @@ void UShapeMouth::draw(M5Canvas *spi, BoundingRect rect, DrawContext *ctx) {
     uint16_t thickness = 6;
 
     // back
-    spi->fillEllipse(center_x_, ellipse_center_y, max_width_ / 2, max_height_,
-                     primary_color_);
+    canvas->fillEllipse(center_x_, ellipse_center_y, max_width_ / 2,
+                        max_height_, primary_color_);
     // rect mask
-    spi->fillRect(center_x_ - max_width_ / 2, ellipse_center_y - max_height_,
-                  max_width_ + 1, max_height_, background_color_);
+    canvas->fillRect(center_x_ - max_width_ / 2, ellipse_center_y - max_height_,
+                     max_width_ + 1, max_height_, background_color_);
 
     // inner mouse
-    spi->fillEllipse(center_x_, ellipse_center_y, max_width_ / 2 - thickness,
-                     (max_height_ - thickness) * (1.0f - open_ratio_),
-                     background_color_);
+    canvas->fillEllipse(center_x_, ellipse_center_y, max_width_ / 2 - thickness,
+                        (max_height_ - thickness) * (1.0f - open_ratio_),
+                        background_color_);
 
     // cheek
-    spi->fillEllipse(center_x_ - 132, center_y_ - 23, 24, 10, secondary_color_);
-    spi->fillEllipse(center_x_ + 132, center_y_ - 23, 24, 10, secondary_color_);
+    canvas->fillEllipse(center_x_ - 132, center_y_ - 23, 24, 10,
+                        secondary_color_);
+    canvas->fillEllipse(center_x_ + 132, center_y_ - 23, 24, 10,
+                        secondary_color_);
+}
+
+void DoggyMouth::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);
+
+    uint32_t h = min_height_ + (max_height_ - min_height_) * open_ratio_;
+    uint32_t w = min_width_ + (max_width_ - min_width_) * (1 - open_ratio_);
+    if (h > min_height_) {
+        canvas->fillEllipse(center_x_, center_y_, w / 2, h / 2, primary_color_);
+        canvas->fillEllipse(center_x_, center_y_, w / 2 - 4, h / 2 - 4,
+                            TFT_RED);
+        canvas->fillRect(center_x_ - w / 2, center_y_ - h / 2, w, h / 2,
+                         background_color_);
+    }
+    canvas->fillEllipse(center_x_, center_y_ - 15, 10, 6, primary_color_);
+    canvas->fillEllipse(center_x_ - 28, center_y_, 30, 15, primary_color_);
+    canvas->fillEllipse(center_x_ + 28, center_y_, 30, 15, primary_color_);
+    canvas->fillEllipse(center_x_ - 29, center_y_ - 4, 27, 15,
+                        background_color_);
+    canvas->fillEllipse(center_x_ + 29, center_y_ - 4, 27, 15,
+                        background_color_);
 }
 
 }  // namespace m5avatar
