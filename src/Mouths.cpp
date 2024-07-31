@@ -1,5 +1,8 @@
 #include "Mouths.hpp"
 
+#ifndef _min
+#define _min(a, b) std::min(a, b)
+#endif
 namespace m5avatar {
 
 BaseMouth::BaseMouth() : BaseMouth(80, 80, 15, 30) {}
@@ -23,6 +26,16 @@ void BaseMouth::update(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
     center_x_ = rect.getCenterX();
     center_y_ = rect.getCenterY();
     open_ratio_ = ctx->getMouthOpenRatio();
+    breath_ = _min(1.0f, ctx->getBreath());
+}
+
+void RectMouth::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
+    this->update(canvas, rect, ctx);  // update drawing cache
+    int16_t h = min_height_ + (max_height_ - min_height_) * open_ratio_;
+    int16_t w = min_width_ + (max_width_ - min_width_) * (1 - open_ratio_);
+    int16_t top_left_x = rect.getLeft() - w / 2;
+    int16_t top_left_y = rect.getTop() - h / 2 + breath_ * 2;
+    canvas->fillRect(top_left_x, top_left_y, w, h, primary_color_);
 }
 
 void OmegaMouth::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {

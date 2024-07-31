@@ -32,6 +32,7 @@ class BaseMouth : public Drawable {
     uint16_t secondary_color_;
     uint16_t background_color_;
     float open_ratio_;
+    float breath_;
     Expression expression_;
 
    public:
@@ -40,6 +41,12 @@ class BaseMouth : public Drawable {
               uint16_t max_height);
 
     void update(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
+};
+
+class RectMouth : public BaseMouth {
+   public:
+    using BaseMouth::BaseMouth;
+    void draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx);
 };
 
 class OmegaMouth : public BaseMouth {
