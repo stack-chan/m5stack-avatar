@@ -7,7 +7,7 @@ using namespace m5avatar;
 
 Avatar avatar;
 
-Face* faces[5];
+Face* faces[6];
 const int num_faces = sizeof(faces) / sizeof(Face*);
 int face_idx = 0;  // face index
 
@@ -23,6 +23,23 @@ int palette_idx = 0;
 
 bool isShowingQR = false;
 
+// an example of customizing
+class MyCustomFace : public Face {
+   public:
+    MyCustomFace()
+        : Face(new UShapeMouth(44, 44, 0, 16), new BoundingRect(222, 160),
+               // right eye, second eye arg is center position of eye
+               new EllipseEye(32, 32, false), new BoundingRect(163, 64),
+               //  left eye
+               new EllipseEye(32, 32, true), new BoundingRect(163, 256),
+               // right eyebrow
+               // BowEyebrow's origin is the center of bow (arc)
+               new BowEyebrow(64, 20, false),
+               new BoundingRect(163, 64),  // (y,x)
+                                           //  left eyebrow
+               new BowEyebrow(64, 20, true), new BoundingRect(163, 256)) {}
+};
+
 void setup() {
     M5.begin();
     M5.Lcd.setBrightness(30);
@@ -33,6 +50,7 @@ void setup() {
     faces[2] = new OmegaFace();
     faces[3] = new GirlyFace();
     faces[4] = new PinkDemonFace();
+    faces[5] = new MyCustomFace();
 
     color_palettes[0] = new ColorPalette();
     color_palettes[1] = new ColorPalette();
