@@ -231,13 +231,11 @@ void PinkDemonEye::drawEyeLid(M5Canvas *canvas) {
 
     float tilt = 0.0f;
     float ref_tilt = open_ratio_ * M_PI / 6.0f;
-    float bias;
     if (expression_ == Expression::Angry) {
         tilt = this->is_left_ ? -ref_tilt : ref_tilt;
     } else if (expression_ == Expression::Sad) {
         tilt = this->is_left_ ? ref_tilt : -ref_tilt;
     }
-    bias = 0.2f * width_ * tilt / (M_PI / 6.0f);
 
     if ((open_ratio_ < 0.99f) || (abs(tilt) > 0.1f)) {
         // mask
@@ -253,18 +251,14 @@ void PinkDemonEye::drawEyeLid(M5Canvas *canvas) {
                               shifted_x_, upper_eyelid_y, background_color_);
 
         // eyelid
-        float eyelid_top_left_x = shifted_x_ - (this->width_ / 2) + bias;
+        float eyelid_top_left_x = shifted_x_ - (this->width_ / 2);
         float eyelid_top_left_y = upper_eyelid_y - 4;
-        float eyelid_bottom_right_x = shifted_x_ + (this->width_ / 2) + bias;
+        float eyelid_bottom_right_x = shifted_x_ + (this->width_ / 2);
         float eyelid_bottom_right_y = upper_eyelid_y;
 
         fillRectRotatedAround(canvas, eyelid_top_left_x, eyelid_top_left_y,
                               eyelid_bottom_right_x, eyelid_bottom_right_y,
                               tilt, shifted_x_, upper_eyelid_y, primary_color_);
-
-        eyelash_x0 += bias;
-        eyelash_x1 += bias;
-        eyelash_x2 += bias;
     }
 
     // eyelash
