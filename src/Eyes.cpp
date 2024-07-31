@@ -52,8 +52,8 @@ void EllipseEye::draw(M5Canvas *canvas, BoundingRect rect, DrawContext *ctx) {
                             this->width_ / 2 - thickness,
                             this->height_ / 4 + thickness, background_color_);
         canvas->fillRect(shifted_x_ - this->width_ / 2,
-                         wink_base_y + thickness / 2, this->width_,
-                         this->height_ / 4, background_color_);
+                         wink_base_y + thickness / 2, this->width_ + 1,
+                         this->height_ / 4 + 1, background_color_);
         return;
     }
 
@@ -104,13 +104,14 @@ void GirlyEye::drawEyeLid(M5Canvas *canvas) {
     auto upper_eyelid_y = shifted_y_ - 0.8f * height_ / 2 +
                           (1.0f - open_ratio_) * this->height_ * 0.6;
 
-    float el_x0, el_y0, el_x1, el_y1, el_x2, el_y2;
-    el_x0 = this->is_left_ ? shifted_x_ + 22 : shifted_x_ - 22;
-    el_y0 = upper_eyelid_y - 27;
-    el_x1 = this->is_left_ ? shifted_x_ + 26 : shifted_x_ - 26;
-    el_y1 = upper_eyelid_y;
-    el_x2 = this->is_left_ ? shifted_x_ - 10 : shifted_x_ + 10;
-    el_y2 = upper_eyelid_y;
+    float eyelash_x0, eyelash_y0, eyelash_x1, eyelash_y1, eyelash_x2,
+        eyelash_y2;
+    eyelash_x0 = this->is_left_ ? shifted_x_ + 22 : shifted_x_ - 22;
+    eyelash_y0 = upper_eyelid_y - 27;
+    eyelash_x1 = this->is_left_ ? shifted_x_ + 26 : shifted_x_ - 26;
+    eyelash_y1 = upper_eyelid_y;
+    eyelash_x2 = this->is_left_ ? shifted_x_ - 10 : shifted_x_ + 10;
+    eyelash_y2 = upper_eyelid_y;
 
     float tilt = 0.0f;
     float ref_tilt = open_ratio_ * M_PI / 6.0f;
@@ -145,17 +146,17 @@ void GirlyEye::drawEyeLid(M5Canvas *canvas) {
                               eyelid_bottom_right_x, eyelid_bottom_right_y,
                               tilt, shifted_x_, upper_eyelid_y, primary_color_);
 
-        el_x0 += bias;
-        el_x1 += bias;
-        el_x2 += bias;
+        eyelash_x0 += bias;
+        eyelash_x1 += bias;
+        eyelash_x2 += bias;
     }
 
     // eyelash
-    rotatePointAround(el_x0, el_y0, tilt, shifted_x_, upper_eyelid_y);
-    rotatePointAround(el_x1, el_y1, tilt, shifted_x_, upper_eyelid_y);
-    rotatePointAround(el_x2, el_y2, tilt, shifted_x_, upper_eyelid_y);
-    canvas->fillTriangle(el_x0, el_y0, el_x1, el_y1, el_x2, el_y2,
-                         primary_color_);
+    rotatePointAround(eyelash_x0, eyelash_y0, tilt, shifted_x_, upper_eyelid_y);
+    rotatePointAround(eyelash_x1, eyelash_y1, tilt, shifted_x_, upper_eyelid_y);
+    rotatePointAround(eyelash_x2, eyelash_y2, tilt, shifted_x_, upper_eyelid_y);
+    canvas->fillTriangle(eyelash_x0, eyelash_y0, eyelash_x1, eyelash_y1,
+                         eyelash_x2, eyelash_y2, primary_color_);
 }
 
 void GirlyEye::overwriteOpenRatio() {
@@ -219,13 +220,14 @@ void PinkDemonEye::drawEyeLid(M5Canvas *canvas) {
     auto upper_eyelid_y = shifted_y_ - 0.8f * height_ / 2 +
                           (1.0f - open_ratio_) * this->height_ * 0.6;
 
-    float el_x0, el_y0, el_x1, el_y1, el_x2, el_y2;
-    el_x0 = this->is_left_ ? shifted_x_ + 22 : shifted_x_ - 22;
-    el_y0 = upper_eyelid_y - 27;
-    el_x1 = this->is_left_ ? shifted_x_ + 26 : shifted_x_ - 26;
-    el_y1 = upper_eyelid_y;
-    el_x2 = this->is_left_ ? shifted_x_ - 10 : shifted_x_ + 10;
-    el_y2 = upper_eyelid_y;
+    float eyelash_x0, eyelash_y0, eyelash_x1, eyelash_y1, eyelash_x2,
+        eyelash_y2;
+    eyelash_x0 = this->is_left_ ? shifted_x_ + 22 : shifted_x_ - 22;
+    eyelash_y0 = upper_eyelid_y - 27;
+    eyelash_x1 = this->is_left_ ? shifted_x_ + 26 : shifted_x_ - 26;
+    eyelash_y1 = upper_eyelid_y;
+    eyelash_x2 = this->is_left_ ? shifted_x_ - 10 : shifted_x_ + 10;
+    eyelash_y2 = upper_eyelid_y;
 
     float tilt = 0.0f;
     float ref_tilt = open_ratio_ * M_PI / 6.0f;
@@ -260,15 +262,15 @@ void PinkDemonEye::drawEyeLid(M5Canvas *canvas) {
                               eyelid_bottom_right_x, eyelid_bottom_right_y,
                               tilt, shifted_x_, upper_eyelid_y, primary_color_);
 
-        el_x0 += bias;
-        el_x1 += bias;
-        el_x2 += bias;
+        eyelash_x0 += bias;
+        eyelash_x1 += bias;
+        eyelash_x2 += bias;
     }
 
     // eyelash
-    rotatePointAround(el_x0, el_y0, tilt, shifted_x_, upper_eyelid_y);
-    rotatePointAround(el_x1, el_y1, tilt, shifted_x_, upper_eyelid_y);
-    rotatePointAround(el_x2, el_y2, tilt, shifted_x_, upper_eyelid_y);
+    rotatePointAround(eyelash_x0, eyelash_y0, tilt, shifted_x_, upper_eyelid_y);
+    rotatePointAround(eyelash_x1, eyelash_y1, tilt, shifted_x_, upper_eyelid_y);
+    rotatePointAround(eyelash_x2, eyelash_y2, tilt, shifted_x_, upper_eyelid_y);
 }
 
 void PinkDemonEye::overwriteOpenRatio() {

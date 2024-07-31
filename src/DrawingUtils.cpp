@@ -18,7 +18,7 @@ void rotatePointAround(float &x, float &y, float angle, float cx, float cy) {
 }
 
 void fillRotatedRect(M5Canvas *canvas, uint16_t cx, uint16_t cy, uint16_t w,
-                     u_int16_t h, float angle, uint16_t color) {
+                     uint16_t h, float angle, uint16_t color) {
     float top_left_x = cx - w / 2;
     float top_left_y = cy - h / 2;
 
@@ -45,8 +45,8 @@ void fillRotatedRect(M5Canvas *canvas, uint16_t cx, uint16_t cy, uint16_t w,
 
 void fillRectRotatedAround(M5Canvas *canvas, float top_left_x, float top_left_y,
                            float bottom_right_x, float bottom_right_y,
-                           float angle, uint16_t cx, u_int16_t cy,
-                           u_int16_t color) {
+                           float angle, uint16_t cx, uint16_t cy,
+                           uint16_t color) {
     float top_right_x = bottom_right_x;
     float top_right_y = top_left_y;
 

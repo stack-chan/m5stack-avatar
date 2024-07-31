@@ -7,7 +7,22 @@
 #include "Mouths.hpp"
 
 namespace m5avatar {
-
+/**
+ * @brief face template for "o_o"
+ *
+ */
+class SimpleFace : public Face {
+   public:
+    SimpleFace()
+        : Face(new RectMouth(50, 90, 4, 60), new BoundingRect(148, 163),
+               // right eye, second eye arg is center position of eye in (y,x)
+               new EllipseEye(16, 16, false), new BoundingRect(93, 90),
+               //  left eye
+               new EllipseEye(16, 16, true), new BoundingRect(96, 230),
+               //  hide eye brows with setting these height zero
+               new EllipseEyebrow(0, 0, false), new BoundingRect(67, 96),
+               new EllipseEyebrow(0, 0, true), new BoundingRect(72, 230)) {}
+};
 /**
  * @brief face template for "OωO" face
  *
