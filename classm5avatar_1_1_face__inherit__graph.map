@@ -1,6 +1,12 @@
 <map id="m5avatar::Face" name="m5avatar::Face">
-<area shape="rect" id="node1" title=" " alt="" coords="185,5,300,207"/>
+<area shape="rect" id="node1" title=" " alt="" coords="695,5,809,207"/>
 <area shape="rect" id="node2" href="$classm5avatar_1_1_b_m_p_face.html" title=" " alt="" coords="5,255,149,309"/>
 <area shape="rect" id="node3" href="$classm5avatar_1_1_dog_face.html" title=" " alt="" coords="173,255,312,309"/>
-<area shape="rect" id="node4" href="$classm5avatar_1_1_oled_face.html" title=" " alt="" coords="337,255,479,309"/>
+<area shape="rect" id="node4" href="$classm5avatar_1_1_doggy_face.html" title=" " alt="" coords="337,255,487,309"/>
+<area shape="rect" id="node5" href="$classm5avatar_1_1_girly_face.html" title=" " alt="" coords="512,255,653,309"/>
+<area shape="rect" id="node6" href="$classm5avatar_1_1_girly_face2.html" title=" " alt="" coords="678,255,826,309"/>
+<area shape="rect" id="node7" href="$classm5avatar_1_1_oled_face.html" title=" " alt="" coords="850,255,993,309"/>
+<area shape="rect" id="node8" href="$classm5avatar_1_1_omega_face.html" title="face template for &quot;OωO&quot; face" alt="" coords="1017,255,1175,309"/>
+<area shape="rect" id="node9" href="$classm5avatar_1_1_pink_demon_face.html" title=" " alt="" coords="1199,255,1382,309"/>
+<area shape="rect" id="node10" href="$classm5avatar_1_1_simple_face.html" title="face template for &quot;o_o&quot;" alt="" coords="1407,255,1561,309"/>
 </map>

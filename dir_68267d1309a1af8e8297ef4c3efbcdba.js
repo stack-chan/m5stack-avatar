@@ -10,11 +10,15 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "ColorPalette.h", "_color_palette_8h_source.html", null ],
     [ "Drawable.h", "_drawable_8h_source.html", null ],
     [ "DrawContext.h", "_draw_context_8h_source.html", null ],
+    [ "DrawingUtils.hpp", "_drawing_utils_8hpp.html", null ],
     [ "Effect.h", "_effect_8h_source.html", null ],
     [ "Expression.h", "_expression_8h_source.html", null ],
     [ "Eye.h", "_eye_8h_source.html", null ],
     [ "Eyeblow.h", "_eyeblow_8h_source.html", null ],
+    [ "Eyebrows.hpp", "_eyebrows_8hpp.html", "_eyebrows_8hpp" ],
+    [ "Eyes.hpp", "_eyes_8hpp.html", "_eyes_8hpp" ],
     [ "Face.h", "_face_8h_source.html", null ],
     [ "Gaze.h", "_gaze_8h_source.html", null ],
-    [ "Mouth.h", "_mouth_8h_source.html", null ]
+    [ "Mouth.h", "_mouth_8h_source.html", null ],
+    [ "Mouths.hpp", "_mouths_8hpp.html", "_mouths_8hpp" ]
 ];

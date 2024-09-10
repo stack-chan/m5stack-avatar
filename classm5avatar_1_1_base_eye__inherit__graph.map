@@ -1,0 +1,8 @@
+<map id="m5avatar::BaseEye" name="m5avatar::BaseEye">
+<area shape="rect" id="node1" title=" " alt="" coords="261,123,402,397"/>
+<area shape="rect" id="node3" href="$classm5avatar_1_1_doggy_eye.html" title=" " alt="" coords="5,460,148,544"/>
+<area shape="rect" id="node4" href="$classm5avatar_1_1_ellipse_eye.html" title=" " alt="" coords="172,460,317,544"/>
+<area shape="rect" id="node5" href="$classm5avatar_1_1_girly_eye.html" title=" " alt="" coords="342,445,497,559"/>
+<area shape="rect" id="node6" href="$classm5avatar_1_1_pink_demon_eye.html" title=" " alt="" coords="521,445,696,559"/>
+<area shape="rect" id="node2" href="$classm5avatar_1_1_drawable.html" title=" " alt="" coords="261,5,401,75"/>
+</map>

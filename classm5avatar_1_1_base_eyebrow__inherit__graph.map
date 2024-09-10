@@ -1,0 +1,7 @@
+<map id="m5avatar::BaseEyebrow" name="m5avatar::BaseEyebrow">
+<area shape="rect" id="node1" title=" " alt="" coords="195,123,361,339"/>
+<area shape="rect" id="node3" href="$classm5avatar_1_1_bow_eyebrow.html" title=" " alt="" coords="5,387,167,471"/>
+<area shape="rect" id="node4" href="$classm5avatar_1_1_ellipse_eyebrow.html" title=" " alt="" coords="191,387,365,471"/>
+<area shape="rect" id="node5" href="$classm5avatar_1_1_rect_eyebrow.html" title=" " alt="" coords="389,387,551,471"/>
+<area shape="rect" id="node2" href="$classm5avatar_1_1_drawable.html" title=" " alt="" coords="208,5,348,75"/>
+</map>
