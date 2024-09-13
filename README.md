@@ -1,3 +1,10 @@
+# Notice
+
+This repository is temporarily frozen at v0.10.0. (Due to the absence of the administrator) We cannot respond to pull requests or ISSUE received.
+
+- We may update this repository in the future when we find bugs due to version upgrades of related libraries.
+- If there is anyone who can maintain this repository, please let us know.
+
 # M5Stack-Avatar
 
 [![Powered By PlatformIO](https://img.shields.io/badge/powered-PlatformIO-brightgreen)](https://platformio.org/)
@@ -123,3 +130,7 @@ see `examples` directory.
 
 `M5Stack-Avatar` now depends on `M5Unified`, the integrated library for all devices of M5Stack series.
 Since 0.8.0, Sketches with avatar should include `M5Unified.h` instead of `M5Stack.h` or `M5Core2.h`
+
+### Notes for v0.10.0
+
+Some applications may reboot due to insufficient stack size for other tasks. In such cases, increase the stack size of the relevant task.
