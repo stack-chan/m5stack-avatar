@@ -1,7 +1,7 @@
 var annotated_dup =
 [
     [ "m5avatar", null, [
-      [ "Avatar", "classm5avatar_1_1_avatar.html", null ],
+      [ "Avatar", "classm5avatar_1_1_avatar.html", "classm5avatar_1_1_avatar" ],
       [ "Balloon", "classm5avatar_1_1_balloon.html", null ],
       [ "BaseEye", "classm5avatar_1_1_base_eye.html", null ],
       [ "BaseEyebrow", "classm5avatar_1_1_base_eyebrow.html", null ],
