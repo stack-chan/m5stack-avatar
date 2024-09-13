@@ -70,15 +70,32 @@ class Avatar {
   void setColorPalette(ColorPalette cp);
   void setFace(Face *face);
   void init(int colorDepth = 1);
+  // expression i/o
   Expression getExpression();
+  void setExpression(Expression exp);
+  // breath i/o
   void setBreath(float f);
   float getBreath();
+  // gaze i/o
   void setRightGaze(float vertical, float horizontal);
   void getRightGaze(float *vertical, float *horizontal);
   void setLeftGaze(float vertical, float horizontal);
   void getLeftGaze(float *vertical, float *horizontal);
-  void setExpression(Expression exp);
-  // eyes functions
+
+  /**
+   * @brief Get the Gaze of Avatar
+   *
+   * [warning] this function return the mean gaze of left gaze & right gaze
+   * This is not the gaze representing avatar's direction of awareness
+   *
+   * @param vertical cache for vertical value. this value will be overwritten
+   * by this method.
+   * @param horizontal cache for horizontal value. this value will be
+   * overwritten by this method.
+   */
+  void getGaze(float *vertical, float *horizontal);
+
+  // eyes open ratio
   void setEyeOpenRatio(float ratio);
   void setRightEyeOpenRatio(float ratio);
   float getRightEyeOpenRatio();

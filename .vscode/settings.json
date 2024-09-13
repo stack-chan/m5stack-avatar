@@ -1,8 +1,4 @@
 {
-    "terminal.integrated.env.linux": {
-        "PATH": "/home/sisikawa/.platformio/penv/bin:/home/sisikawa/.platformio/penv:/home/sisikawa/.cargo/bin:/home/sisikawa/go/bin:/bin:/home/sisikawa/.anyenv/envs/ndenv/shims:/home/sisikawa/.anyenv/envs/ndenv/bin:/home/sisikawa/.anyenv/envs/goenv/shims:/home/sisikawa/.anyenv/envs/goenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/sisikawa/.anyenv/bin",
-        "PLATFORMIO_CALLER": "vscode"
-    },
     "files.associations": {
         "limits": "cpp",
         "array": "cpp",
@@ -43,5 +39,6 @@
         "typeinfo": "cpp",
         "utility": "cpp"
     },
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 2 }",
     "cpplint.root": "src"
 }
