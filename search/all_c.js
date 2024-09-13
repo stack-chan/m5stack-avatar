@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ushapemouth_0',['UShapeMouth',['../classm5avatar_1_1_u_shape_mouth.html',1,'m5avatar']]]
+  ['simpleface_0',['SimpleFace',['../classm5avatar_1_1_simple_face.html',1,'m5avatar']]]
 ];

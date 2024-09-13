@@ -25,16 +25,21 @@
 var NAVTREE =
 [
   [ "m5stack-avatar", "index.html", [
-    [ "Features", "index.html#autotoc_md1", null ],
-    [ "Installation", "index.html#autotoc_md2", [
-      [ "Prerequisites", "index.html#autotoc_md3", null ],
-      [ "Using Arduino IDE", "index.html#autotoc_md4", null ],
-      [ "Using Platform IO", "index.html#autotoc_md5", null ]
-    ] ],
-    [ "Usage", "index.html#autotoc_md6", [
-      [ "Using LipSync", "index.html#autotoc_md7", null ],
-      [ "Further usage", "index.html#autotoc_md8", null ],
-      [ "Migration from 0.7.x to 0.8.x", "index.html#autotoc_md9", null ]
+    [ "Notice", "index.html", [
+      [ "M5Stack-Avatar", "index.html#autotoc_md1", [
+        [ "Features", "index.html#autotoc_md2", null ],
+        [ "Installation", "index.html#autotoc_md3", [
+          [ "Prerequisites", "index.html#autotoc_md4", null ],
+          [ "Using Arduino IDE", "index.html#autotoc_md5", null ],
+          [ "Using Platform IO", "index.html#autotoc_md6", null ]
+        ] ],
+        [ "Usage", "index.html#autotoc_md7", [
+          [ "Using LipSync", "index.html#autotoc_md8", null ],
+          [ "Further usage", "index.html#autotoc_md9", null ],
+          [ "Migration from 0.7.x to 0.8.x", "index.html#autotoc_md10", null ],
+          [ "Notes for v0.10.0", "index.html#autotoc_md11", null ]
+        ] ]
+      ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

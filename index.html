@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>m5stack-avatar: M5Stack-Avatar</title>
+<title>m5stack-avatar: Notice</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,15 +90,22 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">M5Stack-Avatar </div></div>
+  <div class="headertitle"><div class="title">Notice </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="md_README"></a> <a href="https://platformio.org/"><img src="https://img.shields.io/badge/powered-PlatformIO-brightgreen" alt="Powered By PlatformIO" class="inline"/></a> <a href="https://travis-ci.com/meganetaaan/m5stack-avatar"><img src="https://travis-ci.com/meganetaaan/m5stack-avatar.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a></p>
+<div class="textblock"><p ><a class="anchor" id="md_README"></a> This repository is temporarily frozen at v0.10.0. (Due to the absence of the administrator) We cannot respond to pull requests or ISSUE received.</p>
+<ul>
+<li>We may update this repository in the future when we find bugs due to version upgrades of related libraries.</li>
+<li>If there is anyone who can maintain this repository, please let us know.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
+M5Stack-Avatar</h1>
+<p ><a href="https://platformio.org/"><img src="https://img.shields.io/badge/powered-PlatformIO-brightgreen" alt="Powered By PlatformIO" class="inline"/></a> <a href="https://travis-ci.com/meganetaaan/m5stack-avatar"><img src="https://travis-ci.com/meganetaaan/m5stack-avatar.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a></p>
 <p ><img src="docs/image/avatar.gif" alt="M5Stack-Avatar" class="inline"/></p>
 <p >Video: <a href="https://www.youtube.com/watch?v=C1Hj9kfY5qc">https://www.youtube.com/watch?v=C1Hj9kfY5qc</a></p>
 <p >日本語</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Features</h1>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Features</h2>
 <ul>
 <li>:neutral_face: Draw avatar face</li>
 <li>:smile: Expression(Happy, Angry, Sad etc.)</li>
@@ -108,10 +115,10 @@ Features</h1>
 <li>:arrows_clockwise: Move, Zoom and Rotation</li>
 <li>:two: Compatible with M5Stack Core2</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Installation</h1>
 <h2><a class="anchor" id="autotoc_md3"></a>
-Prerequisites</h2>
+Installation</h2>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Prerequisites</h3>
 <ul>
 <li>USB Driver is installed throwgh <a href="http://www.m5stack.com/assets/docs/">Getting Started: Installing the USB Driver</a></li>
 <li>Any of IDE is set up<ul>
@@ -119,16 +126,16 @@ Prerequisites</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Using Arduino IDE</h2>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Using Arduino IDE</h3>
 <ul>
 <li>On Arduino IDE, Select "Sketch &gt; Include Library &gt; Manage Libraries..."</li>
 <li>Search "m5stack avatar"</li>
 <li>Select "M5Stack_Avatar" from the results then click "Install"</li>
 <li>The library gets installed</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Using Platform IO</h2>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Using Platform IO</h3>
 <ul>
 <li>Initialize your Platform IO project <div class="fragment"><div class="line">mkdir my-avatar</div>
 <div class="line">cd my-avatar</div>
@@ -139,8 +146,8 @@ Using Platform IO</h2>
 </div><!-- fragment --></li>
 <li>The library gets downloaded from repository to .piolibdeps directory</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Usage</h1>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Usage</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;M5Unified.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;Avatar.h&gt;</span></div>
 <div class="line"> </div>
@@ -160,8 +167,8 @@ Usage</h1>
 <div class="line">  <span class="comment">// so no need to loop-by-loop rendering</span></div>
 <div class="line">}</div>
 <div class="ttc" id="aclassm5avatar_1_1_avatar_html"><div class="ttname"><a href="classm5avatar_1_1_avatar.html">m5avatar::Avatar</a></div><div class="ttdef"><b>Definition:</b> Avatar.h:33</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
-Using LipSync</h2>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md8"></a>
+Using LipSync</h3>
 <ul>
 <li>setup AquesTalk-ESP32 (<a href="http://blog-yama.a-quest.com/?eid=970195">http://blog-yama.a-quest.com/?eid=970195</a>).<ul>
 <li>(For parsing Kainji statement) Copy the dictionary file from above link to the microSD card.</li>
@@ -200,12 +207,15 @@ Using LipSync</h2>
 <div class="line">    TTS.play(<span class="stringliteral">&quot;konnichiwa&quot;</span>, 80);</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
-Further usage</h2>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md9"></a>
+Further usage</h3>
 <p >see <code>examples</code> directory.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Migration from 0.7.x to 0.8.x</h2>
-<p ><code>M5Stack-Avatar</code> now depends on <code>M5Unified</code>, the integrated library for all devices of M5Stack series. Since 0.8.0, Sketches with avatar should include <code>M5Unified.h</code> instead of <code>M5Stack.h</code> or <code>M5Core2.h</code> </p>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Migration from 0.7.x to 0.8.x</h3>
+<p ><code>M5Stack-Avatar</code> now depends on <code>M5Unified</code>, the integrated library for all devices of M5Stack series. Since 0.8.0, Sketches with avatar should include <code>M5Unified.h</code> instead of <code>M5Stack.h</code> or <code>M5Core2.h</code></p>
+<h3><a class="anchor" id="autotoc_md11"></a>
+Notes for v0.10.0</h3>
+<p >Some applications may reboot due to insufficient stack size for other tasks. In such cases, increase the stack size of the relevant task. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
