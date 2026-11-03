@@ -112,7 +112,8 @@ class Avatar {
   void setScale(float scale);
   void draw(void);
   bool isDrawing();
-  void start(int colorDepth = 1);
+  void start(int colorDepth = 1, uint32_t drawLoopStackSize = 2048,
+             uint32_t facialLoopStackSize = 1024);
   void stop();
   void addTask(TaskFunction_t f, const char *name,
                const uint32_t stack_size = 2048, UBaseType_t priority = 4,

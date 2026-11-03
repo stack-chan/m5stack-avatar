@@ -165,7 +165,8 @@ void Avatar::resume() {
 #endif
 }
 
-void Avatar::start(int colorDepth) {
+void Avatar::start(int colorDepth, uint32_t drawLoopStackSize,
+                   uint32_t facialLoopStackSize) {
   // if the task already started, don't create another task;
   if (_isDrawing) return;
   _isDrawing = true;
@@ -173,25 +174,26 @@ void Avatar::start(int colorDepth) {
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);
 #ifdef SDL_h_
-  drawTaskHandle =
-      SDL_CreateThreadWithStackSize(drawLoop, "drawLoop", 2048, ctx);
-  SDL_CreateThreadWithStackSize(facialLoop, "facialLoop", 1024, ctx);
+  drawTaskHandle = SDL_CreateThreadWithStackSize(drawLoop, "drawLoop",
+                                                 drawLoopStackSize, ctx);
+  SDL_CreateThreadWithStackSize(facialLoop, "facialLoop", facialLoopStackSize,
+                                ctx);
 #else
   // TODO(meganetaaan): keep handle of these tasks
-  xTaskCreateUniversal(drawLoop,        /* Function to implement the task */
-                       "drawLoop",      /* Name of the task */
-                       2048,            /* Stack size in words */
-                       ctx,             /* Task input parameter */
-                       1,               /* Priority of the task */
-                       &drawTaskHandle, /* Task handle. */
+  xTaskCreateUniversal(drawLoop,          /* Function to implement the task */
+                       "drawLoop",        /* Name of the task */
+                       drawLoopStackSize, /* Stack size in words */
+                       ctx,               /* Task input parameter */
+                       1,                 /* Priority of the task */
+                       &drawTaskHandle,   /* Task handle. */
                        APP_CPU_NUM);
 
-  xTaskCreateUniversal(facialLoop,   /* Function to implement the task */
-                       "facialLoop", /* Name of the task */
-                       1024,         /* Stack size in words */
-                       ctx,          /* Task input parameter */
-                       2,            /* Priority of the task */
-                       NULL,         /* Task handle. */
+  xTaskCreateUniversal(facialLoop,          /* Function to implement the task */
+                       "facialLoop",        /* Name of the task */
+                       facialLoopStackSize, /* Stack size in words */
+                       ctx,                 /* Task input parameter */
+                       2,                   /* Priority of the task */
+                       NULL,                /* Task handle. */
                        APP_CPU_NUM);
 #endif
 }
